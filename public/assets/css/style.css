@@ -1,0 +1,19 @@
+.web-nav{
+    width: -webkit-fill-available;
+}
+
+.logo-size{
+    width: 70%;
+}
+
+li{
+    list-style: none;
+}
+
+.color-link{
+    color: #FFD700;
+}
+
+.color-link:hover{
+    text-decoration: underline !important;
+}
