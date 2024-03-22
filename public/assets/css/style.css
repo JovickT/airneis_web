@@ -2,8 +2,13 @@
     width: -webkit-fill-available;
 }
 
+nav{
+    overflow-y: auto;
+}
+
 .logo-size{
     width: 70%;
+    cursor: pointer;
 }
 
 li{
@@ -17,3 +22,132 @@ li{
 .color-link:hover{
     text-decoration: underline !important;
 }
+
+.carrousel-size{
+    width: -webkit-fill-available;
+}
+
+.color-background{
+    background: antiquewhite;
+    padding: 2% 0;
+}
+
+.color-background a{
+    color: black;
+    text-decoration: none;
+}
+
+.color-background a:hover{
+    text-decoration: underline;
+}
+
+.font-bolder{
+    font-weight: bold;
+}
+
+.card{
+    width: 18rem !important;
+}
+
+.slide-menu{
+    position: fixed;
+    top: 6%;
+    right: 0;
+    z-index: 999;
+    padding: 2% 0;
+    width: 47%;
+
+}
+
+.point-menu{
+    color: #FFD700;
+    text-decoration: none;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.point-menu:hover{
+    text-decoration: underline;
+}
+
+.point-menu {
+   margin: 10% 0;
+}
+
+.essaie{
+    height: 200px;
+    /* Laisser la largeur se redimensionner automatiquement */
+    width: auto;
+}
+
+.essaie img{
+    max-width: 100%;
+    height: auto;
+}
+
+.essaie span{
+    position: absolute;
+    top: 30%;
+    left: 45%;
+}
+
+.img-produit{
+    width: 100%;
+    border-radius: 15px;
+}
+
+.test{
+    height: 5rem;
+}
+
+.m-content{
+    width: min-content;
+}
+
+input{
+    border-radius: 15px;
+    padding: 5px;
+}
+
+form{
+    background: white;
+    padding: 3%;
+    border-radius: 25px;
+    margin-top: 4%;
+}
+
+html,.bg-page{
+    background: antiquewhite;
+}
+
+button{
+    background-color: #FFD700;
+    border-radius: 15px !important;
+    padding: 15px 0;
+    width: 40%;
+}
+
+#message,#email{
+    width: 26rem;
+}
+
+.text-color{
+    color:#FFD700;
+    font-style: italic;
+}
+
+textarea{
+    border: 2px solid black;
+    border-radius: 15px;
+}
+
+legend img{
+    width: 50%;
+}
+
+.left-25{
+    left: 25%;
+}
+
+
+
