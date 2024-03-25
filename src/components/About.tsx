@@ -1,7 +1,9 @@
 import Layout from "./Layout"
 import cascade from "../img/bannierejpg.jpg"
+import { useState } from "react";
 
 const About = () =>{
+ 
     return(
         <Layout>
             <div className="bg-page">
@@ -96,7 +98,6 @@ const About = () =>{
                         
                     </div>
                 </div>
-                <div className="test"></div>
             </div>
         </Layout>
     )

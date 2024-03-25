@@ -1,10 +1,12 @@
+import { useState } from "react";
 import Layout from "./Layout"
 
 const Ml = () =>{
+
     return(
         <Layout>
             <div className="bg-page">
-                <div className="test"></div>
+                <div className="line-separator"></div>
                 <div className="container">
                     <h1 className="text-center text-color">MENTIONS LÉGALES</h1>
                     <p className="text-center mb-5">En vigueur au 10/07/2024</p>
@@ -59,7 +61,6 @@ const Ml = () =>{
                         <p>Rédigé sur http://legalplace.fr</p><br/>
                     </div>
                 </div>
-                <div className="test"></div>
             </div>
         </Layout>
     )

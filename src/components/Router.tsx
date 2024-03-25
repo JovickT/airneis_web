@@ -6,6 +6,8 @@ import Contact from './Contact';
 import Ml from './Ml';
 import About from './About';
 import CGU from './CGU';
+import Produit from './Produit';
+import Panier from './Panier';
 
 
 const Rooter = () => {
@@ -13,11 +15,13 @@ const Rooter = () => {
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/categorie" element={<Categorie />} />
+            <Route path="/:nom_categorie" element={<Categorie />} />
+            <Route path="/:nom_categorie/:nom_produit" element={<Produit />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/mentions" element={<Ml />} />
             <Route path="/about" element={<About />} />
             <Route path="/cgu" element={<CGU />} />
+            <Route path="/panier" element={<Panier />} />
         </Routes>
     </BrowserRouter>
     

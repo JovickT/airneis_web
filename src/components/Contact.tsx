@@ -1,6 +1,8 @@
 import Layout from "./Layout"
 import logo from "../img/logo.png"
+import { useState } from "react";
 const Contact = () =>{
+
     return(
         <Layout>
             <div className="d-flex flex-column align-items-center bg-page">
@@ -28,7 +30,6 @@ const Contact = () =>{
                     </div>
                     </fieldset>
                 </form>
-                <div className="test"></div>
             </div>
         </Layout>
     )

@@ -7,22 +7,41 @@ import  canape  from "../img/canape.jpg";
 import  lit  from "../img/lit.jpg";
 import  cascade  from "../img/bannierejpg.jpg";
 import Layout from "./Layout";
+import { useState } from "react";
 
 const Home = () =>{
+    
+    const categorie =[
+        'armoire',
+        'canapé',
+        'table'
+    ];
+
+    const produit =[
+        'armoire anglaire',
+        'armoire allemande',
+        'armoire suédoise'
+    ];
+
+    const imgcarrousel = [
+        'un',
+        'deux',
+        'trois'
+    ]
+
+    const [cat,setCat] = useState(categorie);
+    const [prod,setProd] = useState(produit);
+    const [carrousel,setCarrousel] = useState(imgcarrousel);
+   
     return(
         <Layout>
             <div className="d-flex justify-content-center">
             <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
                 <div className="carousel-inner">
-                    <div className="carousel-item active" data-bs-interval="10000">
-                    <img src={cascade} className="d-block w-100" alt="..."/>
+                    {carrousel.map((img,index) =><div key={index} className="carousel-item active" data-bs-interval="5000">
+                        <img src={cascade} className="d-block w-100" alt="carrousel"/>
                     </div>
-                    <div className="carousel-item" data-bs-interval="10000">
-                    <img src={cascade} className="d-block w-100" alt="..."/>
-                    </div>
-                    <div className="carousel-item" data-bs-interval="10000">
-                    <img src={cascade} className="d-block w-100" alt="..."/>
-                    </div>
+                    )}
                 </div>
                 <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
                     <span className="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -40,28 +59,17 @@ const Home = () =>{
                     VENANT DES HAUTE TERRE D'ÉCOSSE <br/> NOS MEUBLES SONT IMMORTELS
                 </span>
             </div>
-            <div className="d-flex justify-content-center text-center align-items-center my-5 color-background">
+            <div className="row justify-content-center my-5 color-background">
             
-                <a href="http://localhost:3000/categorie" className="d-flex flex-column align-items-center">
-                    <img src={canape} alt="" className="w-50 mb-2 rounded"/>
-                    <span className="font-bolder">Catégorie</span>
+                {cat.map((c,index) =><a key={index} href={`/${encodeURIComponent(c)}`} className="row text-center col-3 my-3">
+                    <img src={canape} alt="" className=" mb-2 rounded-5"/>
+                    <span className="font-bolder">{c}</span>
                 </a>
-
-                <a href="http://localhost:3000/categorie" className="d-flex flex-column align-items-center">
-                    <img src={canape} alt="" className="w-50 mb-2 rounded"/>
-                    <span className="font-bolder">Catégorie</span>
-                </a>
-
-                <a href="http://localhost:3000/categorie" className="d-flex flex-column align-items-center">
-                    <img src={canape} alt="" className="w-50 mb-2 rounded"/>
-                    <span className="font-bolder">Catégorie</span>
-                </a>
-                
-            
+                )}
             </div>
             <div className="d-flex justify-content-center text-center align-items-center my-5 color-background">
 
-                <div className="card me-5" >
+                {prod.map((p,index) =><div key={index} className="card me-5" >
                     <img className="card-img-top" src={lit} alt="Card image cap"/>
                     <div className="card-body">
                         <h5 className="card-title">Card title</h5>
@@ -69,34 +77,7 @@ const Home = () =>{
                         <a href="#" className="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
-
-                <div className="card me-5" >
-                    <img className="card-img-top" src={lit} alt="Card image cap"/>
-                    <div className="card-body">
-                        <h5 className="card-title">Card title</h5>
-                        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" className="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-
-                <div className="card me-5" >
-                    <img className="card-img-top" src={lit} alt="Card image cap"/>
-                    <div className="card-body">
-                        <h5 className="card-title">Card title</h5>
-                        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" className="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-
-                <div className="card me-5" >
-                    <img className="card-img-top" src={lit} alt="Card image cap"/>
-                    <div className="card-body">
-                        <h5 className="card-title">Card title</h5>
-                        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" className="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            
+                )}
             </div>
         </Layout>
     )

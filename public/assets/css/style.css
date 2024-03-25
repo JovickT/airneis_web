@@ -1,5 +1,11 @@
+body{
+    background: antiquewhite !important;
+}
 .web-nav{
     width: -webkit-fill-available;
+}
+.w-19{
+    width: 19%;
 }
 
 nav{
@@ -8,6 +14,11 @@ nav{
 
 .logo-size{
     width: 70%;
+    cursor: pointer;
+}
+
+.logo-size-panier{
+    width: 100%;
     cursor: pointer;
 }
 
@@ -28,7 +39,6 @@ li{
 }
 
 .color-background{
-    background: antiquewhite;
     padding: 2% 0;
 }
 
@@ -74,29 +84,12 @@ li{
    margin: 10% 0;
 }
 
-.essaie{
-    height: 200px;
-    /* Laisser la largeur se redimensionner automatiquement */
-    width: auto;
-}
-
-.essaie img{
-    max-width: 100%;
-    height: auto;
-}
-
-.essaie span{
-    position: absolute;
-    top: 30%;
-    left: 45%;
-}
-
 .img-produit{
     width: 100%;
     border-radius: 15px;
 }
 
-.test{
+.line-separator{
     height: 5rem;
 }
 
@@ -104,7 +97,12 @@ li{
     width: min-content;
 }
 
-input{
+.reglage{
+    top: 30%;
+    left: 45%;
+}
+
+form input{
     border-radius: 15px;
     padding: 5px;
 }
@@ -116,15 +114,11 @@ form{
     margin-top: 4%;
 }
 
-html,.bg-page{
-    background: antiquewhite;
-}
-
 button{
     background-color: #FFD700;
     border-radius: 15px !important;
-    padding: 15px 0;
-    width: 40%;
+    padding: 15px 10px;
+    width: auto;
 }
 
 #message,#email{
@@ -147,6 +141,18 @@ legend img{
 
 .left-25{
     left: 25%;
+}
+
+.desc-produits{
+    overflow-y: scroll;
+    max-height: 25rem;
+}
+
+.compteur-panier{
+    left: 94%;
+    bottom: 35px;
+    padding: 0 6px;
+    border-radius: 25px;
 }
 
 

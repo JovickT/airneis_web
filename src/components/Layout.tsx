@@ -11,6 +11,7 @@ const Layout: React.FC<LayoutProps> = ({children}) =>{
         <>
             <Navbar/>
                 <div>{children}</div>
+                <div className="line-separator"></div>
             <Footer/>
         </>
     )

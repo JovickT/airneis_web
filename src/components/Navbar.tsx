@@ -5,8 +5,22 @@ import burger from '../img/menu.png'
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from 'react'
 
-const Navbar = () =>{
+
+const Navbar= () =>{
+
+    const affiche  = localStorage.getItem('panier');
+    var res: any = [];
+    if (affiche !== null) {
+        res = JSON.parse(affiche);
+        
+        console.log('mon panier :', res, '\ntaille du panier :', res.length);
+
+    } else {
+        console.error('raaaaaaaah');
+    }
+
     const [menuOpen, setMenuOpen] = useState(false);
+    const [compteur, setCompteur] = useState(0);
     const menuConnexion =[
         'Mes paramètre',
         'Mes commandes',
@@ -31,6 +45,10 @@ const Navbar = () =>{
 
     const handleMenu = () =>{
         setMenuOpen(!menuOpen);
+    }
+
+    const handlePanier = () =>{
+        navigate("/panier");
     }
 
     const handleNavigation = (list: string) =>{
@@ -61,12 +79,14 @@ const Navbar = () =>{
 
     return(
         <>
+           
             <nav className='d-flex bg-light position-fixed top-0 w-100 z-3'>
                 <a className='mt-2' href="/"><img src={logo} alt="logo" /></a>
                 <div className="d-flex web-nav justify-content-end">
                     <ul className="d-flex me-3 mt-2">
                         <li className='me-3'><img src={search} alt="recherche" className='logo-size'/></li>
-                        <li className='me-3'><img src={shop} alt="panier" className='logo-size'/></li>
+                        <li className='me-3'><img src={shop} alt="panier" className='logo-size-panier' onClick={handlePanier}/></li>
+                        <div className='bg-danger text-light position-absolute compteur-panier'>{res.length}</div>
                         <li ><img src={burger} alt="menu" className='logo-size' onClick={handleMenu}/></li>
                     </ul>
                 </div>
@@ -75,7 +95,7 @@ const Navbar = () =>{
             {menuOpen && (
                 <div className='text-center bg-light slide-menu'>
                     <ul>
-                        {menuCo.map((list,index) =><li key={index} className='point-menu me-3' onClick={() => handleNavigation(list)}>{list}</li>)}
+                        {menuCo.map((list,index) =><li key={index} className='point-menu me-3 font-bolder' onClick={() => handleNavigation(list)}>{list}</li>)}
                     </ul>
                 </div>
             )}
