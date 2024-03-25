@@ -7,9 +7,9 @@ import { useState } from "react";
 const Categorie = () =>{
     const [displayStock, setDisplayStock] = useState(false);
     const produit ={
-        'armoire anglaire': ['armoire',10],
-        'armoire allemande': ['armoire',12],
-        'armoire suédoise': ['armoire',15]
+        'armoire anglaire': ['armoire',1000],
+        'armoire allemande': ['canapé',1200],
+        'armoire suédoise': ['table',1500]
     };
 
     const [prod,setProd] = useState(produit);
@@ -29,7 +29,7 @@ const Categorie = () =>{
                     <div className="d-flex justify-content-between">
                     <p>{nomProduit}</p>
                     {displayStock && <p>Stock bientôt épuisé</p>}
-                    <p>{prix[1]}</p>
+                    <p>{prix[1]}€</p>
                     </div>
                 </div>
                 ))}

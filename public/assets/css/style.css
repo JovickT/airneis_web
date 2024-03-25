@@ -8,6 +8,10 @@ body{
     width: 19%;
 }
 
+.cursor{
+    cursor: pointer;
+}
+
 nav{
     overflow-y: auto;
 }
@@ -153,6 +157,14 @@ legend img{
     bottom: 35px;
     padding: 0 6px;
     border-radius: 25px;
+    width: 18px;
+    height: 19px;
+}
+
+.shop-cart{
+    font-size: 10px;
+    text-align: center;
+    vertical-align: text-top;
 }
 
 

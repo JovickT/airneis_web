@@ -8,6 +8,7 @@ import  lit  from "../img/lit.jpg";
 import  cascade  from "../img/bannierejpg.jpg";
 import Layout from "./Layout";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Home = () =>{
     
@@ -36,7 +37,7 @@ const Home = () =>{
     return(
         <Layout>
             <div className="d-flex justify-content-center">
-            <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
+            <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="ride">
                 <div className="carousel-inner">
                     {carrousel.map((img,index) =><div key={index} className="carousel-item active" data-bs-interval="5000">
                         <img src={cascade} className="d-block w-100" alt="carrousel"/>
@@ -67,16 +68,13 @@ const Home = () =>{
                 </a>
                 )}
             </div>
+            <h1 className="text-center text-color">Les Highlanders du moment</h1>
             <div className="d-flex justify-content-center text-center align-items-center my-5 color-background">
 
-                {prod.map((p,index) =><div key={index} className="card me-5" >
-                    <img className="card-img-top" src={lit} alt="Card image cap"/>
-                    <div className="card-body">
-                        <h5 className="card-title">Card title</h5>
-                        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" className="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
+                {prod.map((p,index) =><Link key={index} to={`/${encodeURIComponent(categorie[index])}/${encodeURIComponent(p)}`} className="row text-center col-3 my-3 mx-3">
+                    <img src={canape} alt="" className=" mb-2 rounded-5"/>
+                    <span className="font-bolder">{p}</span>
+                </Link>
                 )}
             </div>
         </Layout>

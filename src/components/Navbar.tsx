@@ -86,7 +86,7 @@ const Navbar= () =>{
                     <ul className="d-flex me-3 mt-2">
                         <li className='me-3'><img src={search} alt="recherche" className='logo-size'/></li>
                         <li className='me-3'><img src={shop} alt="panier" className='logo-size-panier' onClick={handlePanier}/></li>
-                        <div className='bg-danger text-light position-absolute compteur-panier'>{res.length}</div>
+                        <div className='bg-danger text-light position-absolute compteur-panier'><span className='shop-cart'>{res.length}</span></div>
                         <li ><img src={burger} alt="menu" className='logo-size' onClick={handleMenu}/></li>
                     </ul>
                 </div>
