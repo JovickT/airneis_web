@@ -37,21 +37,25 @@ const Home = () =>{
     return(
         <Layout>
             <div className="d-flex justify-content-center">
-            <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="ride">
+            <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel">
+            <div className="carousel-indicators">
+                {carrousel.map((img,index) =><button key={index}
+                type="button"
+                data-bs-target="#carouselExampleSlidesOnly"
+                data-bs-slide-to={index}
+                className={index === 0 ? "active" : ""}
+                aria-current={index === 0 ? "true" : undefined}
+                aria-label={`Slide ${index}`}
+                ></button>)}
+            </div>
                 <div className="carousel-inner">
-                    {carrousel.map((img,index) =><div key={index} className="carousel-item active" data-bs-interval="5000">
+                    {carrousel.map((img,index) =><div key={index} 
+                    className={index === 0 ? "carousel-item active" : "carousel-item"}
+                    data-bs-interval="5000">
                         <img src={cascade} className="d-block w-100" alt="carrousel"/>
                     </div>
                     )}
                 </div>
-                <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span className="visually-hidden">Previous</span>
-                </button>
-                <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span className="visually-hidden">Next</span>
-                </button>
             </div>
             </div>
             

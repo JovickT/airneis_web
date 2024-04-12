@@ -1,6 +1,7 @@
 import Layout from "./Layout"
 import  cascade  from "../img/bannierejpg.jpg";
 import  lit  from "../img/lit.jpg";
+import  armoire  from "../img/armoire.jpg";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -41,6 +42,7 @@ const Produit = () =>{
     // les éléments qui constitut les informations importante d'uun produit. (il manque juste le lien vers l'image qui correspond au produit)
     const produitPage ={
         'nom': 'la vache',
+        'categorie': 'canapé',
         'prix': 1200,
         'description':'les chaussettes de l\'archiduchesse sont elle sèche, archi sèche' 
     }
@@ -74,26 +76,33 @@ const Produit = () =>{
                 <img src={cascade} alt="canape" className="carrousel-size mb-5"/>
                 <div className="container">
                     <div className="row">
-                        <div id="carouselExampleAutoplaying" className="carousel slide col-6" data-bs-ride="carousel">
+                        <div id="carouselExampleSlidesOnly" className="carousel slide col-6" data-bs-ride="carousel">
+                        <div className="carousel-indicators">
+                                {carrousel.map((img,index) =><button key={index}
+                                type="button"
+                                data-bs-target="#carouselExampleSlidesOnly"
+                                data-bs-slide-to={index}
+                                className={index === 0 ? "active" : ""}
+                                aria-current={index === 0 ? "true" : undefined}
+                                aria-label={`Slide ${index}`}
+                                ></button>)}
+                            </div>
                             <div className="carousel-inner">
-                                {carrousel.map((img,index) =><div key={index} className="carousel-item active" data-bs-interval="5000">
-                                    <img src={lit} className="d-block w-100" alt="..."/>
+                                {carrousel.map((img,index) =><div key={index}
+                                className={index === 0 ? "carousel-item active" : "carousel-item"}
+                                data-bs-interval="5000">
+                                    <img src={armoire} className="d-block w-100" alt="..."/>
                                 </div>
                                 )}
                             </div>
-                            <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-                                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span className="visually-hidden">Previous</span>
-                            </button>
-                            <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-                                <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span className="visually-hidden">Next</span>
-                            </button>
                         </div>
                         <div className="col desc-produits">
                             <div className="d-flex justify-content-between mb-3">
-                                <span>{produitPage.prix}€</span>
-                                <span className="text-uppercase">{produitPage.nom}</span>
+                                <span className="font-bolder">{produitPage.prix}€</span>
+                                <div className="d-flex flex-column">
+                                    <span className="text-uppercase font-bolder">{produitPage.nom}</span>
+                                    <span>En stock</span>
+                                </div>
                             </div>
                             <div className="description">
                                 <p>
@@ -120,16 +129,10 @@ const Produit = () =>{
                         <div className="text-center text-color mt-5">
                             <h1>PRODUIT SIMILAIRE</h1>
                             <div className="row justify-content-center">
-                                {prod.map((p,index) =><div key={index} className="card me-5 my-3" >
-                                    <img className="card-img-top" src={lit} alt="Card image cap"/>
-                                    <div className="card-body">
-                                        <h5 className="card-title">{p}</h5>
-                                        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        <Link to={`/${encodeURIComponent(imgcarrousel[index])}/${encodeURIComponent(p)}`}>
-                                            <button>en savoir plus</button>
-                                        </Link>
-                                    </div>
-                                </div>
+                            {prod.map((p,index) =><Link key={index} to={`/${encodeURIComponent(produitPage.categorie)}/${encodeURIComponent(p)}`} className="row text-center text-decoration-none col-3 my-3 mx-3">
+                                    <img src={lit} alt="" className=" mb-2 rounded-5"/>
+                                    <span className="text-dark font-bolder">{p}</span>
+                                </Link>
                                 )}
                             </div>
                         </div>
