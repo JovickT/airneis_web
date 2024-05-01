@@ -7,8 +7,13 @@ import  canape  from "../img/canape.jpg";
 import  lit  from "../img/lit.jpg";
 import  cascade  from "../img/bannierejpg.jpg";
 import Layout from "./Layout";
-import { useState } from "react";
+// import { useState } from "react";
 import { Link } from "react-router-dom";
+
+
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
+
 
 const Home = () =>{
     
@@ -34,6 +39,21 @@ const Home = () =>{
     const [prod,setProd] = useState(produit);
     const [carrousel,setCarrousel] = useState(imgcarrousel);
    
+
+    // const [categories, setCategories] = useState([]);
+    
+
+    // useEffect(() => {
+    //     axios.get('http://localhost/categories')
+    //         .then(response => {
+    //             setCategories(response.data);
+    //         })
+    //         .catch(error => {
+    //             console.error('Une erreur s\'est produite :', error);
+    //         });
+    // }, []);
+
+
     return(
         <Layout>
             <div className="d-flex justify-content-center">
@@ -67,6 +87,12 @@ const Home = () =>{
                     <span className="font-bolder">{c}</span>
                 </a>
                 )}
+                {/* {categories.map((c, index) => (
+                    <a key={index} href={`/${encodeURIComponent(c)}`} className="row text-center col-3 my-3">
+                        <img src={canape} alt="" className=" mb-2 rounded-5"/>
+                        <span className="font-bolder">{c}</span>
+                    </a>
+                ))} */}
             </div>
             <h1 className="text-center text-color">Les Highlanders du moment</h1>
             <div className="d-flex justify-content-center text-center align-items-center my-5 color-background">
