@@ -8,6 +8,7 @@ import About from './About';
 import CGU from './CGU';
 import Produit from './Produit';
 import Panier from './Panier';
+import Login from './Login';
 
 
 const Rooter = () => {
@@ -21,6 +22,7 @@ const Rooter = () => {
             <Route path="/mentions" element={<Ml />} />
             <Route path="/about" element={<About />} />
             <Route path="/cgu" element={<CGU />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/panier" element={<Panier />} />
         </Routes>
     </BrowserRouter>
