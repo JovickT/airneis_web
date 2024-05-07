@@ -1,0 +1,73 @@
+{
+    "name": "spomky-labs/lexik-jose-bridge",
+    "type": "symfony-bundle",
+    "description": "Bridge to allow the use of web-token/jwt-framework with the Lexik JWT Authentication Bundle",
+    "keywords": [
+        "Jose",
+        "Bundle",
+        "Symfony"
+    ],
+    "homepage": "https://github.com/Spomky-Labs/lexik-jose-bridge",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Florent Morselli",
+            "homepage": "https://github.com/Spomky"
+        },
+        {
+            "name": "All contributors",
+            "homepage": "https://github.com/Spomky-Labs/lexik-jose-bridge/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "lexik/jwt-authentication-bundle": "^2.0",
+        "psr/event-dispatcher": "^1.0",
+        "thecodingmachine/safe": "^2.0",
+        "web-token/jwt-bundle": "^3.0",
+        "web-token/jwt-checker": "^3.0",
+        "web-token/jwt-encryption": "^3.0",
+        "web-token/jwt-key-mgmt": "^3.0",
+        "web-token/jwt-signature": "^3.0",
+        "web-token/jwt-signature-algorithm-rsa": "^3.0"
+    },
+    "require-dev": {
+        "behat/behat": "^3.0",
+        "caciobanu/behat-deprecation-extension": "^2.1",
+        "ekino/phpstan-banned-code": "^1.0",
+        "friends-of-behat/mink-browserkit-driver": "^1.6",
+        "friends-of-behat/mink-extension": "^2.3",
+        "friends-of-behat/symfony-extension": "^2.3",
+        "phpstan/phpstan": "^1.0",
+        "phpstan/phpstan-beberlei-assert": "^1.0",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "phpstan/phpstan-strict-rules": "^1.0",
+        "rector/rector": "^0.12",
+        "sensio/framework-extra-bundle": "^6.0",
+        "symfony/dependency-injection": "^6.0",
+        "symfony/expression-language": "^6.0",
+        "symfony/finder": "^6.0",
+        "symfony/form": "^6.0",
+        "symfony/monolog-bundle": "^3.7",
+        "symfony/templating": "^6.0",
+        "symfony/twig-bundle": "^6.0",
+        "symfony/var-dumper": "^6.0",
+        "symplify/easy-coding-standard": "^10.0",
+        "thecodingmachine/phpstan-safe-rule": "^1.0",
+        "web-token/jwt-encryption-algorithm-aesgcm": "^3.0",
+        "web-token/jwt-encryption-algorithm-aesgcmkw": "^3.0",
+        "web-token/jwt-signature-algorithm-hmac": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SpomkyLabs\\LexikJoseBundle\\": ""
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SpomkyLabs\\TestBundle\\": "Tests/Bundle/TestBundle",
+            "SpomkyLabs\\LexikJoseBundle\\Features\\Context\\": "Tests/Context"
+        }
+    }
+}
