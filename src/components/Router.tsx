@@ -8,6 +8,9 @@ import About from './About';
 import CGU from './CGU';
 import Produit from './Produit';
 import Panier from './Panier';
+import MesCommandes from './MesCommandes';
+import Commande from './Commande';
+import Checkout from './Checkout';
 
 
 const Rooter = () => {
@@ -22,6 +25,9 @@ const Rooter = () => {
             <Route path="/about" element={<About />} />
             <Route path="/cgu" element={<CGU />} />
             <Route path="/panier" element={<Panier />} />
+            <Route path="/mesCommandes" element={<MesCommandes />} />
+            <Route path="/commande" element={<Commande />} />
+            <Route path="/checkout" element={<Checkout />} />
         </Routes>
     </BrowserRouter>
     
