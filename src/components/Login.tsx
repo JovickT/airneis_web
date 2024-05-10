@@ -1,5 +1,4 @@
 import Layout from "./Layout";
-import '../login.css';
 import React, { useEffect ,useState, FormEvent} from 'react';
 import axios from 'axios';
 

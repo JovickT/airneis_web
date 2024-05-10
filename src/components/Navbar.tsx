@@ -56,6 +56,7 @@ const Navbar= () =>{
         
         switch (list) {
             case 'Se connecter':
+                navigate("/login");
                 break;
             case "S'inscrire":
                 break;

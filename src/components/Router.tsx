@@ -11,6 +11,7 @@ import Panier from './Panier';
 import MesCommandes from './MesCommandes';
 import Commande from './Commande';
 import Checkout from './Checkout';
+import Login from './Login';
 
 
 const Rooter = () => {
@@ -24,6 +25,7 @@ const Rooter = () => {
             <Route path="/mentions" element={<Ml />} />
             <Route path="/about" element={<About />} />
             <Route path="/cgu" element={<CGU />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/panier" element={<Panier />} />
             <Route path="/mesCommandes" element={<MesCommandes />} />
             <Route path="/commande" element={<Commande />} />
