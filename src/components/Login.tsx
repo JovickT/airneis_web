@@ -2,25 +2,44 @@ import Layout from "./Layout";
 import '../login.css';
 import React, { useEffect ,useState, FormEvent} from 'react';
 import axios from 'axios';
-
+import Cookies from 'js-cookie'
+import { useNavigate } from "react-router-dom";
 
 const Login = ()=>{
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = Cookies.get('jwt_token');
+        if(token){
+            navigate('/');
+        }
+    },[navigate]);
+
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
-    const [successMessage, setSuccessMessage] = useState(null);
+    const [mdp, setMdp] = useState('');
+    const [error, setError] = useState<string | null>(null);
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const credentials = {username: email, password: mdp};
+        
         try {
-        const response = await axios.post('http://127.0.0.1:8000/api/login_check', {
-            email,
-            password,
-        });
-          
-        setSuccessMessage(response.data.message); // Suppose que l'API renvoie un message de réussite
+            const response = await axios.post('http://127.0.0.1:8000/api/login_check',credentials, {
+                headers : {
+                    'Content-Type': 'application/json'
+                },
+            });
+            
+            const token = response.data.token;
+            Cookies.set('jwt_token', token);
+            console.log('Authentification réussie')
+            setSuccessMessage("Connexion réussie");
+            setError(null);
+            navigate('/');
         } catch (error) {
-        //setError(error.response.data.message);
+            //setError(error.response.data.message || 'Une erreur est survenue');
+            setSuccessMessage(null);
         }
     };
 
@@ -68,7 +87,7 @@ const Login = ()=>{
                                 <i className="bx bxs-envelope"></i>
                             </div>
                             <div className="input-box animation" style={{'--i':'2','--j':'22'} as React.CSSProperties}>
-                                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required></input>
+                                <input type="password" value={mdp} onChange={(e) => setMdp(e.target.value)} required></input>
                                 <label>Mot de passe</label>
                                 <i className="bx bxs-lock-alt"></i>
                             </div>
