@@ -3,10 +3,25 @@ import search from '../img/search.png'
 import shop from '../img/shop.png'
 import burger from '../img/menu.png'
 import { useNavigate } from "react-router-dom";
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import Cookies from 'js-cookie';
 
 
 const Navbar= () =>{
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const token = Cookies.get('jwt_token');
+        if(token){
+            setIsLoggedIn(true);
+        }
+    },[]);
+
+    const handleLogout = () => {
+        Cookies.remove('jwt_token');
+        setIsLoggedIn(false);
+        navigate('/');
+    }
 
     const affiche  = localStorage.getItem('panier');
     var res: any = [];
@@ -21,7 +36,8 @@ const Navbar= () =>{
 
     const [menuOpen, setMenuOpen] = useState(false);
     const [compteur, setCompteur] = useState(0);
-    const menuConnexion =[
+    
+    const menuConnexion = isLoggedIn ? [
         'Mes paramètre',
         'Mes commandes',
         'CGU',
@@ -29,8 +45,7 @@ const Navbar= () =>{
         'Contact',
         'À propos d’ÀIRNEIS',
         'Se déconnecter'
-    ];
-    const menu =[
+    ] : [
         'Se connecter',
         "S'inscrire",
         'CGU',
@@ -39,7 +54,7 @@ const Navbar= () =>{
         'À propos d’ÀIRNEIS',
     ]
 
-    const[menuCo, setMenuCo] = useState(menu);
+    const[menuCo, setMenuCo] = useState(menuConnexion);
 
     const navigate = useNavigate();
 
@@ -56,6 +71,10 @@ const Navbar= () =>{
         
         switch (list) {
             case 'Se connecter':
+                navigate("/login");
+                break;
+            case 'Se déconnecter':
+                handleLogout();
                 break;
             case "S'inscrire":
                 break;

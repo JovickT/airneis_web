@@ -1,0 +1,5 @@
+{
+    "require": {
+        "spomky-labs/lexik-jose-bridge": "^4.0"
+    }
+}
