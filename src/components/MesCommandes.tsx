@@ -58,7 +58,7 @@ const MesCommandes = () => {
         <div className="line-separator"></div>
         <div className="container">
           <div className="text-center">
-            <h1 className="text-color font-bolder mb-5">Panier</h1>
+            <h1 className="text-color font-bolder mb-5">Mes commandes</h1>
           </div>
           {anneesTriees.map((annee) => (
             <div key={annee} style={{ margin: '0% 20%' }}>

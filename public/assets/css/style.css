@@ -118,12 +118,13 @@ form{
     margin-top: 4%;
 }
 
-button{
+/* Changer les boutons pour être en accord avec le cahier des charges */
+/* button{
     background-color: #FFD700;
     border-radius: 15px !important;
     padding: 15px 10px;
     width: auto;
-}
+} */
 
 #message,#email{
     width: 26rem;
@@ -167,5 +168,39 @@ legend img{
     vertical-align: text-top;
 }
 
+.checkout-button,
+.checkout-input,
+.checkout-label,
+.contact-button,
+.contact-input,
+.contact-label {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-left: none;
+    border-right: none;
+    background-color: none;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 0;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 300px;
+}
 
+.checkout-button:hover,
+.checkout-input:hover,
+.contact-button:hover,
+.contact-input:hover
+{
+    background-color: #f8f8f8;
+}
 
+.checkout-form{
+    text-align: center;
+}

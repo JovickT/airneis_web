@@ -7,15 +7,10 @@ import  canape  from "../img/canape.jpg";
 import  lit  from "../img/lit.jpg";
 import  cascade  from "../img/bannierejpg.jpg";
 import Layout from "./Layout";
-<<<<<<< HEAD
-// import { useState } from "react";
-=======
 import { useEffect, useState } from "react";
->>>>>>> 992764b26b287bacccb3e807e8fea4dd653a26e4
 import { Link } from "react-router-dom";
 
 
-import React, { useState, useEffect } from "react";
 import axios from 'axios';
 
 
@@ -122,27 +117,12 @@ const Home = () =>{
                 </span>
             </div>
             <div className="row justify-content-center my-5 color-background">
-<<<<<<< HEAD
-            
-                {cat.map((c,index) =><a key={index} href={`/${encodeURIComponent(c)}`} className="row text-center col-3 my-3">
-                    <img src={canape} alt="" className=" mb-2 rounded-5"/>
-                    <span className="font-bolder">{c}</span>
-                </a>
-                )}
-                {/* {categories.map((c, index) => (
-                    <a key={index} href={`/${encodeURIComponent(c)}`} className="row text-center col-3 my-3">
-                        <img src={canape} alt="" className=" mb-2 rounded-5"/>
-                        <span className="font-bolder">{c}</span>
-                    </a>
-                ))} */}
-=======
                 {cat && cat.length > 0 && cat.map((c, index) => (
                     <a key={index} href={`/${encodeURIComponent(c.nom)}`} className="row text-center col-3 my-3">
                         <img src={canape} alt="" className=" mb-2 rounded-5"/>
                         <span className="font-bolder">{c.nom}</span>
                     </a>
                 ))}
->>>>>>> 992764b26b287bacccb3e807e8fea4dd653a26e4
             </div>
             <h1 className="text-center text-color">Les Highlanders du moment</h1>
             <div className="row justify-content-center text-center align-items-center my-5 color-background">
