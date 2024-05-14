@@ -30,17 +30,6 @@ const Home = () =>{
         // Autres propriétés si nécessaire
     }
     
-    // const categorie =[
-    //     'armoire',
-    //     'canapé',
-    //     'table'
-    // ];
-
-    // const produit =[
-    //     'armoire anglaire',
-    //     'armoire allemande',
-    //     'armoire suédoise'
-    // ];
 
     const imgcarrousel = [
         'un',
@@ -53,12 +42,23 @@ const Home = () =>{
     const [carrousel,setCarrousel] = useState(imgcarrousel);
 
     useEffect(() => {
+        const randomize = (tab: []) =>{
+            var i, j, tmp;
+            for (i = tab.length - 1; i > 0; i--) {
+                j = Math.floor(Math.random() * (i + 1));
+                tmp = tab[i];
+                tab[i] = tab[j];
+                tab[j] = tmp;
+            }
+            return tab;
+        }
         // Appel à votre endpoint Symfony pour récupérer les catégories, produits et images de carrousel
-        fetch('http://127.0.0.1:8000/api/data')
+        fetch('https://localhost:8000/api/data')
             .then(response => response.json())
             .then(data => {
+                var melanger = randomize(data.produit);
                 setCat(data.categorie);
-                setProd(data.produit);
+                setProd(melanger);
                 // setCarouselImages(data.carouselImages);
                 console.log('data:',data);
             })
