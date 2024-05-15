@@ -70,7 +70,6 @@ li{
     z-index: 999;
     padding: 2% 0;
     width: 47%;
-
 }
 
 .point-menu{
@@ -196,11 +195,32 @@ legend img{
 .checkout-button:hover,
 .checkout-input:hover,
 .contact-button:hover,
-.contact-input:hover
-{
+.contact-input:hover{
     background-color: #f8f8f8;
 }
 
 .checkout-form{
     text-align: center;
+}
+
+.cgu,
+.mention{
+    margin : 0 10% 0 10%
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    position: fixed;
+    bottom: 0;
+    transition: bottom 0.3s;
+    transform: translateY(0);
+    transition: transform 5s ease-in-out;
+}
+
+.footer.scrolled {
+    position: relative;
 }

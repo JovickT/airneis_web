@@ -1,4 +1,4 @@
-import  img1  from "../img/caroussel1.jpg";
+import  img1  from  "../img/caroussel1.jpg";
 import  img2  from "../img/caroussel2.jpg";
 import  img3  from "../img/carousel3.jpg";
 
@@ -58,7 +58,7 @@ const Home = () =>{
 
     useEffect(() => {
         // Appel à votre endpoint Symfony pour récupérer les catégories, produits et images de carrousel
-        fetch('http://127.0.0.1:8000/api/data')
+        fetch('https://127.0.0.1:8000/api/data')
             .then(response => response.json())
             .then(data => {
                 setCat(data.categorie);
