@@ -1,6 +1,11 @@
+::-webkit-scrollbar {
+    display: none;
+}
+
 body{
     background: antiquewhite !important;
 }
+
 .web-nav{
     width: -webkit-fill-available;
 }
@@ -117,14 +122,6 @@ form{
     margin-top: 4%;
 }
 
-/* Changer les boutons pour être en accord avec le cahier des charges */
-/* button{
-    background-color: #FFD700;
-    border-radius: 15px !important;
-    padding: 15px 10px;
-    width: auto;
-} */
-
 #message,#email{
     width: 26rem;
 }
@@ -223,4 +220,13 @@ legend img{
 
 .footer.scrolled {
     position: relative;
+}
+
+
+.titre{
+    text-align: center;
+    color:#FFD700;
+    font-style: italic;
+
+    margin-top: 1.5rem;
 }

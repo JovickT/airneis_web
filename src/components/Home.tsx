@@ -2,7 +2,6 @@ import  img1  from  "../img/caroussel1.jpg";
 import  img2  from "../img/caroussel2.jpg";
 import  img3  from "../img/carousel3.jpg";
 
-//import  armoire  from "../img/armoire.jpg";
 import  canape  from "../img/canape.jpg";
 import  lit  from "../img/lit.jpg";
 import  cascade  from "../img/bannierejpg.jpg";
@@ -10,9 +9,7 @@ import Layout from "./Layout";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-
 import axios from 'axios';
-
 
 const Home = () =>{
 
@@ -34,18 +31,6 @@ const Home = () =>{
         // Autres propriétés si nécessaire
     }
     
-    // const categorie =[
-    //     'armoire',
-    //     'canapé',
-    //     'table'
-    // ];
-
-    // const produit =[
-    //     'armoire anglaire',
-    //     'armoire allemande',
-    //     'armoire suédoise'
-    // ];
-
     const imgcarrousel = [
         'un',
         'deux',
@@ -68,23 +53,6 @@ const Home = () =>{
             })
             .catch(error => console.error('Erreur lors de la récupération des données depuis le backend :', error));
     }, []); 
-
-   
-   
-
-    // const [categories, setCategories] = useState([]);
-    
-
-    // useEffect(() => {
-    //     axios.get('http://localhost/categories')
-    //         .then(response => {
-    //             setCategories(response.data);
-    //         })
-    //         .catch(error => {
-    //             console.error('Une erreur s\'est produite :', error);
-    //         });
-    // }, []);
-
 
     return(
         <Layout>
@@ -111,11 +79,7 @@ const Home = () =>{
             </div>
             </div>
             
-            <div className="text-center mt-4 ">
-                <span className="font-bolder">
-                    VENANT DES HAUTE TERRE D'ÉCOSSE <br/> NOS MEUBLES SONT IMMORTELS
-                </span>
-            </div>
+            <h1 className="text-center text-color mt-4">VENANT DES HAUTE TERRE D'ÉCOSSE <br/> NOS MEUBLES SONT IMMORTELS</h1>
             <div className="row justify-content-center my-5 color-background">
                 {cat && cat.length > 0 && cat.map((c, index) => (
                     <a key={index} href={`/${encodeURIComponent(c.nom)}`} className="row text-center col-3 my-3">
