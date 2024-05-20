@@ -1,6 +1,11 @@
+::-webkit-scrollbar {
+    display: none;
+}
+
 body{
     background: antiquewhite !important;
 }
+
 .web-nav{
     width: -webkit-fill-available;
 }
@@ -118,13 +123,6 @@ form{
     margin-top: 4%;
 }
 
-button{
-    background-color: #FFD700;
-    border-radius: 15px !important;
-    padding: 15px 10px;
-    width: auto;
-}
-
 #message,#email{
     width: 26rem;
 }
@@ -167,5 +165,95 @@ legend img{
     vertical-align: text-top;
 }
 
+.checkout-button,
+.checkout-input,
+.checkout-label,
+.contact-button,
+.contact-input,
+.contact-label {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-left: none;
+    border-right: none;
+    background-color: none;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 0;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 300px;
+}
 
+.checkout-button:hover,
+.checkout-input:hover,
+.contact-button:hover,
+.contact-input:hover{
+    background-color: #f8f8f8;
+}
 
+.checkout-form{
+    text-align: center;
+}
+
+.cgu,
+.mention{
+    margin : 0 10% 0 10%
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    position: fixed;
+    bottom: 0;
+    transition: bottom 0.3s;
+    transform: translateY(0);
+    transition: transform 5s ease-in-out;
+}
+
+.footer.scrolled {
+    position: relative;
+}
+
+.titre{
+    text-align: center;
+    color:#FFD700;
+    font-style: italic;
+    margin-top: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .titre{
+        font-size: 1rem;
+    }
+  }
+
+.container-img-accueil {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.img-accueil{
+    border-radius: 3rem;
+}
+
+.txt-img-accueil{
+    margin: 2% !important;
+    text-align: center;
+    color: inherit;
+    text-decoration: none;
+}
+
+.txt-img-accueil:hover{
+    color: #555;
+    text-decoration: underline;
+}

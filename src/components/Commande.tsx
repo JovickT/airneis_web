@@ -39,24 +39,25 @@ const CommandeDetails = () => {
             <h1 className="text-color font-bolder mb-5">Commande #{commande.id} - {commande.date} - {commande.statut}</h1>
           </div>
           <div className="row">
+
             <div className="col-md-6">
               <h2>Produits</h2>
               {commande.produits.map(produit => (
-                <div key={produit.id} className="d-flex" style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                  <img src={canape} alt="" className="mb-2 rounded-5" height="35%" width="35%"/>
-                  <div className="ml-3">
+                <div key={produit.id} className="d-flex" style={{flexDirection: 'row', display: 'flex'}}>
+                  <img src={canape} alt="" className="mb-2 rounded-5" height="35%" width="35%" style={{ marginRight: '4%' }}/>
+                  <div className="ml-3" style={{textAlign: 'left'}}>
                     <div><strong>{produit.nom}</strong></div>
                     <div>{produit.description}</div>
                   </div>
-                  <div>
+                  <div style={{marginLeft: 'auto'}}>
                     <div>{produit.prix}€</div>
                     <div><input type="number" id="tentacles" value={produit.quantite} style={{ width: "50px" }} /></div>
                     <button>Retirer</button>
                   </div>
                 </div>
-              
               ))}
             </div>
+
             <div className="col-md-6">
               <table style={{ width: '100%' }}>
                 <tbody>
