@@ -47,7 +47,6 @@ const Navbar= () =>{
         'Se déconnecter'
     ] : [
         'Se connecter',
-        "S'inscrire",
         'CGU',
         'Mention légales',
         'Contact',
