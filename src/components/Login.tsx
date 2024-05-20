@@ -22,10 +22,10 @@ const Login = ()=>{
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const credentials = {username: email, password: mdp};
+        const credentials = {email: email, mot_de_passe: mdp};
         
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/login_check',credentials, {
+            const response = await axios.post('https://127.0.0.1:8000/api/login_check',credentials, {
                 headers : {
                     'Content-Type': 'application/json'
                 },

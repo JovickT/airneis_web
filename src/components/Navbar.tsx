@@ -31,7 +31,7 @@ const Navbar= () =>{
         console.log('mon panier :', res, '\ntaille du panier :', res.length);
 
     } else {
-        console.error('raaaaaaaah');
+        console.error('panier vide');
     }
 
     const [menuOpen, setMenuOpen] = useState(false);

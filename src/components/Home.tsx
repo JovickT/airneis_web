@@ -52,6 +52,15 @@ const Home = () =>{
             }
             return tab;
         }
+        const getCookie = (name: any) => {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) {
+                const cookieValue = parts.pop()?.split(';').shift(); // Utilisation de l'opérateur de coalescence nulle (nullish coalescing operator) pour éviter l'erreur si parts.pop() est undefined
+                return cookieValue;
+            }
+            return undefined;
+        }
         // Appel à votre endpoint Symfony pour récupérer les catégories, produits et images de carrousel
         fetch('https://localhost:8000/api/data')
             .then(response => response.json())
