@@ -79,21 +79,22 @@ const Home = () =>{
             </div>
             </div>
             
-            <h1 className="text-center text-color mt-4">VENANT DES HAUTE TERRE D'ÉCOSSE <br/> NOS MEUBLES SONT IMMORTELS</h1>
-            <div className="row justify-content-center my-5 color-background">
+            <h1 className="titre">VENANT DES HAUTE TERRE D'ÉCOSSE <br/> NOS MEUBLES SONT IMMORTELS</h1>
+            <div className="container-img-accueil">
                 {cat && cat.length > 0 && cat.map((c, index) => (
-                    <a key={index} href={`/${encodeURIComponent(c.nom)}`} className="row text-center col-3 my-3">
-                        <img src={canape} alt="" className=" mb-2 rounded-5"/>
+                    <a key={index} href={`/${encodeURIComponent(c.nom)}`} className="txt-img-accueil row col-12 col-md-6 col-lg-3">
+                        <img src={canape} alt="" className="img-accueil"/>
                         <span className="font-bolder">{c.nom}</span>
                     </a>
                 ))}
             </div>
-            <h1 className="text-center text-color">Les Highlanders du moment</h1>
-            <div className="row justify-content-center text-center align-items-center my-5 color-background">
+            
+            <h1 className="titre">Les Highlanders du moment</h1>
+            <div className="container-img-accueil">
                 {prod && prod.length > 0 && prod.map((p, index) => (
                     cat[index] && (
-                        <Link key={index} to={`/${encodeURIComponent(cat[index].nom)}/${encodeURIComponent(p.nom)}`} className="row text-center col-2 my-3 mx-3">
-                            <img src={canape} alt="" className=" mb-2 rounded-5"/>
+                        <Link key={index} to={`/${encodeURIComponent(cat[index].nom)}/${encodeURIComponent(p.nom)}`} className="txt-img-accueil row col-12 col-md-6 col-lg-2">
+                            <img src={canape} alt="" className="img-accueil"/>
                             <span className="font-bolder">{p.nom}</span>
                         </Link>
                     )

@@ -222,11 +222,37 @@ legend img{
     position: relative;
 }
 
-
 .titre{
     text-align: center;
     color:#FFD700;
     font-style: italic;
-
     margin-top: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .titre{
+        font-size: 1rem;
+    }
+  }
+
+.container-img-accueil {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.img-accueil{
+    border-radius: 3rem;
+}
+
+.txt-img-accueil{
+    margin: 2% !important;
+    text-align: center;
+    color: inherit;
+    text-decoration: none;
+}
+
+.txt-img-accueil:hover{
+    color: #555;
+    text-decoration: underline;
 }
