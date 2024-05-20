@@ -10,7 +10,9 @@ import Produit from './Produit';
 import Panier from './Panier';
 import MesCommandes from './MesCommandes';
 import Commande from './Commande';
-import Checkout from './Checkout';
+import CheckoutLivraison from './CheckoutLivraison';
+import CheckoutPayement from './CheckoutPayement';
+import CheckoutFini from './CheckoutFini';
 import Login from './Login';
 
 
@@ -29,7 +31,9 @@ const Rooter = () => {
             <Route path="/panier" element={<Panier />} />
             <Route path="/mesCommandes" element={<MesCommandes />} />
             <Route path="/commande" element={<Commande />} />
-            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/checkoutLivraison" element={<CheckoutLivraison />} />
+            <Route path="/checkoutPayement" element={<CheckoutPayement />} />
+            <Route path="/checkoutFini" element={<CheckoutFini />} />
         </Routes>
     </BrowserRouter>
     

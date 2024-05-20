@@ -1,14 +1,15 @@
-import  img1  from "../img/caroussel1.jpg";
+import  img1  from  "../img/caroussel1.jpg";
 import  img2  from "../img/caroussel2.jpg";
 import  img3  from "../img/carousel3.jpg";
 
-//import  armoire  from "../img/armoire.jpg";
 import  canape  from "../img/canape.jpg";
 import  lit  from "../img/lit.jpg";
 import  cascade  from "../img/bannierejpg.jpg";
 import Layout from "./Layout";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
+import axios from 'axios';
 
 const Home = () =>{
 
@@ -65,8 +66,6 @@ const Home = () =>{
             .catch(error => console.error('Erreur lors de la récupération des données depuis le backend :', error));
     }, []); 
 
-   
-   
     return(
         <Layout>
             <div className="d-flex justify-content-center">
@@ -92,25 +91,22 @@ const Home = () =>{
             </div>
             </div>
             
-            <div className="text-center mt-4 ">
-                <span className="font-bolder">
-                    VENANT DES HAUTE TERRE D'ÉCOSSE <br/> NOS MEUBLES SONT IMMORTELS
-                </span>
-            </div>
-            <div className="row justify-content-center my-5 color-background">
+            <h1 className="titre">VENANT DES HAUTE TERRE D'ÉCOSSE <br/> NOS MEUBLES SONT IMMORTELS</h1>
+            <div className="container-img-accueil">
                 {cat && cat.length > 0 && cat.map((c, index) => (
-                    <a key={index} href={`/${encodeURIComponent(c.nom)}`} className="row text-center col-3 my-3">
-                        <img src={canape} alt="" className=" mb-2 rounded-5"/>
+                    <a key={index} href={`/${encodeURIComponent(c.nom)}`} className="txt-img-accueil row col-12 col-md-6 col-lg-3">
+                        <img src={canape} alt="" className="img-accueil"/>
                         <span className="font-bolder">{c.nom}</span>
                     </a>
                 ))}
             </div>
-            <h1 className="text-center text-color">Les Highlanders du moment</h1>
-            <div className="row justify-content-center text-center align-items-center my-5 color-background">
+            
+            <h1 className="titre">Les Highlanders du moment</h1>
+            <div className="container-img-accueil">
                 {prod && prod.length > 0 && prod.map((p, index) => (
                     cat[index] && (
-                        <Link key={index} to={`/${encodeURIComponent(cat[index].nom)}/${encodeURIComponent(p.nom)}`} className="row text-center col-2 my-3 mx-3">
-                            <img src={canape} alt="" className=" mb-2 rounded-5"/>
+                        <Link key={index} to={`/${encodeURIComponent(cat[index].nom)}/${encodeURIComponent(p.nom)}`} className="txt-img-accueil row col-12 col-md-6 col-lg-2">
+                            <img src={canape} alt="" className="img-accueil"/>
                             <span className="font-bolder">{p.nom}</span>
                         </Link>
                     )
