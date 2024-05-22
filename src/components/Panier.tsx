@@ -5,9 +5,9 @@ import Layout from "./Layout"
 import lit from "../img/lit.jpg"
 
 const Panier = () =>{
-
+    
     //permet d'avoir l'état du panier et le mettre à jour
-    const [add, setAdd] = useState<{ nom: string; prix: number; description: string; }[]>(() => {
+    const [add, setAdd] = useState<{ nom: string; prix: number; description: string; quantite: number}[]>(() => {
         // Récupérer le contenu du panier depuis le localStorage
         const panierString = localStorage.getItem('panier');
         // Si le panier existe, le parser et le retourner. Sinon, retourner un tableau vide.
@@ -16,14 +16,24 @@ const Panier = () =>{
 
     const [total, setTotal] = useState(() =>{
         localStorage.getItem('panier');
-        const get = localStorage.getItem('panier') ;
+        let get = localStorage.getItem('panier') ;
         //const resultat = get ? JSON.parse(get) : [];
         var t = 0;
         add.forEach((res: any) => {
-            t += res.prix;
+            t += (res.prix)*res.quantite;
         });
         return t;
     });
+
+    const handleQuantityChange = (index: number, newQuantity: number) => {
+        const updatedAdd = add.map((item, i) =>
+            i === index ? { ...item, quantite: newQuantity } : item
+        );
+        setAdd(updatedAdd);
+        localStorage.setItem('panier', JSON.stringify(updatedAdd));
+        const newTotal = updatedAdd.reduce((acc, curr) => acc + curr.prix * curr.quantite, 0);
+        setTotal(newTotal);
+    };
 
     //pour supprimer un élément du panier
     const handleRemove = (key: number) =>{
@@ -61,7 +71,15 @@ const Panier = () =>{
                                     </div>
                                     <div className="d-flex flex-column mx-5">
                                         <span className="mb-3">{r.prix}€</span>
-                                        <input type="number" name="quantite" id="quantite" defaultValue={1} className="w-19 mb-3"/>
+                                        <input
+                                            type="number"
+                                            name="quantite"
+                                            id="quantite"
+                                            value={r.quantite}
+                                            min="1"
+                                            onChange={(e) => handleQuantityChange(index, parseInt(e.target.value))}
+                                            className="w-19 mb-3"
+                                        />
                                         <p className="cursor"><FontAwesomeIcon icon={faTrashAlt} onClick={() => handleRemove(index)} /></p>
                                     </div>
                                 </div>
@@ -74,8 +92,8 @@ const Panier = () =>{
                                     <span className="font-bolder">TVA</span>
                                 </div>
                                 <div className="d-flex justify-content-around">
-                                    <span>{total}<i>€</i></span> 
-                                    <span>{total*0.2} <i>€</i></span>
+                                    <span>{total.toFixed(2)}<i>€</i></span> 
+                                    <span>{(total*0.2).toFixed(2)} <i>€</i></span>
                                 </div>
                             </div>
                             <div className="text-center">

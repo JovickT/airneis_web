@@ -53,8 +53,17 @@ const Home = () =>{
             }
             return tab;
         }
+        const getCookie = (name: any) => {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) {
+                const cookieValue = parts.pop()?.split(';').shift(); // Utilisation de l'opérateur de coalescence nulle (nullish coalescing operator) pour éviter l'erreur si parts.pop() est undefined
+                return cookieValue;
+            }
+            return undefined;
+        }
         // Appel à votre endpoint Symfony pour récupérer les catégories, produits et images de carrousel
-        fetch('https://localhost:8000/api/data')
+        fetch('https://localhost:8000/data')
             .then(response => response.json())
             .then(data => {
                 var melanger = randomize(data.produit);
@@ -94,22 +103,20 @@ const Home = () =>{
             <h1 className="titre">VENANT DES HAUTE TERRE D'ÉCOSSE <br/> NOS MEUBLES SONT IMMORTELS</h1>
             <div className="container-img-accueil">
                 {cat && cat.length > 0 && cat.map((c, index) => (
-                    <a key={index} href={`/${encodeURIComponent(c.nom)}`} className="txt-img-accueil row col-12 col-md-6 col-lg-3">
+                    <Link key={index} to={`/categorie?categories=${encodeURIComponent(c.nom)}`} className="txt-img-accueil row col-12 col-md-6 col-lg-3">
                         <img src={canape} alt="" className="img-accueil"/>
                         <span className="font-bolder">{c.nom}</span>
-                    </a>
+                    </Link>
                 ))}
             </div>
             
             <h1 className="titre">Les Highlanders du moment</h1>
             <div className="container-img-accueil">
                 {prod && prod.length > 0 && prod.map((p, index) => (
-                    cat[index] && (
-                        <Link key={index} to={`/${encodeURIComponent(cat[index].nom)}/${encodeURIComponent(p.nom)}`} className="txt-img-accueil row col-12 col-md-6 col-lg-2">
-                            <img src={canape} alt="" className="img-accueil"/>
-                            <span className="font-bolder">{p.nom}</span>
-                        </Link>
-                    )
+                    <Link key={index} to={`/produits?categories=${encodeURIComponent(p.categorie)}&produits=${encodeURIComponent(p.nom)}`} className="txt-img-accueil row col-12 col-md-6 col-lg-2">
+                        <img src={canape} alt="" className="img-accueil"/>
+                        <span className="font-bolder">{p.nom}</span>
+                    </Link>
                 ))}
             </div>
 
