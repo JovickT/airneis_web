@@ -2,14 +2,29 @@ import Layout from "./Layout"
 import  cascade  from "../img/bannierejpg.jpg";
 import  lit  from "../img/lit.jpg";
 import  armoire  from "../img/armoire.jpg";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import Modal from "./Modal";
 
 
 const Produit = () =>{
 
+    interface Prod{
+        categorie: {
+            id_cat: number,
+            nom: string
+        },
+        date_creation: string,
+        description: string,
+        marque: Object,
+        nom: string,
+        prix: number,
+        quantite: number,
+        reference:string
+    }
+
     //permet d'avoir l'état du panier et le mettre à jour
-    const [add, setAdd] = useState<{ nom: string; prix: number; description: string; }[]>(() => {
+    const [add, setAdd] = useState<{ nom: string; prix: number; description: string; quantite: number;}[]>(() => {
 
         // Récupérer le contenu du panier depuis le localStorage
         const panierString = localStorage.getItem('panier');
@@ -18,6 +33,45 @@ const Produit = () =>{
         return panierString ? JSON.parse(panierString) : [];
 
     });
+
+    const [searchParams] = useSearchParams();
+    const prodValue = searchParams.get('produits');
+    const catValue = searchParams.get('categories');
+    const [theProd,setTheProd] = useState<Prod[]>([]);
+    const [produitSimilaire,setProduitSimilaire] = useState<Prod[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [showModal, setShowModal] = useState(false);
+
+    useEffect(() => {
+
+        // Vérifier si le paramètre `cat` existe et n'est pas vide
+        if ((prodValue && prodValue.length > 0) && (catValue && catValue.length > 0)) {
+            // 2. Construire l'URL pour l'API
+            const apiUrl = `https://localhost:8000/produits?categories=${encodeURIComponent(catValue)}&produits=${encodeURIComponent(prodValue)}`;
+
+            // 3. Utiliser `fetch` pour envoyer la requête à l'API
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    setTheProd(data.theProduct);
+                    setProduitSimilaire(data.similary);
+                    setLoading(false); // Arrête le chargement
+                    console.log('Data:', data);
+                    // Traiter les données reçues de l'API ici
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        } else {
+            setLoading(false);
+            console.log('No test parameter in URL');
+        }
+    }, [prodValue]);
 
     //les images lié au carrousel(pour l'instant c'est juste pour avoir six image dans le carrousel)
     const imgcarrousel = [
@@ -29,33 +83,45 @@ const Produit = () =>{
         'six'
     ]
 
-    // les produit similaire de la catégorie 
-    const produitSimilaire =[
-        'armoire anglaire',
-        'armoire allemande',
-        'armoire suédoise',
-        'armoire suédoise',
-        'armoire suédoise',
-        'armoire suédoise',
-    ];
 
     // les éléments qui constitut les informations importante d'uun produit. (il manque juste le lien vers l'image qui correspond au produit)
-    const produitPage ={
-        'nom': 'la vache',
-        'categorie': 'canapé',
-        'prix': 1200,
-        'description':'les chaussettes de l\'archiduchesse sont elle sèche, archi sèche' 
-    }
+    const produitPage = theProd.length > 0 ? {
+        'nom': theProd[0].nom,
+        'categorie': theProd[0].categorie.nom,
+        'prix': theProd[0].prix,
+        'description': theProd[0].description,
+        'quantite': theProd[0].quantite
+    } : {
+        'nom': '',
+        'categorie': '',
+        'prix': 0,
+        'description': '',
+        'quantite': 0
+    };
 
     const [carrousel,setCarrousel] = useState(imgcarrousel);
-    const [prod,setProd] = useState(produitSimilaire);
  
     const handleAddStorage = () =>{
-        setAdd([...add, produitPage]); //copie le tableau add puis ajoute le nouvelle élément produitPage avec setAdd
 
-        localStorage.setItem('panier', JSON.stringify([...add, produitPage])); //mise à jour du localStorage panier
-        const affiche  = localStorage.getItem('panier'); //affiche les éléments du panier en JSON
+        const produitExiste = add.find(item => item.nom === produitPage.nom);
+        if (produitExiste) {
+            const updatedAdd = add.map(item =>
+                item.nom === produitPage.nom
+                    ? { ...item, quantite: item.quantite + 1 }
+                    : item
+            );
+            setAdd(updatedAdd);
+            localStorage.setItem('panier', JSON.stringify(updatedAdd));
+            setShowModal(true); // Afficher la modal
+        } else {
+            const updatedAdd = [...add, { ...produitPage, quantite: 1 }];
+            setAdd(updatedAdd);
+            localStorage.setItem('panier', JSON.stringify(updatedAdd));
+        }
+    }
 
+    const handleCloseModal = () => {
+        setShowModal(false);
     }
 
     const affiche = localStorage.getItem('panier'); //affiche les éléments du panier en JSON
@@ -71,10 +137,10 @@ const Produit = () =>{
 
     return(
         <Layout>
-
             <div>
                 <img src={cascade} alt="canape" className="carrousel-size mb-5"/>
                 <div className="container">
+                    <Modal show={showModal} handleClose={handleCloseModal} />
                     <div className="row">
                         <div id="carouselExampleSlidesOnly" className="carousel slide col-6" data-bs-ride="carousel">
                         <div className="carousel-indicators">
@@ -101,26 +167,11 @@ const Produit = () =>{
                                 <span className="font-bolder">{produitPage.prix}€</span>
                                 <div className="d-flex flex-column">
                                     <span className="text-uppercase font-bolder">{produitPage.nom}</span>
-                                    <span>En stock</span>
+                                    <span className="text-end">{produitPage.quantite > 10? "En stock":"bientôt en rupture de stock"}</span>
                                 </div>
                             </div>
                             <div className="description">
-                                <p>
-                                L’Utilisateur pourra désactiver ces cookies par l’intermédiaire des paramètres figurant au sein de son<br/>
-                                logiciel de navigation<br/>
-                                </p>
-                                <p>
-                                L’Utilisateur pourra désactiver ces cookies par l’intermédiaire des paramètres figurant au sein de son<br/>
-                                logiciel de navigation<br/>
-                                </p>
-                                <p>
-                                L’Utilisateur pourra désactiver ces cookies par l’intermédiaire des paramètres figurant au sein de son<br/>
-                                logiciel de navigation<br/>
-                                </p>
-                                <p>
-                                L’Utilisateur pourra désactiver ces cookies par l’intermédiaire des paramètres figurant au sein de son<br/>
-                                logiciel de navigation<br/>
-                                </p>
+                                <p>{produitPage.description}</p>
                             </div>
                             <div className="text-center">
                                 <button onClick={handleAddStorage}>ATOUTER AU PANIER</button>
@@ -129,11 +180,11 @@ const Produit = () =>{
                         <div className="text-center text-color mt-5">
                             <h1>PRODUIT SIMILAIRE</h1>
                             <div className="row justify-content-center">
-                            {prod.map((p,index) =><Link key={index} to={`/${encodeURIComponent(produitPage.categorie)}/${encodeURIComponent(p)}`} className="row text-center text-decoration-none col-3 my-3 mx-3">
+                            {produitSimilaire.map((p,index) =><Link key={index} to={`/produits?categories=${encodeURIComponent(produitPage.categorie)}&produits=${encodeURIComponent(p.nom)}`} className="row text-center text-decoration-none col-3 my-3 mx-3">
                                     <img src={lit} alt="" className=" mb-2 rounded-5"/>
-                                    <span className="text-dark font-bolder">{p}</span>
+                                    <span className="text-dark font-bolder">{p.nom}</span>
                                 </Link>
-                                )}
+                            )}
                             </div>
                         </div>
                     </div>

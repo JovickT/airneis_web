@@ -257,3 +257,12 @@ legend img{
     color: #555;
     text-decoration: underline;
 }
+
+.moving-up{
+    position: relative;
+    bottom: 5%;
+}
+
+.moving-up p{
+    font-weight: bold;
+}

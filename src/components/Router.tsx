@@ -21,8 +21,8 @@ const Rooter = () => {
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/:nom_categorie" element={<Categorie />} />
-            <Route path="/:nom_categorie/:nom_produit" element={<Produit />} />
+            <Route path="/categorie" element={<Categorie />} />
+            <Route path="/produits" element={<Produit />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/mentions" element={<Ml />} />
             <Route path="/about" element={<About />} />
