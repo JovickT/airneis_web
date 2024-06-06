@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import Router from './components/Router';
+import { AuthProvider } from './context/AuthContext';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -9,7 +10,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Router />
+    <AuthProvider>
+      <Router />
+    </AuthProvider>
   </React.StrictMode>
 );
 
