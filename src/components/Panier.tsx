@@ -7,7 +7,7 @@ import lit from "../img/lit.jpg"
 const Panier = () =>{
     
     //permet d'avoir l'état du panier et le mettre à jour
-    const [add, setAdd] = useState<{ nom: string; prix: number; description: string; quantite: number}[]>(() => {
+    const [add, setAdd] = useState<{ nom: string; prix: number; description: string; quantite: number,image:string}[]>(() => {
         // Récupérer le contenu du panier depuis le localStorage
         const panierString = localStorage.getItem('panier');
         // Si le panier existe, le parser et le retourner. Sinon, retourner un tableau vide.
@@ -64,7 +64,7 @@ const Panier = () =>{
                         <div className="col">
                             {add.map((r,index) =><div key={index} className="mb-4">
                                 <div className="d-flex justify-content-end">
-                                    <img src={lit} alt="lit" className="w-19 mx-4 "/>
+                                    <img src={r.image} alt="lit" className="w-19 mx-4 "/>
                                     <div className="col-4">
                                         <span className="font-bolder">{r.nom}</span>
                                         <p>{r.description}</p>

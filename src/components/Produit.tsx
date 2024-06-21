@@ -19,6 +19,7 @@ const Produit = () =>{
         marque: Object,
         nom: string,
         prix: number,
+        image: string,
         quantite: number,
         reference:string
     }
@@ -90,13 +91,15 @@ const Produit = () =>{
         'categorie': theProd[0].categorie.nom,
         'prix': theProd[0].prix,
         'description': theProd[0].description,
-        'quantite': theProd[0].quantite
+        'quantite': theProd[0].quantite,
+        'image': theProd[0].image
     } : {
         'nom': '',
         'categorie': '',
         'prix': 0,
         'description': '',
-        'quantite': 0
+        'quantite': 0,
+        'image': 'image'
     };
 
     const [carrousel,setCarrousel] = useState(imgcarrousel);
@@ -181,7 +184,7 @@ const Produit = () =>{
                             <h1>PRODUIT SIMILAIRE</h1>
                             <div className="row justify-content-center">
                             {produitSimilaire.map((p,index) =><Link key={index} to={`/produits?categories=${encodeURIComponent(produitPage.categorie)}&produits=${encodeURIComponent(p.nom)}`} className="row text-center text-decoration-none col-3 my-3 mx-3">
-                                    <img src={lit} alt="" className=" mb-2 rounded-5"/>
+                                    <img src={p.image} alt="" className=" mb-2 rounded-5"/>
                                     <span className="text-dark font-bolder">{p.nom}</span>
                                 </Link>
                             )}
