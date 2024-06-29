@@ -1,7 +1,7 @@
 import  canape  from "../img/canape.jpg";
 import  cascade  from "../img/bannierejpg.jpg";
 import Layout from "./Layout";
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 
 const Categorie = () =>{
@@ -25,6 +25,7 @@ const Categorie = () =>{
         produit: string
     }
 
+    const navigate = useNavigate();
     const [prod,setProd] = useState<Cat[]>([]);
     const[imagesProd, setImagesProd] = useState<Images[]>([]);
     const [searchParams] = useSearchParams();
@@ -52,6 +53,7 @@ const Categorie = () =>{
                     // Traiter les données reçues de l'API ici
                 })
                 .catch(error => {
+                    navigate('/');
                     console.error('There was a problem with the fetch operation:', error);
                 });
 

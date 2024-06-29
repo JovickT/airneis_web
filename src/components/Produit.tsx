@@ -3,7 +3,7 @@ import  cascade  from "../img/bannierejpg.jpg";
 import  lit  from "../img/lit.jpg";
 import  armoire  from "../img/armoire.jpg";
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Modal from "./Modal";
 
 
@@ -35,6 +35,7 @@ const Produit = () =>{
 
     });
 
+    const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const prodValue = searchParams.get('produits');
     const catValue = searchParams.get('categories');
@@ -66,6 +67,7 @@ const Produit = () =>{
                     // Traiter les données reçues de l'API ici
                 })
                 .catch(error => {
+                    navigate('/');
                     console.error('There was a problem with the fetch operation:', error);
                 });
         } else {
