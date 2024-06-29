@@ -93,7 +93,7 @@ const Login = ()=>{
                             </div>
                             <button type="submit" form="login" className="btn animation" style={{'--i':'3','--j':'23'} as React.CSSProperties}> Connexion </button>
                             <div className="logred-link animation" style={{'--i':'4','--j':'24'} as React.CSSProperties}>
-                                <p>Pas de compte? 
+                                <p>Pas de compte? <br/>
                                     <a href="#" className="register-link">Inscription</a>
                                 </p>
                             </div>
@@ -125,7 +125,7 @@ const Login = ()=>{
                             </div>
                             <button type="submit" className="btn animation" style={{'--i':'21','--j':'4'} as React.CSSProperties}> Inscription </button>
                             <div className="logred-link animation" style={{'--i':'22','--j':'5'} as React.CSSProperties}>
-                                <p>Vous avez déjà un compte? 
+                                <p>Vous avez déjà un compte? <br/>
                                     <a href="#" className="login-link">Connexion</a>
                                 </p>
                             </div>

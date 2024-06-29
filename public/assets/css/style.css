@@ -266,3 +266,93 @@ legend img{
 .moving-up p{
     font-weight: bold;
 }
+
+
+.recherche-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 400px;
+    height: 100%;
+    background: white;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+    z-index: 1050;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.recherche-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.recherche-body {
+    max-height: calc(100% - 60px);
+    overflow-y: auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.price-filters {
+    display: flex;
+    justify-content: space-between;
+}
+
+.price-filter {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.price-filter:last-child {
+    margin-right: 0;
+}
+
+.form-check {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    width: 100%;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.nom-filter {
+    /* margin: 0px 25px; */
+}
+
+.header-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.header-buttons .btn {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.header-buttons .btn:last-child {
+    margin-right: 0;
+}
+
+.close-button, .btn-reset {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
