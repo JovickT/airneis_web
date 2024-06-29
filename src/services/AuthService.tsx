@@ -1,74 +1,72 @@
-import axios from 'axios';
-import Cookies from 'js-cookie';
-
-interface LoginResponse {
-  access: string;
-  refresh: string;
-}
-
-interface RefreshTokenResponse {
-  access: string;
-}
+import axios, { AxiosInstance } from 'axios';
 
 export interface UserData {
-  username: string;
-  first_name: string;
-  last_name: string;
   email: string;
-  // Ajoutez d'autres propriétés selon vos besoins
+  prenom: string;
+  nom: string;
+  adresse: string;
+  telephone: string;
 }
 
-interface RefreshTokenResponse {
-  access: string;
-}
+const API_URL = 'https://127.0.0.1:8000/api';
+
+// Créer une instance Axios avec la configuration de base
+const api: AxiosInstance = axios.create({
+  baseURL: API_URL,
+  withCredentials: true, // Équivalent à credentials: 'include'
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
 const authService = {
-  login: async (username: string, password: string): Promise<UserData> => {
-    const response = await axios.post<LoginResponse>('http://localhost:8000/api/token/', { username, password });
-    const { access, refresh } = response.data;
-    Cookies.set('access_token', access, { httpOnly: true });
-    Cookies.set('refresh_token', refresh, { httpOnly: true });
-
-    const userData = await fetchUserData(access);
-    // Vous pouvez stocker les données de l'utilisateur dans le state de votre application
-    // ou les renvoyer à votre composant d'authentification
-    return userData;
-  },
-
-  logout: () => {
-    Cookies.remove('access_token', { httpOnly: true });
-    Cookies.remove('refresh_token', { httpOnly: true });
-  },
-
-  refreshToken: async (): Promise<UserData> => {
+  login: async (username: string, password: string): Promise<void> => {
     try {
-      const response = await axios.post<RefreshTokenResponse>('http://localhost:8000/api/token/refresh/', null, {
-        withCredentials: true,
-      });
-      const { access } = response.data;
-      Cookies.set('access_token', access, { httpOnly: true });
-  
-      const userData = await fetchUserData(access);
-      return userData;
+      const response = await api.post('/login_check', { username, password });
+      
+      if (response.status !== 200) {
+        throw new Error('Network response was not ok');
+      }
     } catch (error) {
-      console.error('Erreur lors du rafraîchissement du jeton :', error);
-      throw error; // Ou gérer l'erreur de manière appropriée (rediriger vers la page de connexion, etc.)
+      console.error('Login error:', error);
+      throw error;
     }
   },
-};
 
-const fetchUserData = async (accessToken: string): Promise<UserData> => {
-  try {
-    const response = await axios.get<UserData>('http://localhost:8000/api/user', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Erreur lors de la récupération des données utilisateur :', error);
-    throw error;
-  }
+  logout: async (): Promise<boolean> => {
+    try {
+      const response = await api.post('/logout');
+      return response.status === 200;
+    } catch (error) {
+      console.error('Erreur lors de la déconnexion :', error);
+      return false;
+    }
+  },
+  
+  fetchUserData: async (): Promise<UserData> => {
+    try {
+      const response = await api.get('/user');
+      
+      if (response.status !== 200) {
+        throw new Error('Network response was not ok');
+      }
+
+      return response.data;
+    } catch (error) {
+      console.error('Erreur lors de la récupération des données utilisateur :', error);
+      throw error;
+    }
+  },
+
+  isAuthenticated: async (): Promise<boolean> => {
+    try {
+      const response = await api.get('/check-auth');
+      return response.status === 200;
+    } catch (error) {
+      console.error('Erreur lors de la vérification de l\'authentification :', error);
+      return false;
+    }
+  },
 };
 
 export default authService;

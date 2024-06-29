@@ -4,25 +4,57 @@ import shop from '../img/shop.png'
 import burger from '../img/menu.png'
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from 'react'
-import Cookies from 'js-cookie';
+import { useAuth } from '../context/AuthContext';
 
 
 const Navbar= () =>{
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
+    const { isAuthenticated, logout, user } = useAuth();
+    const navigate = useNavigate();
+    const [error, setError] = useState<string | null>(null);
+    const [menuCo, setMenuCo] = useState<string[]>([]);
 
     useEffect(() => {
-        const token = Cookies.get('jwt_token');
-        if(token){
-            setIsLoggedIn(true);
+        if (isAuthenticated) {
+            setMenuCo([
+                'Mes paramètres',
+                'Mes commandes',
+                'CGU',
+                'Mentions légales',
+                'Contact',
+                'À propos d’ÀIRNEIS',
+                'Se déconnecter'
+            ]);
+        } else {
+            setMenuCo([
+                'Se connecter',
+                'CGU',
+                'Mentions légales',
+                'Contact',
+                'À propos d’ÀIRNEIS',
+            ]);
         }
-    },[]);
+    }, [isAuthenticated]);
 
-    const handleLogout = () => {
-        Cookies.remove('jwt_token');
-        setIsLoggedIn(false);
-        navigate('/');
+
+    const handleMenu = () =>{
+        setMenuOpen(!menuOpen);
     }
-
+    
+    const handlePanier = () =>{
+        navigate("/panier");
+    }
+    
+    const handleLogout = async () => {
+        if (logout) {
+            try {
+                await logout();
+                navigate('/');
+            } catch (error) {
+                console.error('Erreur lors de la déconnexion', error);
+            }
+        }
+    };
     const affiche  = localStorage.getItem('panier');
     var res: any = [];
     if (affiche !== null) {
@@ -34,10 +66,9 @@ const Navbar= () =>{
         console.error('raaaaaaaah');
     }
 
-    const [menuOpen, setMenuOpen] = useState(false);
     const [compteur, setCompteur] = useState(0);
     
-    const menuConnexion = isLoggedIn ? [
+    const menuConnexion = user? [
         'Mes paramètre',
         'Mes commandes',
         'CGU',
@@ -53,18 +84,6 @@ const Navbar= () =>{
         'Contact',
         'À propos d’ÀIRNEIS',
     ]
-
-    const[menuCo, setMenuCo] = useState(menuConnexion);
-
-    const navigate = useNavigate();
-
-    const handleMenu = () =>{
-        setMenuOpen(!menuOpen);
-    }
-
-    const handlePanier = () =>{
-        navigate("/panier");
-    }
 
     const handleNavigation = (list: string) =>{
         console.log('handleNavigation:',list);
@@ -94,7 +113,9 @@ const Navbar= () =>{
                 console.error('ce lien n\'existe pas');
                 break;
         }
-    }
+        setMenuOpen(false);
+    };
+
 
     return(
         <>

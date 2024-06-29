@@ -1,47 +1,45 @@
 import Layout from "./Layout";
 import '../login.css';
-import React, { useEffect ,useState, FormEvent} from 'react';
-import axios from 'axios';
-import Cookies from 'js-cookie'
+import React, { useEffect, useState, ChangeEvent, useContext} from 'react';
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Login = ()=>{
+    const { isAuthenticated, login } = useAuth();
+    const [username, setUsername] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const token = Cookies.get('jwt_token');
-        if(token){
-            navigate('/');
-        }
-    },[navigate]);
-
-    const [email, setEmail] = useState('');
-    const [mdp, setMdp] = useState('');
-    const [error, setError] = useState<string | null>(null);
-    const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const credentials = {username: email, password: mdp};
-        
+        setError(null);
+
+        if (!login) {
+            setError("Erreur de configuration de l'authentification");
+            return;
+        }
+
         try {
-            const response = await axios.post('https://127.0.0.1:8000/api/login_check',credentials, {
-                headers : {
-                    'Content-Type': 'application/json'
-                },
-            });
-            
-            const token = response.data.token;
-            Cookies.set('jwt_token', token);
-            console.log('Authentification réussie')
-            setSuccessMessage("Connexion réussie");
-            setError(null);
-            navigate('/');
-        } catch (error) {
-            //setError(error.response.data.message || 'Une erreur est survenue');
-            setSuccessMessage(null);
+            await login(username, password);
+        } catch (err) {
+            setError("Échec de la connexion. Veuillez vérifier vos identifiants.");
         }
     };
+
+    const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setUsername(e.target.value);
+    };
+    
+    const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value);
+    };
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate('/');
+        }
+    }, [isAuthenticated, navigate]);
 
     useEffect(() => {
         const wrapper = document.querySelector('.wrapper') as HTMLDivElement;
@@ -80,14 +78,16 @@ const Login = ()=>{
                 
                     <div className="form-box login animation">
                         {/* <h2 className="animation" style={{'--i':'0','--j':'20'} as React.CSSProperties}> Connexion</h2> */}
-                        <form action="#" id="login" onSubmit={handleSubmit}>
+                        <form action="#" id="login" onSubmit={handleLogin}>
                             <div className="input-box animation" style={{'--i':'1','--j':'21'} as React.CSSProperties}>
-                                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required></input>
+                                <input type="text" name="username" value={username} onChange={handleUsernameChange}
+                                 required></input>
                                 <label>Email</label>
                                 <i className="bx bxs-envelope"></i>
                             </div>
                             <div className="input-box animation" style={{'--i':'2','--j':'22'} as React.CSSProperties}>
-                                <input type="password" value={mdp} onChange={(e) => setMdp(e.target.value)} required></input>
+                                <input type="password" name="password" value={password} onChange={handlePasswordChange}
+                                  required></input>
                                 <label>Mot de passe</label>
                                 <i className="bx bxs-lock-alt"></i>
                             </div>
