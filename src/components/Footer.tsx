@@ -26,17 +26,15 @@ const Footer = () => {
     return (
         <>
           <footer className={navbarClasses.join(" ")}>
-            <ul className="d-flex">
-                <li className="me-2"><a href="/cgu" className="text-decoration-none color-link">CGU</a></li>
-                <li className="me-2"><a href="/mentions" className="text-decoration-none color-link">Mentions légales</a></li>
-                <li><a href="/contact" className="text-decoration-none color-link">Contact</a></li>
+            <ul className="footer-contenu">
+                <li className="footer-link"><a href="/cgu">CGU<span className="divider"> |</span></a></li>
+                <li className="footer-link"><a href="/mentions">Mentions légales<span className="divider"> |</span></a></li>
+                <li className="footer-link"><a href="/contact">Contact</a></li>
             </ul>
-            <div>
-                <ul className="d-flex me-2">
-                    <li><img src={facebook} alt="facebook" /></li>
-                    <li><img src={instagram} alt="instagram" /></li>
-                </ul>
-            </div>
+            <ul className="footer-social">
+                <li><img src={facebook} alt="facebook" /></li>
+                <li><img src={instagram} alt="instagram" /></li>
+            </ul>
         </footer>
         </>
     )

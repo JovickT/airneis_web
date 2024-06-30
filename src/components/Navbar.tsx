@@ -124,11 +124,12 @@ const Navbar = () => {
                 </div>
             </nav>
 
+
             {menuOpen && (
-                <div className='text-center bg-light slide-menu'>
+                <div className='head-deroulant'>
                     <ul>
                         {menuCo.map((list, index) => 
-                            <li key={index} className='point-menu me-3 font-bolder' onClick={() => handleNavigation(list)}>
+                            <li key={index} className='head-deroulant-link' onClick={() => handleNavigation(list)}>
                                 {list}
                             </li>
                         )}
