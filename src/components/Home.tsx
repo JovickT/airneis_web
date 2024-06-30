@@ -1,7 +1,3 @@
-import  img1  from  "../img/caroussel1.jpg";
-import  img2  from "../img/caroussel2.jpg";
-import  img3  from "../img/carousel3.jpg";
-
 import  canape  from "../img/canape.jpg";
 import  lit  from "../img/lit.jpg";
 import  cascade  from "../img/bannierejpg.jpg";

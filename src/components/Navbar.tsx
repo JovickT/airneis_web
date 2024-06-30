@@ -104,16 +104,16 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className='d-flex bg-light position-fixed top-0 w-100 z-3'>
-                <a className='mt-2' href="/"><img src={logo} alt="logo" /></a>
-                <div className="d-flex web-nav justify-content-end">
-                    <ul className="d-flex me-3 mt-2">
-                        <li className='me-3'>
+            <nav className='head'>
+                <a className='head-logo' href="/"><img src={logo} alt="logo" /></a>
+                <div className="head-taille">
+                    <ul className="head-box-btn">
+                        <li className='logo-recherche'>
                             <img src={search} alt="recherche" className='logo-size' onClick={handleShowRecherche} />
                         </li>
-                        <li className='me-3'>
+                        <li className='logo-panier'>
                             <img src={shop} alt="panier" className='logo-size-panier' onClick={handlePanier} />
-                            <div className='bg-danger text-light position-absolute compteur-panier'>
+                            <div className='compteur-panier'>
                                 <span className='shop-cart'>{res.length}</span>
                             </div>
                         </li>
