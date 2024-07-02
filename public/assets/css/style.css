@@ -219,7 +219,7 @@ body{
     .titre{
         font-size: 1rem;
     }
-  }
+}
 
 .container-img-accueil {
     display: flex;
@@ -261,10 +261,32 @@ body{
     font-weight: bold;
 }
 
+.panier-nombre{
+    width: 50px;
+    border: 2px solid #FFD700;
+}
 
+.panier-img{
+    width: 250px !important;
+    height: 120px;
+}
+@media (max-width: 768px) {
+    .panier-img {
 
+    }
 
+    .d-flex {
+        flex-direction: column;
+    }
+    
+    .panier-detail{
+        margin-right: 30px;
+    }
 
+    .panier-desc{
+        margin: 0 50px;
+    }
+}
 
 
 
@@ -391,7 +413,7 @@ legend img{
     max-height: 25rem;
 }
 
-
+.panier-button,
 .checkout-button,
 .checkout-input,
 .checkout-label,
@@ -402,7 +424,8 @@ legend img{
     border-bottom: 1px solid black;
     border-left: none;
     border-right: none;
-    background-color: none;
+    /* background-color: none; */
+    background-color: antiquewhite;
     color: black;
     padding: 10px 20px;
     text-align: center;
@@ -417,11 +440,13 @@ legend img{
     width: 300px;
 }
 
+.panier-button:hover,
 .checkout-button:hover,
 .checkout-input:hover,
 .contact-button:hover,
 .contact-input:hover{
-    background-color: #f8f8f8;
+    /* background-color: #f8f8f8; */
+    background-color: #FFD700;
 }
 
 .checkout-form{
