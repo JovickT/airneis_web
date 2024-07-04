@@ -270,6 +270,7 @@ body{
     width: 250px !important;
     height: 120px;
 }
+
 @media (max-width: 768px) {
     .panier-img {
 
@@ -287,6 +288,66 @@ body{
         margin: 0 50px;
     }
 }
+
+.panier-button,
+.checkout-button,
+.checkout-input,
+.checkout-label,
+.contact-button,
+.contact-input,
+.contact-label {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-left: none;
+    border-right: none;
+    /* background-color: none; */
+    background-color: antiquewhite;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 0;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 300px;
+}
+
+.panier-button:hover,
+.checkout-button:hover,
+.checkout-input:hover,
+.contact-button:hover,
+.contact-input:hover{
+    /* background-color: #f8f8f8; */
+    background-color: #FFD700;
+}
+
+.checkout-form{
+    text-align: center;
+    max-height: none;
+    overflow-y: visible;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .checkout-form {
+        max-height: 50vh;
+        overflow-y: scroll;
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -411,46 +472,6 @@ legend img{
 .desc-produits{
     overflow-y: scroll;
     max-height: 25rem;
-}
-
-.panier-button,
-.checkout-button,
-.checkout-input,
-.checkout-label,
-.contact-button,
-.contact-input,
-.contact-label {
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    border-left: none;
-    border-right: none;
-    /* background-color: none; */
-    background-color: antiquewhite;
-    color: black;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 0;
-    font-weight: bold;
-    text-transform: uppercase;
-    width: 300px;
-}
-
-.panier-button:hover,
-.checkout-button:hover,
-.checkout-input:hover,
-.contact-button:hover,
-.contact-input:hover{
-    /* background-color: #f8f8f8; */
-    background-color: #FFD700;
-}
-
-.checkout-form{
-    text-align: center;
 }
 
 .recherche-container {

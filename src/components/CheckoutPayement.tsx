@@ -16,17 +16,17 @@ const CheckoutPayement = () => {
             <h2 style={{ textAlign: 'center'}}>Informations de livraison</h2>
               <form className="checkout-form" style={{ width: '100%' }}>
                 <label className="checkout-label">Numéro de carte :</label><br/>
-                <input type="number" className="checkout-input"/>
+                <input type="number" className="checkout-input" placeholder="1234 5678 9012 3456"/>
                 <label className="checkout-label">Nom complet :</label><br/>
-                <input type="text" className="checkout-input"/>
-                <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                  <div>
+                <input type="text" className="checkout-input" placeholder="John Doe"/>
+                <div className="d-flex flex-column flex-md-row justify-content-between w-100">
+                  <div className="mb-3 mb-md-0">
                     <label className="checkout-label">Date d'expiration :</label><br/>
-                    <input type="date" className="checkout-input" style={{ marginRight: '10px' }}/>
+                    <input type="date" className="checkout-input mr-md-2" placeholder="MM/YY"/>
                   </div>
                   <div>
                     <label className="checkout-label">CVV :</label><br/>
-                    <input type="number" className="checkout-input"/>
+                    <input type="number" className="checkout-input" placeholder="123"/>
                   </div>
                 </div>
               </form>

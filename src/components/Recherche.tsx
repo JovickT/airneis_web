@@ -30,7 +30,7 @@ const Recherche: React.FC<RechercheProps> = ({ show, handleClose }) => {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                setMaterieaux(data.matearieaux);
+                setMaterieaux(data.Materiaux);
                 setCategories(data.categorie);
 
             })
