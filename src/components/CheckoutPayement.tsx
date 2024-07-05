@@ -18,7 +18,7 @@ const CheckoutPayement = () => {
                 <label className="checkout-label">Numéro de carte :</label><br/>
                 <input type="number" className="checkout-input" placeholder="1234 5678 9012 3456"/>
                 <label className="checkout-label">Nom complet :</label><br/>
-                <input type="text" className="checkout-input" placeholder="John Doe"/>
+                <input type="text" className="checkout-input" placeholder=""/>
                 <div className="d-flex flex-column flex-md-row justify-content-between w-100">
                   <div className="mb-3 mb-md-0">
                     <label className="checkout-label">Date d'expiration :</label><br/>

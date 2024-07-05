@@ -79,7 +79,6 @@ const Login = ()=>{
                     <span className="bg-animate2"></span>
                 
                     <div className="form-box login animation">
-                        {/* <h2 className="animation" style={{'--i':'0','--j':'20'} as React.CSSProperties}> Connexion</h2> */}
                         <form action="#" id="login" onSubmit={handleSubmit}>
                             <div className="input-box animation" style={{'--i':'1','--j':'21'} as React.CSSProperties}>
                                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required></input>
@@ -102,11 +101,9 @@ const Login = ()=>{
 
                     <div className="info-text login">
                         <h2 className="animation" style={{'--i':'0','--j':'20'} as React.CSSProperties}>Connexion</h2>
-                        {/* <p className="animation" style={{'--i':'1','--j':'21'} as React.CSSProperties}>Je suis ton père</p> */}
                     </div>
 
                     <div className="form-box register">
-                        {/* <h2 className="animation" style={{'--i':'17','--j':'0'} as React.CSSProperties}>Inscription</h2> */}
                         <form action="#">
                             <div className="input-box animation" style={{'--i':'18','--j':'1'} as React.CSSProperties}>
                                 <input type="text" required></input>
@@ -134,7 +131,6 @@ const Login = ()=>{
 
                     <div className="info-text register">
                         <h2 className="animation" style={{'--i':'17','--j':'0'} as React.CSSProperties}>Inscription</h2>
-                        {/* <p className="animation" style={{'--i':'18','--j':'1'} as React.CSSProperties}>Je suis ton père</p> */}
                     </div>
                 </div>
             </div>
@@ -143,3 +139,4 @@ const Login = ()=>{
 }
 
 export default Login;
+

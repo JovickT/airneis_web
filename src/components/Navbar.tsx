@@ -69,7 +69,7 @@ const Navbar = () => {
         
         switch (list) {
             case 'Se connecter':
-                navigate("/login");
+                navigate("/connexion");
                 break;
             case 'Se déconnecter':
                 handleLogout();

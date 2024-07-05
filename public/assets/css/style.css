@@ -316,12 +316,15 @@ body{
     width: 300px;
 }
 
+.inscription-button:hover,
+.connexion-button:hover,
+.inscription-input:hover,
+.connexion-input:hover,
 .panier-button:hover,
 .checkout-button:hover,
 .checkout-input:hover,
 .contact-button:hover,
 .contact-input:hover{
-    /* background-color: #f8f8f8; */
     background-color: #FFD700;
 }
 
@@ -340,6 +343,63 @@ body{
     }
 }
 
+.inscription-form, .connexion-form {
+    text-align: center;
+}
+
+.inscription-input,
+.connexion-input,
+.inscription-label,
+.connexion-label,
+.inscription-button,
+.connexion-button {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-left: none;
+    border-right: none;
+    background-color: antiquewhite;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 0;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.inscription-button,
+.connexion-button {
+    cursor: pointer;
+    width: 300px;
+}
+
+.inscription-input::placeholder,
+.connexion-input::placeholder {
+    color: #999;
+    opacity: 1;
+}
+
+@media (max-width: 767.98px) {
+    .inscription-form,
+    .connexion-form {
+        text-align: center;
+    }
+
+    .inscription-form .d-flex,
+    .connexion-form .d-flex {
+        flex-direction: column;
+    }
+
+    .inscription-input,
+    .connexion-input,
+    .inscription-button,
+    .connexion-button {
+        width: 100%;
+    }
+}
 
 
 
