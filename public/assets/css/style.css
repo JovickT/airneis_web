@@ -401,6 +401,45 @@ body{
     }
 }
 
+.carrousel-size{
+    width: -webkit-fill-available;
+}
+
+.img-produit-categorie {
+    width: 100%;
+    border-radius: 15px;
+}
+
+@media (max-width: 767.98px) {
+    .disposition-categorie {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .img-produit-categorie {
+        width: auto;
+        max-width: 80%;
+        margin: 0 auto;
+    }
+
+    .contenu-catgorie {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    .moving-up p{
+        text-align: center;
+    }
+}
+
+
+
+
+
+
+
 
 
 
@@ -443,10 +482,6 @@ nav{
 
 li{
     list-style: none;
-}
-
-.carrousel-size{
-    width: -webkit-fill-available;
 }
 
 .color-background{
