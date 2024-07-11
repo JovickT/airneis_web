@@ -51,7 +51,7 @@ const CommandeDetails = () => {
                   </div>
                   <div style={{marginLeft: 'auto'}}>
                     <div>{produit.prix}€</div>
-                    <div><input type="number" id="tentacles" value={produit.quantite} style={{ width: "50px" }} /></div>
+                    <div><input type="number" id="tentacles" value={produit.quantite} style={{ width: "50px" }} className="commande-nombre" /></div>
                     <button>Retirer</button>
                   </div>
                 </div>

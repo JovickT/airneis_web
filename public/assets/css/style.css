@@ -261,6 +261,7 @@ body{
     font-weight: bold;
 }
 
+.commande-nombre,
 .panier-nombre{
     width: 50px;
     border: 2px solid #FFD700;
@@ -289,6 +290,7 @@ body{
     }
 }
 
+.produit-button,
 .panier-button,
 .checkout-button,
 .checkout-input,
@@ -316,6 +318,7 @@ body{
     width: 300px;
 }
 
+.produit-button:hover,
 .inscription-button:hover,
 .connexion-button:hover,
 .inscription-input:hover,
@@ -327,6 +330,72 @@ body{
 .contact-input:hover{
     background-color: #FFD700;
 }
+@media (max-width: 767.98px) {
+    .carousel-inner img {
+        width: 100%;
+        height: auto;
+    }
+
+    .desc-produits {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .desc-produits .product-info {
+        width: 100%;
+        text-align: center;
+        order: 1;
+    }
+
+    .desc-produits .text-center {
+        order: 2;
+        width: 100%;
+        max-width: 100%;
+        margin-top: 1rem;
+    }
+
+    .desc-produits .d-flex {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .desc-produits .d-flex span {
+        text-align: center;
+    }
+
+    .desc-produits .produit-button {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 1rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .produits-similaires {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .produit-similaire-item {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0rem !important;
+        margin-right: 0rem !important;
+    }
+
+    .produit-similaire-item img {
+        width: 100%;
+        height: auto;
+    }
+}
+.produit-similaire-item{
+    margin-left: 0.75rem !important;
+    margin-right: 0.75rem !important;
+}
+
+
 
 .checkout-form{
     text-align: center;

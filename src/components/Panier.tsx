@@ -55,55 +55,6 @@ const Panier = () =>{
     
     return(
         <Layout>
-            {/* <div>
-                <div className="line-separator"></div>
-                <div className="text-center">
-                    <h1 className="text-color font-bolder mb-5">Panier</h1>
-                </div>
-                <div className="row">
-                    <div className="col">
-                        {add.map((r,index) =><div key={index} className="mb-4">
-                            <div className="d-flex justify-content-end">
-                                <img src={lit} alt="lit" className="w-19 mx-4 panier-img"/>
-                                <div className="col-4">
-                                    <span className="font-bolder">{r.nom}</span>
-                                    <p>{r.description}</p>
-                                </div>
-                                <div className="d-flex flex-column mx-5">
-                                    <span className="mb-3">{r.prix}€</span>
-                                    <input
-                                        type="number"
-                                        name="quantite"
-                                        id="quantite"
-                                        value={r.quantite}
-                                        min="1"
-                                        onChange={(e) => handleQuantityChange(index, parseInt(e.target.value))}
-                                        className=" mb-3 panier-nombre"
-                                    />
-                                    <p className="cursor"><FontAwesomeIcon icon={faTrashAlt} onClick={() => handleRemove(index)} /></p>
-                                </div>
-                            </div>
-                            <hr/>
-                        </div>)}
-                    </div>
-                    <div className="col mx-5">
-                        <div className="mb-5">
-                            <div className="d-flex justify-content-around">
-                                <span className="font-bolder">TOTAL</span>
-                                <span className="font-bolder">TVA</span>
-                            </div>
-                            <div className="d-flex justify-content-around">
-                                <span>{total.toFixed(2)}<i>€</i></span> 
-                                <span>{(total*0.2).toFixed(2)} <i>€</i></span>
-                            </div>
-                        </div>
-                        <div className="text-center">
-                            <button>PASSER LA COMMANDE</button>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
-
             <div>
                 <div className="line-separator"></div>
                 <div className="text-center">
