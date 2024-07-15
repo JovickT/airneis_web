@@ -93,7 +93,7 @@ const Login = ()=>{
                             </div>
                             <button type="submit" form="login" className="btn animation" style={{'--i':'3','--j':'23'} as React.CSSProperties}> Connexion </button>
                             <div className="logred-link animation" style={{'--i':'4','--j':'24'} as React.CSSProperties}>
-                                <p>Pas de compte? 
+                                <p>Pas de compte? <br/>
                                     <a href="#" className="register-link">Inscription</a>
                                 </p>
                             </div>
@@ -102,11 +102,9 @@ const Login = ()=>{
 
                     <div className="info-text login">
                         <h2 className="animation" style={{'--i':'0','--j':'20'} as React.CSSProperties}>Connexion</h2>
-                        {/* <p className="animation" style={{'--i':'1','--j':'21'} as React.CSSProperties}>Je suis ton père</p> */}
                     </div>
 
                     <div className="form-box register">
-                        {/* <h2 className="animation" style={{'--i':'17','--j':'0'} as React.CSSProperties}>Inscription</h2> */}
                         <form action="#">
                             <div className="input-box animation" style={{'--i':'18','--j':'1'} as React.CSSProperties}>
                                 <input type="text" required></input>
@@ -125,7 +123,7 @@ const Login = ()=>{
                             </div>
                             <button type="submit" className="btn animation" style={{'--i':'21','--j':'4'} as React.CSSProperties}> Inscription </button>
                             <div className="logred-link animation" style={{'--i':'22','--j':'5'} as React.CSSProperties}>
-                                <p>Vous avez déjà un compte? 
+                                <p>Vous avez déjà un compte? <br/>
                                     <a href="#" className="login-link">Connexion</a>
                                 </p>
                             </div>
@@ -134,7 +132,6 @@ const Login = ()=>{
 
                     <div className="info-text register">
                         <h2 className="animation" style={{'--i':'17','--j':'0'} as React.CSSProperties}>Inscription</h2>
-                        {/* <p className="animation" style={{'--i':'18','--j':'1'} as React.CSSProperties}>Je suis ton père</p> */}
                     </div>
                 </div>
             </div>
@@ -143,3 +140,4 @@ const Login = ()=>{
 }
 
 export default Login;
+

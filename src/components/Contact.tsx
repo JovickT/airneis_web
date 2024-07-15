@@ -5,29 +5,27 @@ const Contact = () =>{
 
     return(
         <Layout>
-            <div className="d-flex flex-column align-items-center bg-page">
+            <div className="d-flex flex-column align-items-center">
                 <form action="" method="post" className="">
                     <fieldset>
                         <legend className="d-flex justify-content-center"><img src={logo} alt="Logo" /></legend>
-                    <div className="d-flex mb-5">
-                        <label htmlFor="" className="me-4 m-content">Nom
-                            <input type="text" name="nom" id="nom" placeholder="Jones" className="mx-2"/>
-                        </label>
-                        <label htmlFor="" className="m-content">Prénom
-                            <input type="text" name="prenom" id="prenom" placeholder="John"/>
-                        </label>
-                    </div>
-                    <div className="d-flex flex-column align-items-center">
-                        <label htmlFor="" className="mb-5 m-content">Email
-                            <input type="email" name="email" id="email" placeholder="exemple@xyz.fr"/>
-                        </label>
-                        <label htmlFor="" className="m-content mb-5">Message
-                            <textarea name="message" id="message" cols={30} rows={10} placeholder="Message....."/>
-                        </label>
-                        <button type="submit">
-                            Envoyer
-                        </button>
-                    </div>
+                        <div className="contact-form-row">
+                            <div className="contact-form-item">
+                                <label htmlFor="nom" className="contact-label">Nom</label><br/>
+                                <input type="text" name="nom" id="nom" placeholder="Jones" className="contact-input"/>
+                            </div>
+                            <div className="contact-form-item">
+                                <label htmlFor="prenom" className="contact-label">Prénom</label><br/>
+                                <input type="text" name="prenom" id="prenom" placeholder="John" className="contact-input"/>
+                            </div>
+                        </div>
+                        <div className="d-flex flex-column align-items-center" >
+                            <label htmlFor="" className="contact-label" style={{width: '100%'}}>Email</label>
+                            <input type="email" className="contact-input" style={{width: '100%'}} name="email" id="email" placeholder="exemple@xyz.fr"/>
+                            <label htmlFor="" className="contact-label" style={{width: '100%'}}>Message</label>
+                            <textarea className="contact-input" style={{width: '100%'}} name="message" id="message" cols={30} rows={5} placeholder="Message....."/>
+                            <button type="submit" className="contact-button">Envoyer</button>
+                        </div>
                     </fieldset>
                 </form>
             </div>

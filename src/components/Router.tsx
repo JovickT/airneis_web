@@ -10,8 +10,12 @@ import Produit from './Produit';
 import Panier from './Panier';
 import MesCommandes from './MesCommandes';
 import Commande from './Commande';
-import Checkout from './Checkout';
-import Login from './Login';;
+import CheckoutLivraison from './CheckoutLivraison';
+import CheckoutPayement from './CheckoutPayement';
+import CheckoutFini from './CheckoutFini';
+import Login from './Login';
+import Connexion from './Connexion';
+import Inscription from './Inscription';
 
 
 const Rooter = () => {
@@ -19,17 +23,21 @@ const Rooter = () => {
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/:nom_categorie" element={<Categorie />} />
-            <Route path="/:nom_categorie/:nom_produit" element={<Produit />} />
+            <Route path="/categorie" element={<Categorie />} />
+            <Route path="/produits" element={<Produit />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/mentions" element={<Ml />} />
             <Route path="/about" element={<About />} />
             <Route path="/cgu" element={<CGU />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/connexion" element={<Connexion />} />
+            <Route path="/inscription" element={<Inscription />} />
             <Route path="/panier" element={<Panier />} />
             <Route path="/mesCommandes" element={<MesCommandes />} />
             <Route path="/commande" element={<Commande />} />
-            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/checkoutLivraison" element={<CheckoutLivraison />} />
+            <Route path="/checkoutPayement" element={<CheckoutPayement />} />
+            <Route path="/checkoutFini" element={<CheckoutFini />} />
         </Routes>
     </BrowserRouter>
     

@@ -1,14 +1,11 @@
-import  img1  from "../img/caroussel1.jpg";
-import  img2  from "../img/caroussel2.jpg";
-import  img3  from "../img/carousel3.jpg";
-
-//import  armoire  from "../img/armoire.jpg";
 import  canape  from "../img/canape.jpg";
 import  lit  from "../img/lit.jpg";
 import  cascade  from "../img/bannierejpg.jpg";
 import Layout from "./Layout";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
+import axios from 'axios';
 
 const Home = () =>{
 
@@ -29,18 +26,12 @@ const Home = () =>{
 
         // Autres propriétés si nécessaire
     }
-    
-    // const categorie =[
-    //     'armoire',
-    //     'canapé',
-    //     'table'
-    // ];
 
-    // const produit =[
-    //     'armoire anglaire',
-    //     'armoire allemande',
-    //     'armoire suédoise'
-    // ];
+    interface Images{
+        images:Array<string>,
+        produit: string
+    }
+    
 
     const imgcarrousel = [
         'un',
@@ -51,22 +42,59 @@ const Home = () =>{
     const [cat, setCat] = useState<Cat[]>([]);
     const [prod, setProd] = useState<Prod[]>([]);
     const [carrousel,setCarrousel] = useState(imgcarrousel);
+    const[imagesProd, setImagesProd] = useState<Images[]>([]);
 
     useEffect(() => {
+        const apiImages = `https://localhost:8000/ip`;
+
+        const randomize = (tab: []) =>{
+            var i, j, tmp;
+            for (i = tab.length - 1; i > 0; i--) {
+                j = Math.floor(Math.random() * (i + 1));
+                tmp = tab[i];
+                tab[i] = tab[j];
+                tab[j] = tmp;
+            }
+            return tab;
+        }
+        const getCookie = (name: any) => {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) {
+                const cookieValue = parts.pop()?.split(';').shift(); // Utilisation de l'opérateur de coalescence nulle (nullish coalescing operator) pour éviter l'erreur si parts.pop() est undefined
+                return cookieValue;
+            }
+            return undefined;
+        }
         // Appel à votre endpoint Symfony pour récupérer les catégories, produits et images de carrousel
-        fetch('http://127.0.0.1:8000/api/data')
+        fetch('https://localhost:8000/data')
             .then(response => response.json())
             .then(data => {
+                var melanger = randomize(data.produit);
                 setCat(data.categorie);
-                setProd(data.produit);
+                setProd(melanger);
                 // setCarouselImages(data.carouselImages);
                 console.log('data:',data);
             })
             .catch(error => console.error('Erreur lors de la récupération des données depuis le backend :', error));
+            
+            fetch(apiImages)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                setImagesProd(data);
+                console.log('Image:', data);
+                // Traiter les données reçues de l'API ici
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
     }, []); 
 
-   
-   
     return(
         <Layout>
             <div className="d-flex justify-content-center">
@@ -92,30 +120,39 @@ const Home = () =>{
             </div>
             </div>
             
-            <div className="text-center mt-4 ">
-                <span className="font-bolder">
-                    VENANT DES HAUTE TERRE D'ÉCOSSE <br/> NOS MEUBLES SONT IMMORTELS
-                </span>
-            </div>
-            <div className="row justify-content-center my-5 color-background">
+            <h1 className="titre">VENANT DES HAUTE TERRE D'ÉCOSSE <br/> NOS MEUBLES SONT IMMORTELS</h1>
+            <div className="container-img-accueil">
                 {cat && cat.length > 0 && cat.map((c, index) => (
-                    <a key={index} href={`/${encodeURIComponent(c.nom)}`} className="row text-center col-3 my-3">
-                        <img src={canape} alt="" className=" mb-2 rounded-5"/>
+                    <Link key={index} to={`/categorie?categories=${encodeURIComponent(c.nom)}`} className="txt-img-accueil row col-12 col-md-6 col-lg-3">
+                        <img src={canape} alt="" className="img-accueil"/>
                         <span className="font-bolder">{c.nom}</span>
-                    </a>
+                    </Link>
                 ))}
             </div>
-            <h1 className="text-center text-color">Les Highlanders du moment</h1>
-            <div className="row justify-content-center text-center align-items-center my-5 color-background">
-                {prod && prod.length > 0 && prod.map((p, index) => (
-                    cat[index] && (
-                        <Link key={index} to={`/${encodeURIComponent(cat[index].nom)}/${encodeURIComponent(p.nom)}`} className="row text-center col-2 my-3 mx-3">
-                            <img src={canape} alt="" className=" mb-2 rounded-5"/>
-                            <span className="font-bolder">{p.nom}</span>
-                        </Link>
-                    )
-                ))}
+            
+            <h1 className="titre">Les Highlanders du moment</h1>
+            <div className="container-img-accueil">
+                {prod.map((p, index) => {
+                    const imageProd = imagesProd.find(img => img.produit === p.nom);
+                    const imageSrc = imageProd ? `${imageProd.images[0]}` : canape;
+
+                    return (
+                        <div key={index} className="txt-img-accueil row col-12 col-md-6 col-lg-3">
+                            <Link to={`/produits?categories=${encodeURIComponent(p.categorie)}&produits=${encodeURIComponent(p.nom)}`}>
+                                <img src={imageSrc} alt={p.nom} className="img-produit mb-3 img-accueil"/>
+                            </Link>
+                            <div className="d-flex justify-content-between">
+                                <p>{p.nom}</p>
+                                <p>{p.prix}€</p>
+                            </div>
+                            <div className="text-end moving-up">
+                                {p.quantite <= 10 ? <p>Stock bientôt épuisé</p> : <p>En stock</p>}
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
+
 
         </Layout>
     )

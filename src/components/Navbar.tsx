@@ -3,8 +3,9 @@ import search from '../img/search.png'
 import shop from '../img/shop.png'
 import burger from '../img/menu.png'
 import { useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext';
+import Recherche from "./Recherche";
 
 
 const Navbar= () =>{
@@ -61,13 +62,12 @@ const Navbar= () =>{
         res = JSON.parse(affiche);
         
         console.log('mon panier :', res, '\ntaille du panier :', res.length);
-
     } else {
-        console.error('raaaaaaaah');
+        console.error('panier vide');
     }
 
-    const [compteur, setCompteur] = useState(0);
-    
+    const [showRecherche, setShowRecherche] = useState(false);
+
     const menuConnexion = user? [
         'Mes paramètre',
         'Mes commandes',
@@ -78,19 +78,30 @@ const Navbar= () =>{
         'Se déconnecter'
     ] : [
         'Se connecter',
-        "S'inscrire",
         'CGU',
         'Mention légales',
         'Contact',
         'À propos d’ÀIRNEIS',
     ]
 
-    const handleNavigation = (list: string) =>{
-        console.log('handleNavigation:',list);
+    // const[menuCo, setMenuCo] = useState(menuConnexion);
+
+    // const navigate = useNavigate();
+
+    // const handleMenu = () =>{
+    //     setMenuOpen(!menuOpen);
+    // }
+
+    // const handlePanier = () =>{
+    //     navigate("/panier");
+    // }
+
+    const handleNavigation = (list: string) => {
+        console.log('handleNavigation:', list);
         
         switch (list) {
             case 'Se connecter':
-                navigate("/login");
+                navigate("/connexion");
                 break;
             case 'Se déconnecter':
                 handleLogout();
@@ -113,33 +124,52 @@ const Navbar= () =>{
                 console.error('ce lien n\'existe pas');
                 break;
         }
-        setMenuOpen(false);
-    };
+    }
 
+    const handleShowRecherche = () => {
+        setShowRecherche(true);
+    }
 
-    return(
+    const handleCloseRecherche = () => {
+        setShowRecherche(false);
+    }
+
+    return (
         <>
-           
-            <nav className='d-flex bg-light position-fixed top-0 w-100 z-3'>
-                <a className='mt-2' href="/"><img src={logo} alt="logo" /></a>
-                <div className="d-flex web-nav justify-content-end">
-                    <ul className="d-flex me-3 mt-2">
-                        <li className='me-3'><img src={search} alt="recherche" className='logo-size'/></li>
-                        <li className='me-3'><img src={shop} alt="panier" className='logo-size-panier' onClick={handlePanier}/></li>
-                        <div className='bg-danger text-light position-absolute compteur-panier'><span className='shop-cart'>{res.length}</span></div>
-                        <li ><img src={burger} alt="menu" className='logo-size' onClick={handleMenu}/></li>
+            <nav className='head'>
+                <a className='head-logo' href="/"><img src={logo} alt="logo" /></a>
+                <div className="head-taille">
+                    <ul className="head-box-btn">
+                        <li className='logo-recherche'>
+                            <img src={search} alt="recherche" className='logo-size' onClick={handleShowRecherche} />
+                        </li>
+                        <li className='logo-panier'>
+                            <img src={shop} alt="panier" className='logo-size-panier' onClick={handlePanier} />
+                            <div className='compteur-panier'>
+                                <span className='shop-cart'>{res.length}</span>
+                            </div>
+                        </li>
+                        <li>
+                            <img src={burger} alt="menu" className='logo-size' onClick={handleMenu} />
+                        </li>
                     </ul>
                 </div>
             </nav>
 
+
             {menuOpen && (
-                <div className='text-center bg-light slide-menu'>
+                <div className='head-deroulant'>
                     <ul>
-                        {menuCo.map((list,index) =><li key={index} className='point-menu me-3 font-bolder' onClick={() => handleNavigation(list)}>{list}</li>)}
+                        {menuCo.map((list, index) => 
+                            <li key={index} className='head-deroulant-link' onClick={() => handleNavigation(list)}>
+                                {list}
+                            </li>
+                        )}
                     </ul>
                 </div>
             )}
 
+            <Recherche show={showRecherche} handleClose={handleCloseRecherche} />
         </>
     )
 }
