@@ -14,6 +14,8 @@ import CheckoutLivraison from './CheckoutLivraison';
 import CheckoutPayement from './CheckoutPayement';
 import CheckoutFini from './CheckoutFini';
 import Login from './Login';
+import Connexion from './Connexion';
+import Inscription from './Inscription';
 
 
 const Rooter = () => {
@@ -28,6 +30,8 @@ const Rooter = () => {
             <Route path="/about" element={<About />} />
             <Route path="/cgu" element={<CGU />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/connexion" element={<Connexion />} />
+            <Route path="/inscription" element={<Inscription />} />
             <Route path="/panier" element={<Panier />} />
             <Route path="/mesCommandes" element={<MesCommandes />} />
             <Route path="/commande" element={<Commande />} />

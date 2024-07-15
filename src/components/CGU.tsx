@@ -156,7 +156,7 @@ const CGU = () =>{
                         Pour toute question relative à l’application des présentes CGU, vous pouvez joindre l’éditeur aux
                         coordonnées inscrites à l’ARTICLE 1.
                         </p>
-                        <p>Rédigé sur http://legalplace.fr</p>
+                        <p>Rédigé sur <a href="http://legalplace.fr"className="color-link">http://legalplace.fr</a></p>
                     </div>
                 </div>
             </div>

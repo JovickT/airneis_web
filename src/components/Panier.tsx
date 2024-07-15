@@ -64,13 +64,13 @@ const Panier = () =>{
                         <div className="col">
                             {add.map((r,index) =><div key={index} className="mb-4">
                                 <div className="d-flex justify-content-end">
-                                    <img src={r.image} alt="lit" className="w-19 mx-4 "/>
+                                    <img src={lit} alt="lit" className="w-19 mx-4 "/>
                                     <div className="col-4">
                                         <span className="font-bolder">{r.nom}</span>
                                         <p>{r.description}</p>
                                     </div>
-                                    <div className="d-flex flex-column mx-5">
-                                        <span className="mb-3">{r.prix}€</span>
+                                    <div className="d-flex flex-md-column flex-row mx-5 align-items-md-center align-items-start">
+                                        <span className="mb-3 panier-detail">{r.prix}€</span>
                                         <input
                                             type="number"
                                             name="quantite"
@@ -78,32 +78,38 @@ const Panier = () =>{
                                             value={r.quantite}
                                             min="1"
                                             onChange={(e) => handleQuantityChange(index, parseInt(e.target.value))}
-                                            className="w-19 mb-3"
+                                            className="mb-3 panier-nombre panier-detail"
                                         />
-                                        <p className="cursor"><FontAwesomeIcon icon={faTrashAlt} onClick={() => handleRemove(index)} /></p>
+                                        <p className="cursor">
+                                            <FontAwesomeIcon icon={faTrashAlt} onClick={() => handleRemove(index)} />
+                                        </p>
                                     </div>
                                 </div>
-                            </div>)}
-                        </div>
-                        <div className="col mx-5">
-                            <div className="mb-5">
-                                <div className="d-flex justify-content-around">
+                                <hr/>
+                            </div>
+                        )}
+                    </div>
+                    <div className="col mx-5">
+                        <div className="mb-5">
+                            <div className="d-flex flex-md-row flex-column justify-content-around gap-2">
+                                <div className="d-flex flex-column align-items-center align-items-md-start">
                                     <span className="font-bolder">TOTAL</span>
-                                    <span className="font-bolder">TVA</span>
+                                    <span>{total.toFixed(2)}<i>€</i></span>
                                 </div>
-                                <div className="d-flex justify-content-around">
-                                    <span>{total.toFixed(2)}<i>€</i></span> 
+                                <div className="d-flex flex-column align-items-center align-items-md-start">
+                                    <span className="font-bolder">TVA</span>
                                     <span>{(total*0.2).toFixed(2)} <i>€</i></span>
                                 </div>
                             </div>
-                            <div className="text-center">
-                                <button>PASSER LA COMMANDE</button>
-                            </div>
-                        
+                        </div>
+                        <div className="text-center mt-4 mt-md-0">
+                            <button className="panier-button">PASSER LA COMMANDE</button>
                         </div>
                     </div>
-                
+
+                </div>
             </div>
+
         </Layout>
     )
 }

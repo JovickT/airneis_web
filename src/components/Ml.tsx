@@ -56,7 +56,7 @@ const Ml = () =>{
                         telles que notamment prévues par le Code de la propriété intellectuelle et le Code civil.
                         Pour plus d’informations, se reporter aux CGU du site airneis.com accessible à la rubrique "CGU"
                         </p>
-                        <p>Rédigé sur http://legalplace.fr</p><br/>
+                        <p>Rédigé sur <a href="http://legalplace.fr"className="color-link">http://legalplace.fr</a></p>
                     </div>
                 </div>
             </div>

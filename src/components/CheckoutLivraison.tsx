@@ -1,9 +1,7 @@
 import Layout from "./Layout";
 import { Link } from 'react-router-dom';
 
-
 const CheckoutLivraison = () => {
-
   return (
     <Layout>
       <div className="bg-page">
@@ -13,9 +11,9 @@ const CheckoutLivraison = () => {
             <h1 className="text-color font-bolder mb-5">Livraison</h1>
           </div>
           <div className="row">
-          <div className="col-md-6" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h2>Informations de livraison</h2>
-              <form className="checkout-form" style={{maxHeight: '35%', overflowY: 'scroll', width: 'webkit-fill-available'}}>
+            <div className="col-md-6" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <h2>Informations de livraison</h2>
+              <form className="checkout-form">
                 <label className="checkout-label">Prénom :</label><br/>
                 <input type="text" className="checkout-input"/>
                 <label className="checkout-label">Nom :</label><br/>
@@ -29,11 +27,11 @@ const CheckoutLivraison = () => {
                 <label className="checkout-label">Région :</label><br/>
                 <input type="text" className="checkout-input"/>
                 <label className="checkout-label">Code Postal :</label><br/>
-                <input type="text" className="checkout-input"/>
+                <input type="number" className="checkout-input"/>
                 <label className="checkout-label">Pays :</label><br/>
                 <input type="text" className="checkout-input"/>
                 <label className="checkout-label">Téléphone :</label><br/>
-                <input type="text" className="checkout-input"/>
+                <input type="number" className="checkout-input"/>
               </form>
             </div>
             <div className="col-md-6" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -44,8 +42,8 @@ const CheckoutLivraison = () => {
           </div>
         </div>
       </div>
-      </Layout>
-    );
+    </Layout>
+  );
 };
 
 export default CheckoutLivraison;
