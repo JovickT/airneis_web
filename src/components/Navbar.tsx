@@ -3,8 +3,8 @@ import search from '../img/search.png'
 import shop from '../img/shop.png'
 import burger from '../img/menu.png'
 import { useNavigate } from "react-router-dom";
-import { useAuth } from '../context/AuthContext';
 import { useEffect, useState } from 'react'
+import { useAuth } from '../context/AuthContext';
 import Recherche from "./Recherche";
 
 
@@ -40,13 +40,13 @@ const Navbar= () =>{
     }, [isAuthenticated]);
 
 
-    // const handleMenu = () =>{
-    //     setMenuOpen(!menuOpen);
-    // }
+    const handleMenu = () =>{
+        setMenuOpen(!menuOpen);
+    }
     
-    // const handlePanier = () =>{
-    //     navigate("/panier");
-    // }
+    const handlePanier = () =>{
+        navigate("/panier");
+    }
     
     const handleLogout = async () => {
         if (logout) {
@@ -68,10 +68,9 @@ const Navbar= () =>{
         console.error('panier vide');
     }
 
-    // const [menuOpen, setMenuOpen] = useState(false);
-    const [compteur, setCompteur] = useState(0);
-    
-    const menuConnexion = isLoggedIn ? [
+    const [showRecherche, setShowRecherche] = useState(false);
+
+    const menuConnexion = user? [
         'Mes paramètre',
         'Mes commandes',
         'CGU',
@@ -87,17 +86,17 @@ const Navbar= () =>{
         'À propos d’ÀIRNEIS',
     ]
 
-    const[menuCo, setMenuCo] = useState(menuConnexion);
+    // const[menuCo, setMenuCo] = useState(menuConnexion);
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    const handleMenu = () =>{
-        setMenuOpen(!menuOpen);
-    }
+    // const handleMenu = () =>{
+    //     setMenuOpen(!menuOpen);
+    // }
 
-    const handlePanier = () =>{
-        navigate("/panier");
-    }
+    // const handlePanier = () =>{
+    //     navigate("/panier");
+    // }
 
     const handleNavigation = (list: string) => {
         console.log('handleNavigation:', list);
@@ -127,9 +126,7 @@ const Navbar= () =>{
                 console.error('ce lien n\'existe pas');
                 break;
         }
-        setMenuOpen(false);
-    };
-
+    }
 
     const handleShowRecherche = () => {
         setShowRecherche(true);

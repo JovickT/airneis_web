@@ -77,6 +77,7 @@ const Login = ()=>{
                     <span className="bg-animate2"></span>
                 
                     <div className="form-box login animation">
+                        {/* <h2 className="animation" style={{'--i':'0','--j':'20'} as React.CSSProperties}> Connexion</h2> */}
                         <form action="#" id="login" onSubmit={handleLogin}>
                             <div className="input-box animation" style={{'--i':'1','--j':'21'} as React.CSSProperties}>
                                 <input type="text" name="username" value={username} onChange={handleUsernameChange}
