@@ -3,19 +3,19 @@ import search from '../img/search.png'
 import shop from '../img/shop.png'
 import burger from '../img/menu.png'
 import { useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from 'react'
 import { useAuth } from '../context/AuthContext';
 import { useEffect, useState } from 'react'
-import Cookies from 'js-cookie';
 import Recherche from "./Recherche";
 
 
 const Navbar= () =>{
+
     const [menuOpen, setMenuOpen] = useState(false);
     const { isAuthenticated, logout, user } = useAuth();
-    const navigate = useNavigate();
     const [error, setError] = useState<string | null>(null);
-    const [menuCo, setMenuCo] = useState<string[]>([]);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [showRecherche, setShowRecherche] = useState(false);
+    // const [menuCo, setMenuCo] = useState<string[]>([]);
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -40,13 +40,13 @@ const Navbar= () =>{
     }, [isAuthenticated]);
 
 
-    const handleMenu = () =>{
-        setMenuOpen(!menuOpen);
-    }
+    // const handleMenu = () =>{
+    //     setMenuOpen(!menuOpen);
+    // }
     
-    const handlePanier = () =>{
-        navigate("/panier");
-    }
+    // const handlePanier = () =>{
+    //     navigate("/panier");
+    // }
     
     const handleLogout = async () => {
         if (logout) {
@@ -68,7 +68,7 @@ const Navbar= () =>{
         console.error('panier vide');
     }
 
-    const [menuOpen, setMenuOpen] = useState(false);
+    // const [menuOpen, setMenuOpen] = useState(false);
     const [compteur, setCompteur] = useState(0);
     
     const menuConnexion = isLoggedIn ? [

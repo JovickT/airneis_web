@@ -26,16 +26,15 @@ const Recherche: React.FC<RechercheProps> = ({ show, handleClose }) => {
     const [categories, setCategories] = useState<Categories[]>([]);
 
     useEffect(() => {
-    fetch('https://localhost:8000/filtre')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                setMaterieaux(data.matearieaux);
-                setCategories(data.categorie);
-
-            })
-            .catch(error => console.error('Erreur lors de la récupération des données depuis le backend :', error));
-            
+        fetch('https://localhost:8000/filtre')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            setMaterieaux(data.Materiaux);
+            setCategories(data.categorie);
+        })
+        .catch(error => console.error('Erreur lors de la récupération des données depuis le backend :', error));
+    
     }, []); 
 
     const handleMaterialChange = (material: Materieaux) => {
@@ -110,18 +109,16 @@ const Recherche: React.FC<RechercheProps> = ({ show, handleClose }) => {
                             </div>
                             <div className="form-group">
                                 <label>Matériaux</label>
-                                { 
-                                    materieaux && materieaux.map((mat, index) => (
-                                        <div className="form-check" key={index}>
-                                            <input 
-                                                type="checkbox" 
-                                                className="form-check-input" 
-                                                id={mat.nom}
-                                            />
-                                            <label className="form-check-label" htmlFor={mat.nom}>{mat.nom}</label>
-                                        </div>
-                                    ))
-                                }
+                                {materieaux && materieaux.map((mat, index) => (
+                                    <div className="form-check" key={index}>
+                                        <input 
+                                            type="checkbox" 
+                                            className="form-check-input" 
+                                            id={mat.nom}
+                                        />
+                                        <label className="form-check-label" htmlFor={mat.nom}>{mat.nom}</label>
+                                    </div>
+                                ))}
                             </div>
                             <div className="form-group form-check">
                                 <input 
