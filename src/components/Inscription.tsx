@@ -89,7 +89,11 @@ const Inscription = () => {
             <div className="col-md-6">
               <form action="#" className="inscription-form">
                 <div className="mb-3">
-                  <label className="inscription-label">Nom complet</label>
+                  <label className="inscription-label">Nom</label>
+                  <input type="text" className="inscription-input" required />
+                </div>
+                <div className="mb-3">
+                  <label className="inscription-label">Prénom</label>
                   <input type="text" className="inscription-input" required />
                 </div>
                 <div className="mb-3">
