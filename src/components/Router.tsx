@@ -13,7 +13,7 @@ import Commande from './Commande';
 import CheckoutLivraison from './CheckoutLivraison';
 import CheckoutPayement from './CheckoutPayement';
 import CheckoutFini from './CheckoutFini';
-import Login from './Login';
+import Parametres from './Parametres';
 import Connexion from './Connexion';
 import Inscription from './Inscription';
 
@@ -29,7 +29,7 @@ const Rooter = () => {
             <Route path="/mentions" element={<Ml />} />
             <Route path="/about" element={<About />} />
             <Route path="/cgu" element={<CGU />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/parametres" element={<Parametres/>} />
             <Route path="/connexion" element={<Connexion />} />
             <Route path="/inscription" element={<Inscription />} />
             <Route path="/panier" element={<Panier />} />

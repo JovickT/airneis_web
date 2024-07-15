@@ -69,7 +69,7 @@ const Navbar= () =>{
     const [showRecherche, setShowRecherche] = useState(false);
 
     const menuConnexion = user? [
-        'Mes paramètre',
+        'Mes paramètres',
         'Mes commandes',
         'CGU',
         'Mention légales',
@@ -84,24 +84,15 @@ const Navbar= () =>{
         'À propos d’ÀIRNEIS',
     ]
 
-    // const[menuCo, setMenuCo] = useState(menuConnexion);
-
-    // const navigate = useNavigate();
-
-    // const handleMenu = () =>{
-    //     setMenuOpen(!menuOpen);
-    // }
-
-    // const handlePanier = () =>{
-    //     navigate("/panier");
-    // }
-
     const handleNavigation = (list: string) => {
         console.log('handleNavigation:', list);
         
         switch (list) {
             case 'Se connecter':
                 navigate("/connexion");
+                break;
+            case 'Se déconnecter':
+                handleLogout();
                 break;
             case 'Se déconnecter':
                 handleLogout();
