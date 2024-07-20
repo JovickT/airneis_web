@@ -94,7 +94,7 @@ const Home = () =>{
             <div className="container-img-accueil">
                 {cat && cat.length > 0 && cat.map((c, index) => (
                     <Link key={index} to={`/categorie?categories=${encodeURIComponent(c.nom)}`} className="txt-img-accueil row col-12 col-md-6 col-lg-3">
-                        <img src={c.images} alt="" className="img-accueil"/>
+                        <img src={canape} alt="" className="img-accueil"/>
                         <span className="font-bolder">{c.nom}</span>
                     </Link>
                 ))}
