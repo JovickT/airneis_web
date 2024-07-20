@@ -2,7 +2,7 @@ import logo from '../img/logo.png'
 import search from '../img/search.png'
 import shop from '../img/shop.png'
 import burger from '../img/menu.png'
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext';
 import Recherche from "./Recherche";
@@ -14,6 +14,9 @@ const Navbar= () =>{
     const navigate = useNavigate();
     const [error, setError] = useState<string | null>(null);
     const [menuCo, setMenuCo] = useState<string[]>([]);
+    const location = useLocation();
+    const infoCommande = localStorage.getItem('info-livrasion');
+    const infoPaiement = localStorage.getItem('clientSecret');
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -48,6 +51,12 @@ const Navbar= () =>{
     
     const handleLogout = async () => {
         if (logout) {
+
+            if(infoCommande || infoPaiement){
+                localStorage.removeItem('info-livraison');
+                localStorage.removeItem('clientSecret');
+            }
+
             try {
                 await logout();
                 navigate('/');
@@ -110,6 +119,9 @@ const Navbar= () =>{
                 break;
             case 'À propos d’ÀIRNEIS':
                 navigate("/about");
+                break;
+            case 'Mes commandes':
+                navigate("/MesCommandes");
                 break;
             default:
                 console.error('ce lien n\'existe pas');

@@ -30,7 +30,7 @@ const Recherche: React.FC<RechercheProps> = ({ show, handleClose }) => {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                setMaterieaux(data.matearieaux);
+                setMaterieaux(data.Materiaux);
                 setCategories(data.categorie);
 
             })
@@ -58,13 +58,38 @@ const Recherche: React.FC<RechercheProps> = ({ show, handleClose }) => {
         return null;
     }
 
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+        const form = e.currentTarget;
+        const stock = form.elements.namedItem('stock') as HTMLInputElement | null;
+
+        let tab = [];
+        for (let i = 0; i < materieaux.length; i++) {
+            const test = form.elements.namedItem('mat_'+i) as HTMLInputElement | null;
+            if (test && test.checked) {
+                tab.push(test.id); // Assurez-vous d'ajouter la valeur ou l'objet nécessaire
+            }
+        }
+        if(stock && tab.length > 0){
+            const formData = {
+                stock: stock.checked,
+                materiaux: tab
+            };
+
+            console.log("formData:",formData,"\nform:",form);
+        }
+      
+
+        
+    }
+
     return (
         <div className="modal show" tabIndex={-1} role="dialog" style={{ display: 'block' }}>
             <div className="modal-dialog" role="document">
                 <div className="modal-content">
                     
                     <div className="modal-body">
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <div className="recherche-header">
                                 <div className="header-buttons">
                                     <button type="button" className="btn btn-secondary" onClick={() => { setNomProduit(''); setMinPrice(''); setMaxPrice(''); setMaterieaux([]); setInStock(false); }}>Réinitialiser</button>
@@ -114,6 +139,7 @@ const Recherche: React.FC<RechercheProps> = ({ show, handleClose }) => {
                                     <div className="form-check" key={index}>
                                         <input 
                                             type="checkbox" 
+                                            name={'mat_'+index}
                                             className="form-check-input" 
                                             id={mat.nom}
                                         />
@@ -126,12 +152,13 @@ const Recherche: React.FC<RechercheProps> = ({ show, handleClose }) => {
                                     type="checkbox" 
                                     className="form-check-input" 
                                     id="inStock" 
+                                    name="stock"
                                     checked={inStock} 
                                     onChange={(e) => setInStock(e.target.checked)} 
                                 />
-                                <label className="form-check-label" htmlFor="inStock">En stock</label>
+                                <label className="form-check-label"  htmlFor="inStock">En stock</label>
                             </div>
-                            <button type="button" className="btn btn-primary" onClick={handleSearch}>Rechercher</button>
+                            <button type="submit" className="btn btn-primary">Rechercher</button>
                         </form>
                     </div>
                 </div>

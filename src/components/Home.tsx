@@ -11,7 +11,7 @@ const Home = () =>{
 
     interface Cat {
         nom: string,
-        image: string
+        images: string
         // Autres propriétés si nécessaire
     }
     
@@ -24,13 +24,8 @@ const Home = () =>{
         prix: number,
         quantite: number,
         reference: string,
-
+        images: string
         // Autres propriétés si nécessaire
-    }
-
-    interface Images{
-        images:Array<string>,
-        produit: string
     }
     
 
@@ -43,10 +38,8 @@ const Home = () =>{
     const [cat, setCat] = useState<Cat[]>([]);
     const [prod, setProd] = useState<Prod[]>([]);
     const [carrousel,setCarrousel] = useState(imgcarrousel);
-    const[imagesProd, setImagesProd] = useState<Images[]>([]);
 
     useEffect(() => {
-        const apiImages = `https://localhost:8000/ip`;
 
         const randomize = (tab: []) =>{
             var i, j, tmp;
@@ -58,15 +51,7 @@ const Home = () =>{
             }
             return tab;
         }
-        const getCookie = (name: any) => {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) {
-                const cookieValue = parts.pop()?.split(';').shift(); // Utilisation de l'opérateur de coalescence nulle (nullish coalescing operator) pour éviter l'erreur si parts.pop() est undefined
-                return cookieValue;
-            }
-            return undefined;
-        }
+
         // Appel à votre endpoint Symfony pour récupérer les catégories, produits et images de carrousel
         fetch('https://localhost:8000/data')
             .then(response => response.json())
@@ -78,22 +63,6 @@ const Home = () =>{
                 console.log('data:',data);
             })
             .catch(error => console.error('Erreur lors de la récupération des données depuis le backend :', error));
-            
-            fetch(apiImages)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                setImagesProd(data);
-                console.log('Image:', data);
-                // Traiter les données reçues de l'API ici
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
-            });
     }, []); 
 
     return(
@@ -125,7 +94,7 @@ const Home = () =>{
             <div className="container-img-accueil">
                 {cat && cat.length > 0 && cat.map((c, index) => (
                     <Link key={index} to={`/categorie?categories=${encodeURIComponent(c.nom)}`} className="txt-img-accueil row col-12 col-md-6 col-lg-3">
-                        <img src={c.image} alt="" className="img-accueil"/>
+                        <img src={c.images} alt="" className="img-accueil"/>
                         <span className="font-bolder">{c.nom}</span>
                     </Link>
                 ))}
@@ -134,13 +103,13 @@ const Home = () =>{
             <h1 className="titre">Les Highlanders du moment</h1>
             <div className="container-img-accueil">
                 {prod.map((p, index) => {
-                    const imageProd = imagesProd.find(img => img.produit === p.nom);
-                    const imageSrc = imageProd ? `${imageProd.images[0]}` : canape;
+                    // const imageProd = imagesProd.find(img => img.produit === p.nom);
+                    // const imageSrc = imageProd ? `${imageProd.images[0]}` : canape;
 
                     return (
                         <div key={index} className="txt-img-accueil row col-12 col-md-6 col-lg-3">
                             <Link to={`/produits?categories=${encodeURIComponent(p.categorie)}&produits=${encodeURIComponent(p.nom)}`}>
-                                <img src={imageSrc} alt={p.nom} className="img-produit mb-3 img-accueil"/>
+                                <img src={p.images} alt={p.nom} className="img-produit mb-3 img-accueil"/>
                             </Link>
                             <div className="d-flex justify-content-between">
                                 <p>{p.nom}</p>

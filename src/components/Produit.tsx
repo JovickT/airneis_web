@@ -17,7 +17,7 @@ const Produit = () =>{
         date_creation: string,
         description: string,
         marque: Object,
-        image: string,
+        images: string,
         nom: string,
         prix: number,
         quantite: number,
@@ -25,7 +25,7 @@ const Produit = () =>{
     }
 
     //permet d'avoir l'état du panier et le mettre à jour
-    const [add, setAdd] = useState<{ nom: string; prix: number; description: string; quantite: number;}[]>(() => {
+    const [add, setAdd] = useState<{ nom: string; prix: number; description: string; quantite: number; image: string}[]>(() => {
 
         // Récupérer le contenu du panier depuis le localStorage
         const panierString = localStorage.getItem('panier');
@@ -42,6 +42,13 @@ const Produit = () =>{
     const [produitSimilaire,setProduitSimilaire] = useState<Prod[]>([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
+
+    const [lePanier, setLePanier] = useState(() => {
+        const savedPanier = localStorage.getItem('panier');
+        return savedPanier ? JSON.parse(savedPanier) : [];
+    });
+
+    const leUser = JSON.parse(localStorage.getItem('user') || '[]');
 
     useEffect(() => {
 
@@ -91,18 +98,20 @@ const Produit = () =>{
         'categorie': theProd[0].categorie.nom,
         'prix': theProd[0].prix,
         'description': theProd[0].description,
-        'quantite': theProd[0].quantite
+        'quantite': theProd[0].quantite,
+        'image': theProd[0].images,
     } : {
         'nom': '',
         'categorie': '',
         'prix': 0,
         'description': '',
-        'quantite': 0
+        'quantite': 0,
+        'image': ''
     };
 
     const [carrousel,setCarrousel] = useState(imgcarrousel);
  
-    const handleAddStorage = () =>{
+    const handleAddStorage = async() =>{
 
         const produitExiste = add.find(item => item.nom === produitPage.nom);
         if (produitExiste) {
@@ -119,7 +128,44 @@ const Produit = () =>{
             setAdd(updatedAdd);
             localStorage.setItem('panier', JSON.stringify(updatedAdd));
         }
+
+      
     }
+
+    useEffect(() => {
+        if (add && (leUser !== undefined || leUser.length !== null)) {
+          const sendPanierData = async () => {
+            try {
+              const encodedLePanier = encodeURIComponent(JSON.stringify(add));
+              const encodedLeUser = encodeURIComponent(JSON.stringify(leUser));
+    
+              console.log('ajoute dans le panier dans la bdd:', encodedLePanier);
+    
+              const url = `https://localhost:8000/panier?test=${encodedLePanier}&user=${encodedLeUser}`;
+    
+              const response = await fetch(url, {
+                method: 'GET', // Utilisez POST si nécessaire
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                credentials: 'include', // Ajoute les credentials pour envoyer les cookies
+              });
+    
+              if (!response.ok) {
+                throw new Error('Erreur lors de l\'envoi des données au serveur');
+              }
+    
+              const result = await response.json();
+              console.log('Réponse du serveur:', result?.success);
+              localStorage.setItem('panier', JSON.stringify(result?.success));
+            } catch (error) {
+              console.error('Erreur:', error);
+            }
+          };
+    
+          sendPanierData();
+        }
+      }, [add, leUser]);
 
     const handleCloseModal = () => {
         setShowModal(false);
@@ -240,7 +286,7 @@ const Produit = () =>{
                         <h1>PRODUIT SIMILAIRE</h1>
                         <div className="row justify-content-center produits-similaires">
                             {produitSimilaire.map((p, index) => <Link key={index} to={`/produits?categories=${encodeURIComponent(produitPage.categorie)}&produits=${encodeURIComponent(p.nom)}`} className="row text-center text-decoration-none col-3 my-3 produit-similaire-item">
-                                <img src={p.image} alt="" className="mb-2 rounded-5" />
+                                <img src={p.images} alt="" className="mb-2 rounded-5" />
                                 <span className="text-dark font-bolder">{p.nom}</span>
                             </Link>
                             )}
