@@ -1,81 +1,88 @@
 import Layout from "./Layout";
-import React, { useEffect, useState, FormEvent } from "react";
-import axios from "axios";
-import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState,ChangeEvent, FormEvent } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = Cookies.get("jwt_token");
-    if (token) {
-      navigate("/");
-    }
-  }, [navigate]);
-
-  const [email, setEmail] = useState("");
-  const [mdp, setMdp] = useState("");
+  const { login } = useAuth(); // Assurez-vous que useAuth renvoie la fonction login
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const credentials = { email: email, mot_de_passe: mdp };
+  const [lePanier, setLePanier] = useState(() => {
+    const savedPanier = localStorage.getItem('panier');
+    return savedPanier ? JSON.parse(savedPanier) : [];
+  });
 
-    try {
-      const response = await axios.post(
-        "https://127.0.0.1:8000/api/login_check",
-        credentials,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+  const leUser = JSON.parse(localStorage.getItem('user') || '[]');
 
-      const token = response.data.token;
-      Cookies.set("jwt_token", token);
-      console.log("Authentification réussie");
-      setSuccessMessage("Connexion réussie");
+   
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
       setError(null);
-      navigate("/");
-    } catch (error) {
-      //setError(error.response.data.message || 'Une erreur est survenue');
-      setSuccessMessage(null);
-    }
-  };
 
-  useEffect(() => {
-    const wrapper = document.querySelector(".wrapper") as HTMLDivElement;
-    const registerLink = document.querySelector(
-      ".register-link"
-    ) as HTMLAnchorElement | null;
-    const loginLink = document.querySelector(
-      ".login-link"
-    ) as HTMLAnchorElement | null;
-
-    if (wrapper && registerLink) {
-      registerLink.onclick = () => {
-        wrapper.classList.add("active");
-      };
-    }
-    if (wrapper && loginLink) {
-      loginLink.onclick = () => {
-        wrapper.classList.remove("active");
-      };
-    }
-
-    // Nettoyage des effets lors du démontage du composant
-    return () => {
-      if (registerLink) {
-        registerLink.onclick = null; // Supprimer l'événement onclick
+      if (!login) {
+        setError("Erreur de configuration de l'authentification");
+        return;
       }
-      if (loginLink) {
-        loginLink.onclick = null; // Supprimer l'événement onclick
+
+      let from = location.state?.from || '/';
+      console.log('location:', from);
+      if (from === '/checkoutLivraison') {
+        navigate(from);
+      } else {
+        navigate('/');
       }
+
     };
-  }, []);
+
+    useEffect(() => {
+      if (lePanier.length > 0 && (leUser !== undefined || leUser.length !== null)) {
+        const sendPanierData = async () => {
+          try {
+            const encodedLePanier = encodeURIComponent(JSON.stringify(lePanier));
+            const encodedLeUser = encodeURIComponent(JSON.stringify(leUser));
+  
+  
+            const url = `https://localhost:8000/panier?test=${encodedLePanier}&user=${encodedLeUser}`;
+  
+            const response = await fetch(url, {
+              method: 'GET', // Utilisez POST si nécessaire
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              credentials: 'include', // Ajoute les credentials pour envoyer les cookies
+            });
+  
+            if (!response.ok) {
+              throw new Error('Erreur lors de l\'envoi des données au serveur');
+            }
+  
+            const result = await response.json();
+            console.log('Réponse du serveur:', result?.success);
+            localStorage.setItem('panier', JSON.stringify(result?.success));
+          } catch (error) {
+            console.error('Erreur:', error);
+          }
+        };
+  
+        sendPanierData();
+      }
+    }, [lePanier, leUser]);
+
+ 
+
+
+  const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setUsername(e.target.value);
+    };
+    
+    const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value);
+    };
 
   return (
     <Layout>
@@ -96,21 +103,23 @@ const Login = () => {
                 <div className="mb-3">
                   <label className="connexion-label">Email</label>
                   <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    type="text"
+                    name="username" 
+                    value={username} 
+                    onChange={handleUsernameChange}
                     required
                     className="connexion-input"
                   />
                 </div>
                 <div className="mb-3">
                   <label className="connexion-label">Mot de passe</label>
-                  <input
-                    type="password"
-                    value={mdp}
-                    onChange={(e) => setMdp(e.target.value)}
-                    required
+                  <input 
+                    type="password" 
+                    name="password" 
+                    value={password} 
+                    onChange={handlePasswordChange}
                     className="connexion-input" 
+                    required  
                   />
                 </div>
                 <button type="submit" form="login" className="connexion-button">

@@ -2,28 +2,70 @@ import logo from '../img/logo.png'
 import search from '../img/search.png'
 import shop from '../img/shop.png'
 import burger from '../img/menu.png'
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react'
-import Cookies from 'js-cookie';
+import { useAuth } from '../context/AuthContext';
 import Recherche from "./Recherche";
 
-const Navbar = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+const Navbar= () =>{
+    const [menuOpen, setMenuOpen] = useState(false);
+    const { isAuthenticated, logout, user } = useAuth();
+    const navigate = useNavigate();
+    const [error, setError] = useState<string | null>(null);
+    const [menuCo, setMenuCo] = useState<string[]>([]);
+    const location = useLocation();
+    const infoCommande = localStorage.getItem('info-livrasion');
+    const infoPaiement = localStorage.getItem('clientSecret');
 
     useEffect(() => {
-        const token = Cookies.get('jwt_token');
-        if (token) {
-            setIsLoggedIn(true);
+        if (isAuthenticated) {
+            setMenuCo([
+                'Mes paramètres',
+                'Mes commandes',
+                'CGU',
+                'Mentions légales',
+                'Contact',
+                'À propos d’ÀIRNEIS',
+                'Se déconnecter'
+            ]);
+        } else {
+            setMenuCo([
+                'Se connecter',
+                'CGU',
+                'Mentions légales',
+                'Contact',
+                'À propos d’ÀIRNEIS',
+            ]);
         }
-    }, []);
+    }, [isAuthenticated]);
 
-    const handleLogout = () => {
-        Cookies.remove('jwt_token');
-        setIsLoggedIn(false);
-        navigate('/');
+
+    const handleMenu = () =>{
+        setMenuOpen(!menuOpen);
     }
+    
+    const handlePanier = () =>{
+        navigate("/panier");
+    }
+    
+    const handleLogout = async () => {
+        if (logout) {
 
-    const affiche = localStorage.getItem('panier');
+            if(infoCommande || infoPaiement){
+                localStorage.removeItem('info-livraison');
+                localStorage.removeItem('clientSecret');
+            }
+
+            try {
+                await logout();
+                navigate('/');
+            } catch (error) {
+                console.error('Erreur lors de la déconnexion', error);
+            }
+        }
+    };
+    const affiche  = localStorage.getItem('panier');
     var res: any = [];
     if (affiche !== null) {
         res = JSON.parse(affiche);
@@ -33,11 +75,10 @@ const Navbar = () => {
         console.error('panier vide');
     }
 
-    const [menuOpen, setMenuOpen] = useState(false);
     const [showRecherche, setShowRecherche] = useState(false);
 
-    const menuConnexion = isLoggedIn ? [
-        'Mes paramètre',
+    const menuConnexion = user? [
+        'Mes paramètres',
         'Mes commandes',
         'CGU',
         'Mention légales',
@@ -52,24 +93,15 @@ const Navbar = () => {
         'À propos d’ÀIRNEIS',
     ]
 
-    const [menuCo, setMenuCo] = useState(menuConnexion);
-
-    const navigate = useNavigate();
-
-    const handleMenu = () => {
-        setMenuOpen(!menuOpen);
-    }
-
-    const handlePanier = () => {
-        navigate("/panier");
-    }
-
     const handleNavigation = (list: string) => {
         console.log('handleNavigation:', list);
         
         switch (list) {
             case 'Se connecter':
                 navigate("/connexion");
+                break;
+            case 'Se déconnecter':
+                handleLogout();
                 break;
             case 'Se déconnecter':
                 handleLogout();
@@ -87,6 +119,9 @@ const Navbar = () => {
                 break;
             case 'À propos d’ÀIRNEIS':
                 navigate("/about");
+                break;
+            case 'Mes commandes':
+                navigate("/MesCommandes");
                 break;
             default:
                 console.error('ce lien n\'existe pas');

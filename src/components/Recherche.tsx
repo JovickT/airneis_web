@@ -108,6 +108,7 @@ const Recherche: React.FC<RechercheProps> = ({ show, handleClose }) => {
                 <div className="modal-content">
                     <div className="modal-body">
                         <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit}>
                             <div className="recherche-header">
                                 <div className="header-buttons">
                                     <button type="button" className="recherche-button" onClick={() => { setNomProduit(''); setMinPrice(''); setMaxPrice(''); setMaterieaux([]); setInStock(false); }}>Réinitialiser</button>
@@ -185,9 +186,11 @@ const Recherche: React.FC<RechercheProps> = ({ show, handleClose }) => {
                                     className="form-check-input" 
                                     id="inStock" 
                                     name="stock"
+                                    name="stock"
                                     checked={inStock} 
                                     onChange={(e) => setInStock(e.target.checked)} 
                                 />
+                                <label className="form-check-label"  htmlFor="inStock">En stock</label>
                                 <label className="form-check-label"  htmlFor="inStock">En stock</label>
                             </div>
                             <button type="submit" className="recherche-button">Rechercher</button>

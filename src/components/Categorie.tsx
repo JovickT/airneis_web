@@ -1,7 +1,7 @@
 import  canape  from "../img/canape.jpg";
 import  cascade  from "../img/bannierejpg.jpg";
 import Layout from "./Layout";
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 
 const Categorie = () =>{
@@ -18,15 +18,11 @@ const Categorie = () =>{
         prix: number,
         quantite: number,
         reference:string
+        image: string
     }
 
-    interface Images{
-        images:Array<string>,
-        produit: string
-    }
-
+    const navigate = useNavigate();
     const [prod,setProd] = useState<Cat[]>([]);
-    const[imagesProd, setImagesProd] = useState<Images[]>([]);
     const [searchParams] = useSearchParams();
     const catValue = searchParams.get('categories');
 
@@ -36,7 +32,6 @@ const Categorie = () =>{
         if (catValue && catValue.length > 0) {
             // 2. Construire l'URL pour l'API
             const apiUrlCatProd = `https://localhost:8000/categories?prodofCat=${encodeURIComponent(catValue)}`;
-            const apiImages = `https://localhost:8000/ip`;
 
             // 3. Utiliser `fetch` pour envoyer la requête à l'API
             fetch(apiUrlCatProd)
@@ -52,24 +47,11 @@ const Categorie = () =>{
                     // Traiter les données reçues de l'API ici
                 })
                 .catch(error => {
+                    navigate('/');
                     console.error('There was a problem with the fetch operation:', error);
                 });
 
-            fetch(apiImages)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    setImagesProd(data);
-                    console.log('Image:', data);
-                    // Traiter les données reçues de l'API ici
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                });
+        
         } else {
             console.log('No test parameter in URL');
         }
@@ -83,13 +65,13 @@ const Categorie = () =>{
                 <p className="font-bolder">DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION</p>
                 <div className="row justify-content-center disposition-categorie">
                 {prod.map((p, index) => {
-                        const imageProd = imagesProd.find(img => img.produit === p.nom);
-                        const imageSrc = imageProd ? `${imageProd.images[0]}` : canape;
+                        // const imageProd = imagesProd.find(img => img.produit === p.nom);
+                        // const imageSrc = imageProd ? `${imageProd.images[0]}` : canape;
 
                         return (
                             <div key={index} className="col-3 mx-3 contenu-catgorie">
                                 <Link to={`/produits?categories=${encodeURIComponent(p.categorie.nom)}&produits=${encodeURIComponent(p.nom)}`}>
-                                    <img src={imageSrc} alt={p.nom} className="img-produit-categorie"/>
+                                    <img src={p.image} alt={p.nom} className="img-produit-categorie"/>
                                 </Link>
                                 <div className="d-flex justify-content-between">
                                     <p>{p.nom}</p>
