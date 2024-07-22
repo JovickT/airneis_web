@@ -1,7 +1,7 @@
 import Layout from "./Layout";
 import { Link } from 'react-router-dom';
 
-const CheckoutPayement = () => {
+const CheckoutPaiement = () => {
 
   return (
     <Layout>
@@ -9,7 +9,7 @@ const CheckoutPayement = () => {
         <div className="line-separator"></div>
         <div className="container">
           <div className="text-center">
-            <h1 className="text-color font-bolder mb-5">Payement</h1>
+            <h1 className="text-color font-bolder mb-5">Paiement</h1>
           </div>
           <div className="row">
           <div className="col-md-6" style={{ display: 'flex', flexDirection: 'column' }}>
@@ -43,4 +43,4 @@ const CheckoutPayement = () => {
     );
 };
 
-export default CheckoutPayement;
+export default CheckoutPaiement;

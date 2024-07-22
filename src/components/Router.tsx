@@ -11,11 +11,12 @@ import Panier from './Panier';
 import MesCommandes from './MesCommandes';
 import Commande from './Commande';
 import CheckoutLivraison from './CheckoutLivraison';
-import CheckoutPayement from './CheckoutPayement';
+import CheckoutPaiement from './CheckoutPaiement';
 import CheckoutFini from './CheckoutFini';
 import Login from './Login';
 import Connexion from './Connexion';
 import Inscription from './Inscription';
+import ResultatRecherche from './ResultatRecherche';
 
 
 const Rooter = () => {
@@ -36,8 +37,9 @@ const Rooter = () => {
             <Route path="/mesCommandes" element={<MesCommandes />} />
             <Route path="/commande" element={<Commande />} />
             <Route path="/checkoutLivraison" element={<CheckoutLivraison />} />
-            <Route path="/checkoutPayement" element={<CheckoutPayement />} />
+            <Route path="/checkoutPaiement" element={<CheckoutPaiement />} />
             <Route path="/checkoutFini" element={<CheckoutFini />} />
+            <Route path="/resultatRecherche" element={<ResultatRecherche />} />
         </Routes>
     </BrowserRouter>
     

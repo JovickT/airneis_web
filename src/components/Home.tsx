@@ -11,6 +11,7 @@ const Home = () =>{
 
     interface Cat {
         nom: string;
+        image: string
         // Autres propriétés si nécessaire
     }
     
@@ -124,7 +125,7 @@ const Home = () =>{
             <div className="container-img-accueil">
                 {cat && cat.length > 0 && cat.map((c, index) => (
                     <Link key={index} to={`/categorie?categories=${encodeURIComponent(c.nom)}`} className="txt-img-accueil row col-12 col-md-6 col-lg-3">
-                        <img src={canape} alt="" className="img-accueil"/>
+                        <img src={c.image} alt="" className="img-accueil"/>
                         <span className="font-bolder">{c.nom}</span>
                     </Link>
                 ))}
@@ -138,16 +139,16 @@ const Home = () =>{
 
                     return (
                         <div key={index} className="txt-img-accueil row col-12 col-md-6 col-lg-3">
-                            <Link to={`/produits?categories=${encodeURIComponent(p.categorie)}&produits=${encodeURIComponent(p.nom)}`}>
+                            <Link to={`/produits?categories=${encodeURIComponent(p.categorie)}&produits=${encodeURIComponent(p.nom)}`} className="txt-img-accueil">
                                 <img src={imageSrc} alt={p.nom} className="img-produit mb-3 img-accueil"/>
+                                <div className="d-flex justify-content-between">
+                                    <p>{p.nom}</p>
+                                    <p>{p.prix}€</p>
+                                </div>
+                                <div className="text-end moving-up">
+                                    {p.quantite <= 10 ? <p>Stock bientôt épuisé</p> : <p>En stock</p>}
+                                </div>
                             </Link>
-                            <div className="d-flex justify-content-between">
-                                <p>{p.nom}</p>
-                                <p>{p.prix}€</p>
-                            </div>
-                            <div className="text-end moving-up">
-                                {p.quantite <= 10 ? <p>Stock bientôt épuisé</p> : <p>En stock</p>}
-                            </div>
                         </div>
                     );
                 })}

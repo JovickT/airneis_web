@@ -221,6 +221,7 @@ body{
     }
 }
 
+.container-img-recherche,
 .container-img-accueil {
     display: flex;
     flex-wrap: wrap;
@@ -231,6 +232,7 @@ body{
     border-radius: 3rem;
 }
 
+.txt-img-recherche,
 .txt-img-accueil{
     margin: 2% !important;
     text-align: center;
@@ -238,6 +240,7 @@ body{
     text-decoration: none;
 }
 
+.txt-img-recherche:hover,
 .txt-img-accueil:hover{
     color: #555;
     text-decoration: underline;
@@ -318,6 +321,9 @@ body{
     width: 300px;
 }
 
+.recherche-label:hover,
+.recherche-input:hover,
+.recherche-button:hover,
 .produit-button:hover,
 .inscription-button:hover,
 .connexion-button:hover,
@@ -416,6 +422,9 @@ body{
     text-align: center;
 }
 
+.recherche-label,
+.recherche-input,
+.recherche-button,
 .inscription-input,
 .connexion-input,
 .inscription-label,
@@ -503,17 +512,34 @@ body{
     }
 }
 
+.bord-recherche{
+    border: 1px solid #FFD700 !important;
+    border-radius: 10px;
+}
+
+@media (max-width: 767.98px) {
+    .txt-img-recherche{
+        margin-bottom: -3rem !important;
+        margin-right: 1.6rem !important;
+    }
+    .prix-stock{
+        margin-bottom: 1rem;
+    }
+}
+.titre-recherche{
+    margin-top: 4rem !important;
+    text-align: center;
+    font-style: italic;
+    color:#FFD700;
 
 
+}
 
-
-
-
-
-
-
-
-
+@media (min-width: 768px) {
+    .reslutat-recherche-marge {
+        margin-top: 5rem;
+    }
+}
 
 
 

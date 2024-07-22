@@ -35,7 +35,7 @@ const CheckoutLivraison = () => {
               </form>
             </div>
             <div className="col-md-6" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <Link to="/checkoutPayement">
+              <Link to="/checkoutPaiement">
                 <button className="checkout-button">PASSER LA COMMANDE</button>
               </Link>
             </div>
