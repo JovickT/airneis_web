@@ -24,8 +24,8 @@ const ResultatRecherche: React.FC = () => {
     const handleSortByDate = (order: string) => {
         console.log("Sorting by date:", order);
         const sorted = [...results].sort((a, b) => {
-            const dateA = new Date(a.date).getTime();
-            const dateB = new Date(b.date).getTime();
+            const dateA = new Date(a.dateCreation).getTime();
+            const dateB = new Date(b.dateCreation).getTime();
             return order === 'newest' ? dateB - dateA : dateA - dateB;
         });
         setSortedResults(sorted);
