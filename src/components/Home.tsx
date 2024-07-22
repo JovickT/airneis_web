@@ -10,7 +10,7 @@ import axios from 'axios';
 const Home = () =>{
 
     interface Cat {
-        nom: string;
+        nom: string,
         image: string
         // Autres propriétés si nécessaire
     }
