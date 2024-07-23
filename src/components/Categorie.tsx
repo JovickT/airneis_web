@@ -61,7 +61,7 @@ const Categorie = () =>{
         <Layout>
             <div className="text-center">
                 <span className="font-bolder fs-1 text-light position-absolute z-4 reglage">{catValue}</span>
-                <img src={cascade} alt="canape" className="mb-5 carrousel-size"/>
+                <img src={cascade} alt="canape" className="mb-5 carrousel-size carousel-inner carousel-top"/>
                 <p className="font-bolder">DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION</p>
                 <div className="row justify-content-center disposition-categorie">
                 {prod.map((p, index) => {

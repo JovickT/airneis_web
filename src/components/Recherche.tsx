@@ -110,7 +110,7 @@ const Recherche: React.FC<RechercheProps> = ({ show, handleClose }) => {
                         <form onSubmit={handleSubmit}>
                             <div className="recherche-header">
                                 <div className="header-buttons">
-                                    <button type="button" className="recherche-button" onClick={() => { setNomProduit(''); setMinPrice(''); setMaxPrice(''); setMaterieaux([]); setInStock(false); }}>Réinitialiser</button>
+                                    <button type="button" className="recherche-button" onClick={() => { setNomProduit(''); setMinPrice(''); setMaxPrice(''); setInStock(false); }}>Réinitialiser</button>
                                     <button type="button" className="recherche-button" onClick={handleClose}>Fermer</button>
                                 </div>
                             </div>

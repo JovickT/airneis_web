@@ -185,13 +185,13 @@ const Produit = () =>{
     return(
         <Layout>
         <div>
-            <img src={cascade} alt="canape" className="carrousel-size mb-5" />
+            <img src={cascade} alt="canape" className="carrousel-size mb-5 carousel-inner carousel-top" />
             <div className="container">
                 <Modal show={showModal} handleClose={handleCloseModal} />
                 <div className="row">
                     <div id="carouselExampleSlidesOnly" className="carousel slide col-12 col-md-6" data-bs-ride="carousel">
                         <div className="carousel-indicators">
-                            {carrousel.map((img, index) => <button key={index}
+                            {carrousel.map((images, index) => <button key={index}
                                 type="button"
                                 data-bs-target="#carouselExampleSlidesOnly"
                                 data-bs-slide-to={index}

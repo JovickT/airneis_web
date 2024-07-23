@@ -1,6 +1,4 @@
-// import React from 'react';
 import React, { useState } from 'react';
-
 import { useLocation } from 'react-router-dom';
 import Layout from './Layout';
 import { Link } from "react-router-dom";
@@ -8,13 +6,14 @@ import { Link } from "react-router-dom";
 const ResultatRecherche: React.FC = () => {
     const location = useLocation();
     const results = location.state?.results || [];
-    console.log("test recherche",results);
+    console.log("test recherche", results);
 
     const [sortedResults, setSortedResults] = useState(results);
-    const [sortOrder, setSortOrder] = useState<string | null>(null);
+    const [sortPriceOrder, setSortPriceOrder] = useState<string | null>(null);
+    const [sortDateOrder, setSortDateOrder] = useState<string | null>(null);
 
     const handleSortByPrice = (order: string) => {
-        setSortOrder(order);
+        setSortPriceOrder(order);
         const sorted = [...results].sort((a, b) => {
             return order === 'asc' ? a.prix - b.prix : b.prix - a.prix;
         });
@@ -22,6 +21,7 @@ const ResultatRecherche: React.FC = () => {
     };
 
     const handleSortByDate = (order: string) => {
+        setSortDateOrder(order);
         console.log("Sorting by date:", order);
         const sorted = [...results].sort((a, b) => {
             const dateA = new Date(a.dateCreation).getTime();
@@ -29,6 +29,12 @@ const ResultatRecherche: React.FC = () => {
             return order === 'newest' ? dateB - dateA : dateA - dateB;
         });
         setSortedResults(sorted);
+    };
+
+    const handleReset = () => {
+        setSortPriceOrder(null);
+        setSortDateOrder(null);
+        setSortedResults(results);
     };
 
     return (
@@ -43,38 +49,40 @@ const ResultatRecherche: React.FC = () => {
                                 type="radio"
                                 name="sortPrice"
                                 id="priceAsc"
-                                checked={sortOrder === 'asc'}
+                                checked={sortPriceOrder === 'asc'}
                                 onChange={() => handleSortByPrice('asc')}
                             />
-                            <label htmlFor="priceAsc">Croissant</label><br></br>
+                            <label htmlFor="priceAsc">Croissant</label><br />
                             <input
                                 type="radio"
                                 name="sortPrice"
                                 id="priceDesc"
-                                checked={sortOrder === 'desc'}
+                                checked={sortPriceOrder === 'desc'}
                                 onChange={() => handleSortByPrice('desc')}
                             />
                             <label htmlFor="priceDesc">Décroissant</label>
-                        </div><br></br>
+                        </div><br />
                         <div>
                             <p className='recherche-label'>Trier par date de création :</p>
                             <input
                                 type="radio"
                                 name="sortDate"
                                 id="dateNewest"
-                                checked={sortOrder === 'newest'}
+                                checked={sortDateOrder === 'newest'}
                                 onChange={() => handleSortByDate('newest')}
                             />
-                            <label htmlFor="dateNewest">Récente</label><br></br>
+                            <label htmlFor="dateNewest">Récente</label><br />
                             <input
                                 type="radio"
                                 name="sortDate"
                                 id="dateOldest"
-                                checked={sortOrder === 'oldest'}
+                                checked={sortDateOrder === 'oldest'}
                                 onChange={() => handleSortByDate('oldest')}
                             />
                             <label htmlFor="dateOldest">Ancienne</label>
-                        </div>
+                        </div><br></br>
+                        <button onClick={handleReset} className='recherche-label'>Réinitialiser</button>
+
                     </div>
                 
                     {sortedResults.map((result: any, index: number) => (
