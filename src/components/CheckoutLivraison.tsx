@@ -36,7 +36,7 @@ const CheckoutLivraison = () => {
         telephone: telephone.value,
         panier: panier, // inclure le panier dans les données du formulaire
         amount: parseInt(amount),
-        saveLivrason: save?.checked
+        saveLivraison: save?.checked
       };
 
       try {

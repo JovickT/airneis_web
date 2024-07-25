@@ -36,7 +36,6 @@ const Login = () => {
       } else {
         navigate('/');
       }
-
     };
 
     useEffect(() => {

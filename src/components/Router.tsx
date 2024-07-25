@@ -16,6 +16,7 @@ import CheckoutFini from './CheckoutFini';
 import Login from './Login';
 import Connexion from './Connexion';
 import Inscription from './Inscription';
+import ResultatRecherche from './ResultatRecherche';
 
 
 const Rooter = () => {
@@ -31,6 +32,7 @@ const Rooter = () => {
             <Route path="/cgu" element={<CGU />} />
             <Route path="/login" element={<Login />} />
             <Route path="/connexion" element={<Connexion />} />
+            <Route path="/resultatRecherche" element={<ResultatRecherche />} />
             <Route path="/inscription" element={<Inscription />} />
             <Route path="/panier" element={<Panier />} />
             <Route path="/mesCommandes" element={<MesCommandes />} />

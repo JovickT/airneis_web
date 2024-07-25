@@ -17,10 +17,16 @@ const CheckoutForm = () => {
 
   const [message, setMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [commande, setCommande] = useState({
-    livraison: localStorage.getItem('info-livraison'),
-    amount: localStorage.getItem('TTC'),
-    user: localStorage.getItem('user')
+  const [commande, setCommande] = useState(() => {
+    const livraison = localStorage.getItem('info-livraison');
+    const amount = localStorage.getItem('TTC');
+    const user = localStorage.getItem('user');
+  
+    return {
+      livraison: livraison ? JSON.parse(livraison) : null,
+      amount: amount || '',
+      user: user ? JSON.parse(user) : null,
+    };
   });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -54,10 +60,11 @@ const CheckoutForm = () => {
           card: cardElement,
         },
       });
+     
 
       if(paymentIntent && paymentIntent.status ==='succeeded') {
         setMessage('Paiement réussi!');
-
+        
         try {
           console.log('commande:', JSON.stringify(commande));
           

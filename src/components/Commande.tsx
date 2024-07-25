@@ -1,33 +1,59 @@
 import Layout from "./Layout";
 import  canape  from "../img/canape.jpg";
+import { useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { useEffect, useState } from "react";
 
 // Définition du type pour une commande
 interface Commande {
-  id: number;
-  date: string;
-  montant: number;
-  statut: string;
-  produits: { id: number; nom: string; description: string; prix: number; quantite: number }[];
-  adresseLivraison: string;
-  adresseFacturation: string;
-  methodePaiement: string;
+  reference: string,
+  date_commande: string,
+  ttc: number,
+  tva: number,
+  etat: string,
+  panier: {
+    nom: string,
+    prix: number,
+    quantite: number,
+    image: string,
+    description: string,
+    categorie: string, 
+  }[],
+  adresse: {
+    nom: string,
+    prenom: string,
+    rue: string,
+    cp: string,
+    ville: string,
+    pays: string,
+    telephone: string
+  },
+
 }
+
+
 
 const CommandeDetails = () => {
   // Données de commande en dur
-  const commande: Commande = {
-    id: 34834939,
-    date: "2022-04-12",
-    montant: 4800,
-    statut: "En cours",
-    produits: [
-      { id: 1, nom: "Table", description: "bfiuzbe ubezfkn iuzbef ujb iubefj", prix: 1200, quantite: 1 },
-      { id: 2, nom: "Chaise", description: "Description de la chaise", prix: 300, quantite: 2 },
-      // Ajoutez ici d'autres produits si nécessaire
-    ],
-    adresseLivraison: "John SMITH\n53 Rue de la Lune\n75006 PARIS\nFRANCE",
-    adresseFacturation: "John SMITH\n53 Rue de la Lune\n75006 PARIS\nFRANCE",
+  const test = {
     methodePaiement: "**** **** **** 4923"
+  };
+  const [detailCommande, setDetail] = useState<Commande | null>(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state && location.state.commande) {
+      setDetail(location.state.commande);
+    }
+  }, [location.state]);
+
+  console.log(detailCommande);
+
+  const handleRemove = (index: number) => {
+    // const newProduits = [...commande.produits];
+    // newProduits.splice(index, 1);
+    // setCommande({...commande, produits: newProduits });
   };
 
   return (
@@ -36,15 +62,14 @@ const CommandeDetails = () => {
         <div className="line-separator"></div>
         <div className="container">
           <div className="text-center">
-            <h1 className="text-color font-bolder mb-5">Commande #{commande.id} - {commande.date} - {commande.statut}</h1>
+            { detailCommande !== null && <h1 className="text-color font-bolder mb-5">Commande #{detailCommande.reference} - {detailCommande.date_commande} - {detailCommande.etat}</h1>}
           </div>
           <div className="row">
 
             <div className="col-md-6">
               <h2>Produits</h2>
-              {commande.produits.map(produit => (
-                <div key={produit.id} className="d-flex" style={{flexDirection: 'row', display: 'flex'}}>
-                  <img src={canape} alt="" className="mb-2 rounded-5" height="35%" width="35%" style={{ marginRight: '4%' }}/>
+              {detailCommande?.panier.map((produit,index) =><div key={detailCommande.reference} className="d-flex" style={{flexDirection: 'row', display: 'flex'}}>
+                  <img src={produit.image} alt="" className="mb-2 rounded-5" height="35%" width="35%" style={{ marginRight: '4%' }}/>
                   <div className="ml-3" style={{textAlign: 'left'}}>
                     <div><strong>{produit.nom}</strong></div>
                     <div>{produit.description}</div>
@@ -52,10 +77,12 @@ const CommandeDetails = () => {
                   <div style={{marginLeft: 'auto'}}>
                     <div>{produit.prix}€</div>
                     <div><input type="number" id="tentacles" value={produit.quantite} style={{ width: "50px" }} className="commande-nombre" /></div>
-                    <button>Retirer</button>
+                    <p className="cursor mt-3">
+                      <FontAwesomeIcon icon={faTrashAlt} onClick={() => handleRemove(index)} />
+                    </p>
                   </div>
                 </div>
-              ))}
+              )}
             </div>
 
             <div className="col-md-6">
@@ -66,7 +93,7 @@ const CommandeDetails = () => {
                       <h2>Total</h2>
                     </td>
                     <td style={{ textAlign: "right" }}>
-                      {commande.montant}€
+                      {detailCommande?.ttc}€
                     </td>
                   </tr>
                   <tr>
@@ -74,20 +101,38 @@ const CommandeDetails = () => {
                       TVA
                     </td>
                     <td style={{ textAlign: "right" }}>
-                      {commande.montant * 0.2}€
+                      {detailCommande?.tva}€
                     </td>
                   </tr>
                 </tbody>
               </table>
               <hr />
               <h3>Adresse de livraison</h3>
-              <p>{commande.adresseLivraison}</p>
+              {detailCommande?.adresse && (
+                  <div>
+                    <p>{detailCommande.adresse.nom} {detailCommande.adresse.prenom}<br/>
+                    {detailCommande.adresse.rue}<br/>
+                    {detailCommande.adresse.cp} {detailCommande.adresse.ville}<br/>
+                    {detailCommande.adresse.pays}<br/>
+                    {detailCommande.adresse.telephone}
+                    </p>
+                  </div>
+                )}
               <hr />
               <h3>Adresse de facturation</h3>
-              <p>{commande.adresseFacturation}</p>
+              {detailCommande?.adresse && (
+                  <div>
+                    <p>{detailCommande.adresse.nom} {detailCommande.adresse.prenom}<br/>
+                    {detailCommande.adresse.rue}<br/>
+                    {detailCommande.adresse.cp} {detailCommande.adresse.ville}<br/>
+                    {detailCommande.adresse.pays}<br/>
+                    {detailCommande.adresse.telephone}
+                    </p>
+                  </div>
+                )}
               <hr />
               <h3>Méthode de paiement</h3>
-              <p>{commande.methodePaiement}</p>
+              <p>{test.methodePaiement}</p>
             </div>
           </div>
         </div>

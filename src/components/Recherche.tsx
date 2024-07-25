@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface RechercheProps {
     show: boolean;
@@ -9,13 +10,10 @@ interface Materieaux{
     nom: string,
     id_materieaux: number,
 }
-interface Categories{
+interface Catégories{
     nom: string,
-    id_categorie: number,
+    id_catégories: number,
 }
-
-
-
 
 const Recherche: React.FC<RechercheProps> = ({ show, handleClose }) => {
     const [nomProduit, setNomProduit] = useState('');
@@ -23,7 +21,9 @@ const Recherche: React.FC<RechercheProps> = ({ show, handleClose }) => {
     const [maxPrice, setMaxPrice] = useState('');
     const [inStock, setInStock] = useState(false);
     const [materieaux, setMaterieaux] = useState<Materieaux[]>([]);
-    const [categories, setCategories] = useState<Categories[]>([]);
+    const [catégories, setCatégories] = useState<Catégories[]>([]);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
     fetch('https://localhost:8000/filtre')
@@ -31,7 +31,7 @@ const Recherche: React.FC<RechercheProps> = ({ show, handleClose }) => {
             .then(data => {
                 console.log(data);
                 setMaterieaux(data.Materiaux);
-                setCategories(data.categorie);
+                setCatégories(data.Catégorie);
 
             })
             .catch(error => console.error('Erreur lors de la récupération des données depuis le backend :', error));
@@ -43,89 +43,107 @@ const Recherche: React.FC<RechercheProps> = ({ show, handleClose }) => {
        
     };
 
-    const handleSearch = () => {
-        // Logic to handle search with the provided filters
-        console.log({
-            nomProduit,
-            minPrice,
-            maxPrice,
-            materieaux,
-            inStock,
-        });
-    }
-
     if (!show) {
         return null;
     }
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
+
         const form = e.currentTarget;
         const stock = form.elements.namedItem('stock') as HTMLInputElement | null;
-
-        let tab = [];
+        const maxPrice = form.elements.namedItem('maxPrice') as HTMLInputElement | null;
+        const minPrice = form.elements.namedItem('minPrice') as HTMLInputElement | null;
+        const nameProduct = form.elements.namedItem('nameProduct') as HTMLInputElement | null;
+        
+        
+        let selectedMaterials = [];
         for (let i = 0; i < materieaux.length; i++) {
             const test = form.elements.namedItem('mat_'+i) as HTMLInputElement | null;
             if (test && test.checked) {
-                tab.push(test.id); // Assurez-vous d'ajouter la valeur ou l'objet nécessaire
+                selectedMaterials.push(test.id);
             }
         }
-        if(stock && tab.length > 0){
+
+        let selectedCategories = [];
+        for (let i = 0; i < catégories.length; i++) {
+            const categoryCheckbox = form.elements.namedItem('cat_' + i) as HTMLInputElement | null;
+            if (categoryCheckbox && categoryCheckbox.checked) {
+                selectedCategories.push(categoryCheckbox.id);
+            }
+        }
+
+        if(stock || selectedMaterials.length > 0 || selectedCategories.length > 0 || nameProduct || maxPrice || minPrice){
             const formData = {
-                stock: stock.checked,
-                materiaux: tab
+                stock: stock?.checked,
+                materiaux: selectedMaterials,
+                categories: selectedCategories,
+                nameProduct: nameProduct ? nameProduct.value : '',
+                maxPrice: maxPrice && maxPrice.value !== '' ? maxPrice.value : '1000000',  // Mettre une valeur par défaut pour ne pas avoir de problème lors de l'envoie
+                minPrice: minPrice && minPrice.value !== '' ? minPrice.value : '0',  // Mettre une valeur par défaut pour ne pas avoir de problème lors de l'envoie
             };
 
             console.log("formData:",formData,"\nform:",form);
+
+
+            fetch('https://localhost:8000/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                navigate('/resultatRecherche', { state: { results: data } });
+            })
+            .catch(error => console.error('Erreur lors de la requête de recherche :', error));
+            
         }
-      
-
-        
     }
-
+    
     return (
         <div className="modal show" tabIndex={-1} role="dialog" style={{ display: 'block' }}>
-            <div className="modal-dialog" role="document">
+            <div className="modal-dialog bord-recherche" role="document">
                 <div className="modal-content">
-                    
                     <div className="modal-body">
                         <form onSubmit={handleSubmit}>
                             <div className="recherche-header">
                                 <div className="header-buttons">
-                                    <button type="button" className="btn btn-secondary" onClick={() => { setNomProduit(''); setMinPrice(''); setMaxPrice(''); setMaterieaux([]); setInStock(false); }}>Réinitialiser</button>
-                                    <button type="button" className="btn btn-secondary" onClick={handleClose}>Fermer</button>
+                                    <button type="button" className="recherche-button" onClick={() => { setNomProduit(''); setMinPrice(''); setMaxPrice(''); setInStock(false); }}>Réinitialiser</button>
+                                    <button type="button" className="recherche-button" onClick={handleClose}>Fermer</button>
                                 </div>
                             </div>
-
                             <div className="nom-filter">
-                                <label htmlFor="nomProduit">Nom du produit</label>
+                                <label className="recherche-label" htmlFor="nomProduit">Nom du produit</label>
                                 <input 
                                     type="text" 
-                                    className="form-control" 
+                                    className="recherche-input" 
+                                    name="nameProduct"
                                     id="nomProduit" 
                                     value={nomProduit} 
                                     onChange={(e) => setNomProduit(e.target.value)} 
                                 />
                             </div>
-                    
-                    
                             <div className="form-group">
                                 <div className="price-filters">
                                     <div className="price-filter">
-                                        <label htmlFor="minPrice">Prix min €</label>
+                                        <label className="recherche-label" htmlFor="minPrice">Prix min €</label>
                                         <input 
                                             type="number" 
-                                            className="form-control" 
+                                            className="recherche-input" 
+                                            name="minPrice"
                                             id="minPrice" 
                                             value={minPrice} 
                                             onChange={(e) => setMinPrice(e.target.value)} 
                                         />
                                     </div>
                                     <div className="price-filter">
-                                        <label htmlFor="maxPrice">Prix max €</label>
+                                        <label className="recherche-label" htmlFor="maxPrice">Prix max €</label>
                                         <input 
                                             type="number" 
-                                            className="form-control" 
+                                            className="recherche-input" 
+                                            name="maxPrice"
                                             id="maxPrice" 
                                             value={maxPrice} 
                                             onChange={(e) => setMaxPrice(e.target.value)} 
@@ -134,7 +152,7 @@ const Recherche: React.FC<RechercheProps> = ({ show, handleClose }) => {
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label>Matériaux</label>
+                                <label className="recherche-label">Matériaux</label>
                                 {materieaux && materieaux.map((mat, index) => (
                                     <div className="form-check" key={index}>
                                         <input 
@@ -144,6 +162,20 @@ const Recherche: React.FC<RechercheProps> = ({ show, handleClose }) => {
                                             id={mat.nom}
                                         />
                                         <label className="form-check-label" htmlFor={mat.nom}>{mat.nom}</label>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="form-group">
+                                <label className="recherche-label">Catégorie</label>
+                                {catégories && catégories.map((cat, index) => (
+                                    <div className="form-check" key={index}>
+                                        <input 
+                                            type="checkbox" 
+                                            name={'cat_'+index}
+                                            className="form-check-input" 
+                                            id={cat.nom}
+                                        />
+                                        <label className="form-check-label" htmlFor={cat.nom}>{cat.nom}</label>
                                     </div>
                                 ))}
                             </div>
@@ -158,7 +190,7 @@ const Recherche: React.FC<RechercheProps> = ({ show, handleClose }) => {
                                 />
                                 <label className="form-check-label"  htmlFor="inStock">En stock</label>
                             </div>
-                            <button type="submit" className="btn btn-primary">Rechercher</button>
+                            <button type="submit" className="recherche-button">Rechercher</button>
                         </form>
                     </div>
                 </div>
@@ -168,3 +200,4 @@ const Recherche: React.FC<RechercheProps> = ({ show, handleClose }) => {
 }
 
 export default Recherche;
+
