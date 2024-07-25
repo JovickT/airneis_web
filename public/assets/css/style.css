@@ -14,7 +14,7 @@ body{
 
 .head{
     border-bottom: 1px solid #FFD700;
-    background: antiquewhite !important;
+    background: #faebd7 !important;
     display: flex;
     background-color: #f8f9fa;
     position: fixed;
@@ -166,6 +166,7 @@ body{
     text-decoration: underline !important;
 }
 
+.about,
 .cgu,
 .mention{
     margin : 0 10% 0 10%
@@ -579,8 +580,12 @@ body{
     }
 }
 
-
-
+.about-marge{
+    margin-left: 20px;
+}
+.about{
+    margin-top: 45px;
+}
 
 
 
