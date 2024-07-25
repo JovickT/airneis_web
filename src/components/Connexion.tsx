@@ -4,35 +4,37 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-  const { isAuthenticated, login } = useAuth();
-    const [username, setUsername] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const [error, setError] = useState<string | null>(null);
-    const navigate = useNavigate();
+  const { user, login , } = useAuth();
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
 
-    if (!login) {
-        setError("Erreur de configuration de l'authentification");
-        return;
-    }
-
     try {
         await login(username, password);
-    } catch (err) {
+      } catch (err) {
         setError("Échec de la connexion. Veuillez vérifier vos identifiants.");
-    }
+      }
+      window.location.reload();
   };
 
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value);
     };
     
-    const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value);
-    };
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+      setPassword(e.target.value);
+  };
+
+  useEffect(() =>{
+    if (user) {
+      navigate('/');
+    }
+  },[user,navigate]);
 
   return (
     <Layout>
