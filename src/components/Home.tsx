@@ -10,7 +10,8 @@ import axios from 'axios';
 const Home = () =>{
 
     interface Cat {
-        nom: string;
+        nom: string,
+        image: string
         // Autres propriétés si nécessaire
     }
     
@@ -124,7 +125,7 @@ const Home = () =>{
             <div className="container-img-accueil">
                 {cat && cat.length > 0 && cat.map((c, index) => (
                     <Link key={index} to={`/categorie?categories=${encodeURIComponent(c.nom)}`} className="txt-img-accueil row col-12 col-md-6 col-lg-3">
-                        <img src={canape} alt="" className="img-accueil"/>
+                        <img src={c.image} alt="" className="img-accueil"/>
                         <span className="font-bolder">{c.nom}</span>
                     </Link>
                 ))}
