@@ -79,9 +79,15 @@ const Login = () => {
         setUsername(e.target.value);
     };
     
-    const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value);
-    };
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+      setPassword(e.target.value);
+  };
+
+  useEffect(() =>{
+    if (user) {
+      navigate('/');
+    }
+  },[user,navigate]);
 
   return (
     <Layout>

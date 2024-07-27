@@ -117,6 +117,9 @@ const Navbar= () =>{
             case 'Contact':
                 navigate("/contact");
                 break;
+            case 'Mes paramètres':
+                navigate("/parametres");
+                break;
             case 'À propos d’ÀIRNEIS':
                 navigate("/about");
                 break;
