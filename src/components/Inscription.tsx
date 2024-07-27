@@ -6,18 +6,12 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 
-interface FormData {
-  prenom: string;
-  nom: string;
-  email: string;
-  agreeTerms: boolean;
-  plainPassword: string;
-}
+
 
 const Inscription = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState({
     prenom : '',
     nom : '',
     email : '',
@@ -46,7 +40,7 @@ const Inscription = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/register',formData);
+      await axios.post('/register',formData);
       alert('Registration succesful');
       navigate('/connexion');
     } catch (error:unknown) {
