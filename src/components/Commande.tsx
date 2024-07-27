@@ -93,7 +93,7 @@ const CommandeDetails = () => {
                       <h2>Total</h2>
                     </td>
                     <td style={{ textAlign: "right" }}>
-                      {detailCommande?.ttc}€
+                      {detailCommande?.ttc.toFixed(2)}€
                     </td>
                   </tr>
                   <tr>
@@ -101,7 +101,7 @@ const CommandeDetails = () => {
                       TVA
                     </td>
                     <td style={{ textAlign: "right" }}>
-                      {detailCommande?.tva}€
+                      {detailCommande?.tva.toFixed(2)}€
                     </td>
                   </tr>
                 </tbody>

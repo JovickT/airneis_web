@@ -85,6 +85,15 @@ const CheckoutForm = () => {
 
           localStorage.setItem('orderData', JSON.stringify(data));
 
+          
+
+          // if (document.getElementById('savePayement_card').checked) {
+          //   const { paymentMethod } = await stripe.createPaymentMethod({
+          //     type: 'card',
+          //     card: cardElement,
+          //   });
+          // }
+
           localStorage.removeItem('clientSecret');
           localStorage.removeItem('panier');
           localStorage.removeItem('TTC');
@@ -143,7 +152,12 @@ const cardStyle = {
         </span>
       </button>
       {/* Show any error or success messages */}
-      {message && <div id="payment-message">{message}</div>}
+      {message && <div id="payment-message" className="alert alert-danger">{message}</div>}
+      <div className="mt-3">
+        <label htmlFor="enregistrement_card"><input type="checkbox" className="me-2" name="savePayement_card" id="savePayement_card" />
+            Enregistrer ce moyen de paiement
+        </label>
+      </div>
     </form>
   );
 };
@@ -157,27 +171,11 @@ const CheckoutPayement = () => {
         <div className="line-separator"></div>
         <div className="container">
           <div className="text-center">
-            <h1 className="text-color font-bolder mb-5">Payement</h1>
+            <h1 className="text-color font-bolder mb-5">Paiement</h1>
           </div>
           <div className="row">
           <div className="col-md-6" style={{ display: 'flex', flexDirection: 'column' }}>
             <h2 style={{ textAlign: 'center'}}>Informations de livraison</h2>
-              {/* <form className="checkout-form" style={{ width: '100%' }}>
-                <label className="checkout-label">Numéro de carte :</label><br/>
-                <input type="number" className="checkout-input" placeholder="1234 5678 9012 3456"/>
-                <label className="checkout-label">Nom complet :</label><br/>
-                <input type="text" className="checkout-input" placeholder=""/>
-                <div className="d-flex flex-column flex-md-row justify-content-between w-100">
-                  <div className="mb-3 mb-md-0">
-                    <label className="checkout-label">Date d'expiration :</label><br/>
-                    <input type="date" className="checkout-input mr-md-2" placeholder="MM/YY"/>
-                  </div>
-                  <div>
-                    <label className="checkout-label">CVV :</label><br/>
-                    <input type="number" className="checkout-input" placeholder="123"/>
-                  </div>
-                </div>
-              </form> */}
               <Elements stripe={stripePromise}>
                   <CheckoutForm />
               </Elements>
