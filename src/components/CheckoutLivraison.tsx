@@ -3,22 +3,55 @@ import Layout from "./Layout";
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
 
+interface Adresses {
+  pays: string;
+  ville: string;
+  rue: string;
+  cp: string;
+}
 
 const CheckoutLivraison = () => {
   const navigation = useNavigate();
   const [error, setError] = useState('');
   const { user, checkAuthStatus} = useAuth(); // Assurez-vous que useAuth renvoie la fonction login
+  const [adresses, setAdresses] = useState<Adresses[]>([]);
+  const [selectedAddress, setSelectedAddress] = useState<Adresses | null>(null);
+  const userStorage = localStorage.getItem('user');
 
-  const [compte, setCompte] = useState({
-    email: user?.email || '',
-    prenom: user?.prenom || '',
-    nom: user?.nom || '',
-    telephone: user?.telephone || '',
-});
+  const fetchUserAdresses = async () => {
+    try {
+      // Vérifie si l'utilisateur est connecté
+      await checkAuthStatus();
+
+      const response = await fetch('https://localhost:8000/api/userAdresses', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userStorage),
+        credentials: 'include', // Ajoute les credentials pour envoyer les cookies
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data: Adresses[] = await response.json();
+      setAdresses(data); // Mettre à jour l'état avec les données reçues
+    } catch (error) {
+      // Mettre à jour l'état avec l'erreur reçue
+      console.error('Error fetching addresses:', error);
+    }
+  };
 
   useEffect(() => {
-    checkAuthStatus(); // Vérifie si l'utilisateur est connecté
+    fetchUserAdresses();
   }, []);
+
+  const handleAddressChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedIndex = event.target.value;
+    setSelectedAddress(adresses[Number(selectedIndex)]);
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -99,33 +132,78 @@ const CheckoutLivraison = () => {
               <h2>Informations de livraison</h2>
               <form onSubmit={handleSubmit}>
                 <div className="checkout-form">
+                  <label className="checkout-label">Adresse :</label><br />
+                  <select onChange={handleAddressChange} className="checkout-input">
+                    <option value="">Sélectionnez une adresse</option>
+                    {adresses.map((adresse, index) => (
+                      <option key={index} value={index}>
+                        {adresse.rue}, {adresse.ville}, {adresse.cp}, {adresse.pays}
+                      </option>
+                    ))}
+                  </select>
                   <label className="checkout-label">Prénom :</label><br />
-                  <input type="text" className="checkout-input" name="prenom" value={user?.prenom} required />
+                  <input
+                    type="text"
+                    className="checkout-input"
+                    name="prenom"
+                    value={user?.prenom}
+                    required
+                  />
                   <label className="checkout-label">Nom :</label><br />
-                  <input type="text" className="checkout-input" name="nom"  value={user?.nom} required />
+                  <input
+                    type="text"
+                    className="checkout-input"
+                    name="nom"
+                    value={user?.nom}
+                    required
+                  />
                   <label className="checkout-label">Adresse 1 :</label><br />
-                  <input type="text" className="checkout-input" name="adresse1" required />
+                  <input
+                    type="text"
+                    className="checkout-input"
+                    name="adresse1"
+                    value={selectedAddress?.rue || ''}
+                    required
+                  />
                   <label className="checkout-label">Adresse 2 :</label><br />
                   <input type="text" className="checkout-input" name="adresse2" />
                   <label className="checkout-label">Ville :</label><br />
-                  <input type="text" className="checkout-input" name="ville" required />
+                  <input
+                    type="text"
+                    className="checkout-input"
+                    name="ville"
+                    value={selectedAddress?.ville || ''}
+                    required
+                  />
                   <label className="checkout-label">Région :</label><br />
                   <input type="text" className="checkout-input" name="region" />
                   <label className="checkout-label">Code Postal :</label><br />
-                  <input type="text" className="checkout-input" name="cp" required />
+                  <input
+                    type="text"
+                    className="checkout-input"
+                    name="cp"
+                    value={selectedAddress?.cp || ''}
+                    required
+                  />
                   <label className="checkout-label">Pays :</label><br />
-                  <input type="text" className="checkout-input" name="pays" required />
+                  <input
+                    type="text"
+                    className="checkout-input"
+                    name="pays"
+                    value={selectedAddress?.pays || ''}
+                    required
+                  />
                   <label className="checkout-label">Téléphone :</label><br />
                   <input type="text" className="checkout-input" name="telephone" required />
-                </div>
-                <div className="d-flex">
-                  <input type="checkbox" name="saveLivraison" />
-                  <p className="mt-2">sauvegerder vos informations de livraison</p>
-                </div>
-                <div className="" style={{ display: 'flex', alignItems: 'center' }}>
-                  <input type="submit" className="checkout-button" value="PASSER LA COMMANDE" />
-                </div>
-              </form>
+                  </div>
+                  <div className="d-flex">
+                    <input type="checkbox" name="saveLivraison" />
+                    <p className="mt-2">sauvegarder vos informations de livraison</p>
+                  </div>
+                  <div className="" style={{ display: 'flex', alignItems: 'center' }}>
+                    <input type="submit" className="checkout-button" value="PASSER LA COMMANDE" />
+                  </div>
+                </form>
             </div>
           </div>
         </div>

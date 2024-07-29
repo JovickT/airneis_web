@@ -17,7 +17,7 @@ const PasswordForgotten: React.FC = () =>{
         setError('');
 
         try {
-            const response = await axios.post('/api/forgotPassword', { email });
+            const response = await axios.post('https:/localhost:8000/api/forgotPassword', { email });
             setMessage(response.data.message);
             navigate('/connexion')  // Redirect to login page after successful password reset)
         } catch (err) {
