@@ -136,11 +136,6 @@ const Home = () => {
                         <span className="font-bolder">{c.nom}</span>
                     </Link>
                 ))}
-                {cat.length > 5 && (
-                    <button onClick={handleToggleCats} className="btn-see-more">
-                        {showAllCats ? 'Voir moins' : 'Voir plus'}
-                    </button>
-                )}
             </div>
 
             <div className="d-flex justify-content-around mt-4">
