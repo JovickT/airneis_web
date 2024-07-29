@@ -2,7 +2,6 @@ import Layout from "./Layout";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-
 const Home = () => {
     interface Cat {
         nom: string,
@@ -100,6 +99,21 @@ const Home = () => {
         setCurrentCatPage(pageNumber);
     };
 
+    const renderPageNumbers = (current: number, total: number) => {
+        const delta = 1;
+        const range = [];
+        for (let i = Math.max(1, current - delta); i <= Math.min(total, current + delta); i++) {
+            range.push(i);
+        }
+        if (current - delta > 1) {
+            range.unshift("...");
+        }
+        if (current + delta < total) {
+            range.push("...");
+        }
+        return range;
+    };
+
     return (
         <Layout>
             <div className="d-flex justify-content-center">
@@ -138,18 +152,18 @@ const Home = () => {
                 ))}
             </div>
 
-            <div className="d-flex justify-content-around mt-4">
-                <button onClick={handleCatClickPrev} disabled={currentCatPage === 1} className="btn btn-primary btn-pagination">Précédent</button>
+            <div className="d-flex justify-content-center align-items-center mt-4 pagination-container">
+                <button onClick={handleCatClickPrev} disabled={currentCatPage === 1} className="btn-see-more">Précédent</button>
                 <div className="pagination">
-                    {Array.from({ length: totalCatPages }, (_, index) => (
-                        <button key={index + 1}
-                            onClick={() => handleCatPageClick(index + 1)}
-                            className={`btn ${index + 1 === currentCatPage ? 'btn-secondary' : 'btn-light'}`}>
-                            {index + 1}
+                    {renderPageNumbers(currentCatPage, totalCatPages).map((num, index) => (
+                        <button key={index}
+                            onClick={() => typeof num === 'number' && handleCatPageClick(num)}
+                            className={`btn-number ${num === currentCatPage ? 'btn-current' : ''}`}>
+                            {num}
                         </button>
                     ))}
                 </div>
-                <button onClick={handleCatClickNext} disabled={currentCatPage === totalCatPages} className="btn btn-primary btn-pagination">Suivant</button>
+                <button onClick={handleCatClickNext} disabled={currentCatPage === totalCatPages} className="btn-see-more">Suivant</button>
             </div>
 
             <h1 className="titre">Les Highlanders du moment</h1>
@@ -164,24 +178,24 @@ const Home = () => {
                             <p>{p.prix}€</p>
                         </div>
                         <div className="text-end moving-up">
-                            {p.quantite <= 10 ? <p>Stock bientôt épuisé</p> : <p>En stock</p>}
+                            {p.quantite === 0 ? <p>Épuisé</p> : p.quantite <= 10 ? <p>Stock bientôt épuisé</p> : <p>En stock</p>}
                         </div>
                     </div>
                 ))}
             </div>
 
-            <div className="d-flex justify-content-around mt-4">
-                <button onClick={handleClickPrev} disabled={currentPage === 1} className="btn btn-primary btn-pagination">Précédent</button>
+            <div className="d-flex justify-content-center align-items-center mt-4 pagination-container">
+                <button onClick={handleClickPrev} disabled={currentPage === 1} className="btn-see-more">Précédent</button>
                 <div className="pagination">
-                    {Array.from({ length: totalPages }, (_, index) => (
-                        <button key={index + 1}
-                            onClick={() => handlePageClick(index + 1)}
-                            className={`btn ${index + 1 === currentPage ? 'btn-secondary' : 'btn-light'}`}>
-                            {index + 1}
+                    {renderPageNumbers(currentPage, totalPages).map((num, index) => (
+                        <button key={index}
+                            onClick={() => typeof num === 'number' && handlePageClick(num)}
+                            className={`btn-number ${num === currentPage ? 'btn-secondary' : 'btn-light'}`}>
+                            {num}
                         </button>
                     ))}
                 </div>
-                <button onClick={handleClickNext} disabled={currentPage === totalPages} className="btn btn-primary btn-pagination">Suivant</button>
+                <button onClick={handleClickNext} disabled={currentPage === totalPages} className="btn-see-more">Suivant</button>
             </div>
         </Layout>
     )

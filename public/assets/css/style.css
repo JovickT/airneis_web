@@ -181,6 +181,11 @@ body{
     font-style: italic;
 }
 
+.mdp-forget{
+    color:#FFD700;
+    font-style: italic;
+}
+
 .contact-form-row {
     display: flex;
     flex-direction: row;
@@ -306,7 +311,6 @@ body{
     border-bottom: 1px solid black;
     border-left: none;
     border-right: none;
-    /* background-color: none; */
     background-color: antiquewhite;
     color: black;
     padding: 10px 20px;
@@ -322,6 +326,7 @@ body{
     width: 300px;
 }
 
+.paramettre:hover,
 .recherche-label:hover,
 .recherche-input:hover,
 .recherche-button:hover,
@@ -428,6 +433,7 @@ body{
     text-align: center;
 }
 
+.paramettre,
 .recherche-label,
 .recherche-input,
 .recherche-button,
@@ -508,7 +514,7 @@ body{
     }
 
     .contenu-catgorie {
-        width: 100% !important;
+        width: 80% !important;
         max-width: 100% !important;
         margin-bottom: 1.5rem !important;
     }
@@ -561,8 +567,27 @@ body{
     margin-right: 5rem;
 }
 
+.btn-number:hover,
 .btn-see-more:hover {
     background-color: #FFD700;
+}
+
+.btn-number{
+    background-color: antiquewhite;
+    border: 1px solid #FFD700;
+    border-radius: 3rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-current {
+    background-color: #FFD700;
+    color: white;
+    font-weight: bold;
 }
 
 @media (min-width: 769px) {
@@ -572,7 +597,6 @@ body{
     }
 }
 
-/* Styles pour les écrans plus petits */
 @media (max-width: 768px) {
     .btn-see-more {
         margin-top: 0rem;
@@ -587,9 +611,35 @@ body{
     margin-top: 45px;
 }
 
+.panier-img{
+    width: 250px !important;
+    height: 120px;
+}
+
+@media (max-width: 768px) {
+    .panier-img {
+    }
+    .d-flex {
+        flex-direction: column;
+    }
+    
+    .panier-detail{
+        margin-right: 30px;
+    }
+    .panier-desc{
+        margin: 0 50px;
+    }
+}
+
+.danger{
+    text-align: center;
+    color: red;
+}
 
 
-
+.paramettre-mt{
+    margin-top: 40px;
+}
 
 
 
@@ -668,16 +718,23 @@ li{
     width: min-content;
 }
 
-.reglage{
+/* .reglage{ */
+.titre-categorie{
+    position: absolute;
     top: 30%;
-    left: 45%;
+    left: 50%;
+    text-align: center !important;
     z-index: 1;
+    color: white;
+    font-size: 4rem;
+    transform: translate(-50%, -50%)
 }
 
 @media (max-width: 1024px) {
-    .reglage {
-        top: 12%;
-        left: 40%;
+    /* .reglage { */
+    .titre-categorie {
+        top: 16%;
+        font-size: 2rem;
     }
 }
 

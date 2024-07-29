@@ -127,7 +127,7 @@ const Inscription = () => {
                       onChange={handleChange}
                       required
                     />
-                    Agree to terms
+                    Accepter les termes
                   </label>
                 </div>
                 {error && <div className="alert alert-danger">{error}</div>}

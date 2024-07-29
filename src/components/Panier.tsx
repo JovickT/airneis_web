@@ -131,11 +131,11 @@ const Panier = () =>{
                     <div className="row">
                         <div className="col">
                             {add.map((r,index) =><div key={index} className="mb-4">
-                                <div className="d-flex justify-content-end">
-                                    <img src={r.image} alt={r.nom} className="w-19 mx-4 "/>
-                                    <div className="col-4">
-                                        <span className="font-bolder">{r.nom}</span>
-                                        <p>{r.description}</p>
+                                <div className="d-flex flex-column flex-md-row justify-content-end align-items-center align-items-md-start">
+                                    <img src={r.image} alt={r.nom} className="w-19 mx-4 panier-img mb-3 mb-md-0"/>
+                                    <div className="col-12 col-md-4 mb-3 mb-md-0">
+                                        <span className="font-bolder panier-desc">{r.nom}</span>
+                                        <p className="panier-desc">{r.description}</p>
                                     </div>
                                     <div className="d-flex flex-md-column flex-row mx-5 align-items-md-center align-items-start">
                                         <span className="mb-3 panier-detail">{r.prix}€</span>

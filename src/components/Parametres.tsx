@@ -147,9 +147,9 @@ const Parametres = () => {
                     <div className="text-center">
                         <h2 className="text-color font-bolder mb-1"> Mes paramètres </h2>
                     </div>
-                    <div className="line-separator"></div>
+                    {/* <div className="line-separator"></div> */}
                 
-                    <div className="row no-gutters row-bordered row-border-light">
+                    <div className="row no-gutters row-border-light">
                         <div className="col-md-3 pt-0">
                             <div className="list-group list-group-flush account-settings-links">
                                 <a 
@@ -193,10 +193,10 @@ const Parametres = () => {
                                         <form method="put" onSubmit={handleSubmit}>
                                             <div className="card-body">
                                                 <div className="form-group">
-                                                    <label className="form-label">Prénom</label>
+                                                    <label className="paramettre">Prénom</label>
                                                     <input 
                                                         type="text" 
-                                                        className="form-control"
+                                                        className="paramettre"
                                                         name="prenom" 
                                                         value={compte.prenom} 
                                                         onChange={handleInputChange}
@@ -204,10 +204,10 @@ const Parametres = () => {
                                                     />
                                                 </div>
                                                 <div className="form-group">
-                                                    <label className="form-label">Nom</label>
+                                                    <label className="paramettre">Nom</label>
                                                     <input 
                                                         type="text" 
-                                                        className="form-control" 
+                                                        className="paramettre" 
                                                         name="nom"
                                                         value={compte.nom} 
                                                         onChange={handleInputChange}
@@ -215,10 +215,10 @@ const Parametres = () => {
                                                     />
                                                 </div>
                                                 <div className="form-group">
-                                                    <label className="form-label">E-mail</label>
+                                                    <label className="paramettre">E-mail</label>
                                                     <input  
                                                         type="email" 
-                                                        className="form-control " 
+                                                        className="paramettre " 
                                                         name="email"
                                                         value={compte.email} 
                                                         onChange={handleInputChange}
@@ -226,10 +226,10 @@ const Parametres = () => {
                                                     />
                                                 </div>
                                                 <div className="form-group">
-                                                    <label className="form-label">Téléphone</label>
+                                                    <label className="paramettre">Téléphone</label>
                                                     <input 
                                                         type="text" 
-                                                        className="form-control" 
+                                                        className="paramettre" 
                                                         name="telephone"
                                                         value={compte.telephone || ''} 
                                                         onChange={handleInputChange}
@@ -237,11 +237,7 @@ const Parametres = () => {
                                                 </div>
                                             </div>
         
-                                            <div className="mt-3 d-flex justify-content-end">
-                                                <div className="d-flex flex-nowrap small-screen-buttons">
-                                                    <button type="submit" className="btn me-2"> Enregistrer </button>
-                                                </div>
-                                            </div>
+                                            <button type="submit" className="paramettre"> Enregistrer </button>
                                         </form>
                                     </div>
 
@@ -250,39 +246,35 @@ const Parametres = () => {
                                 {activeTab === 'tab2' && (
                                     <div className="tab-pane fade active show" id="tab2">
                                         <form onSubmit={handlePassword}>
-                                            <div className="card-body pb-2">
+                                            <div className="card-body pb-2"> {/* ici */}
                                                 <div className="form-group">
-                                                    <label className="form-label">Current password</label>
+                                                    <label className="paramettre">Mot de passe actuel</label>
                                                     <input 
                                                         type="password" 
-                                                        className="form-control" 
+                                                        className="paramettre" 
                                                         value={currentPassword}
                                                         onChange={(e) => setCurrentPassword(e.target.value)}
                                                     />
                                                 </div>
                                                 <div className="form-group">
-                                                    <label className="form-label">New password</label>
+                                                    <label className="paramettre">Nouveau mot de passe</label>
                                                     <input 
                                                         type="password" 
-                                                        className="form-control"
+                                                        className="paramettre"
                                                         value={newPassword}
                                                         onChange={(e) => setNewPassword(e.target.value)}
                                                     />
                                                 </div>
                                                 <div className="form-group">
-                                                    <label className="form-label">Repeat new password</label>
+                                                    <label className="paramettre">Validation du nouveau mot de passe</label>
                                                     <input 
                                                         type="password" 
-                                                        className="form-control"
+                                                        className="paramettre"
                                                         value={repeatNewPassword}
                                                         onChange={(e) => setRepeatNewPassword(e.target.value)}
                                                     />
                                                 </div>
-                                                <div className="mt-3 d-flex justify-content-end">
-                                                    <div className="d-flex flex-nowrap small-screen-buttons">
-                                                        <button type="submit" className="btn me-2"> Enregistrer </button>
-                                                    </div>
-                                                </div>
+                                                <button type="submit" className="paramettre"> Enregistrer </button>
                                             </div>
                                         </form>
                                     </div>
@@ -290,7 +282,8 @@ const Parametres = () => {
                                 
                                 {activeTab === 'tab3' && (
                                     <div className="tab-pane fade active show" id="tab3">
-                                        <div className="card-body pb-2">
+                                        {/* <div className="card-body pb-2"> */}
+                                        <div className="paramettre-mt">
                                         <h3>Mes adresses</h3>
                                             {adresses.length > 0 ? (
                                                 <ul>
@@ -303,52 +296,48 @@ const Parametres = () => {
                                             ) : (
                                                 <p>Aucune adresse trouvée.</p>
                                             )}
-                                            <div className="mt-3 d-flex justify-content-end">
-                                                <div className="d-flex flex-nowrap small-screen-buttons">
-                                                    <button onClick={() => setModalIsOpen(true)} className="btn me-2"> Ajouter une adresse </button>
-                                                </div>
-                                            </div>
+                                            <button onClick={() => setModalIsOpen(true)} className="paramettre"> Ajouter une adresse </button>
                                             <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
                                                 <h2>Ajouter une nouvelle adresse</h2>
                                                 <form onSubmit={handleNewAdresseSubmit}>
                                                     <div className="form-group">
+                                                        <label className="paramettre">Pays</label>
                                                         <input
                                                             type="text"
-                                                            className="form-control"
+                                                            className="paramettre"
                                                             name="pays"
-                                                            placeholder="Pays"
                                                             onChange={handleNewAdresse}
                                                         />
                                                     </div>
                                                     <div className="form-group">
+                                                        <label className="paramettre">Ville</label>
                                                         <input
                                                             type="text"
-                                                            className="form-control"
+                                                            className="paramettre"
                                                             name="ville"
-                                                            placeholder="Ville"
                                                             onChange={handleNewAdresse}
                                                         />
                                                     </div>
                                                     <div className="form-group">
+                                                        <label className="paramettre">Code Postal</label>
                                                         <input
                                                             type="text"
-                                                            className="form-control"
+                                                            className="paramettre"
                                                             name="codePostal"
-                                                            placeholder="Code Postal"
                                                             onChange={handleNewAdresse}
                                                         />
                                                     </div>
                                                     <div className="form-group">
+                                                    <label className="paramettre">Rue</label>
                                                     <input
                                                         type="text"
-                                                        className="form-control"
+                                                        className="paramettre"
                                                         name="rue"
-                                                        placeholder="Rue"
                                                         onChange={handleNewAdresse}
                                                     />
                                                     </div>
-                                                    <button type="submit" className="btn me-2">Ajouter</button>
-                                                    <button type="button" className="btn me-2" onClick={() => setModalIsOpen(false)}>Annuler</button>
+                                                    <button type="submit" className="paramettre">Ajouter</button>
+                                                    <button type="button" className="paramettre" onClick={() => setModalIsOpen(false)}>Annuler</button>
                                                 </form>
                                             </Modal>
                                             
@@ -359,36 +348,32 @@ const Parametres = () => {
                                 
                                 {activeTab === 'tab4' && (
                                     <div className="tab-pane fade active show" id="tab4">
-                                        <div className="card-body pb-2">
+                                        {/* <div className="card-body pb-2"> */}
+                                        <div className="paramettre-mt">
                                             <div className="form-group">
-                                                <label className="form-label">Modes de paiement enregistrés</label>
-                                                <input type="password" className="form-control"/>
+                                                <label className="paramettre">Modes de paiement enregistrés</label>
+                                                <input type="password" className="paramettre"/>
                                             </div>
-                                            <div className="mt-3 d-flex justify-content-end">
-                                                <div className="d-flex flex-nowrap small-screen-buttons">
-                                                    <button type="submit" className="btn me-2"> Ajouter un mode de paiement </button>
-                                                </div>
-                                            </div>
+                                            <button type="submit" className="paramettre"> Ajouter un mode de paiement </button>
                                         </div>
                                     </div>
                                 )}
                                 
                                 {activeTab === 'tab5' && (
                                     <div className="tab-pane fade active show" id="tab5">
-                                        <div className="card-body pb-2">
+                                        {/* <div className="card-body pb-2"> */}
+                                        <div className="paramettre-mt">
                                             {!showConfirmation && (
                                                 <div className="confirmation-modal">
-                                                    <div className="d-flex flex-nowrap small-screen-buttons">
-                                                        <button onClick={() => setShowConfirmation(true)} className="btn "> Supprimer </button>
-                                                    </div>
+                                                        <button onClick={() => setShowConfirmation(true)} className="paramettre"> Supprimer </button>
                                                 </div>
                                             )}
 
                                             {showConfirmation && (
                                                 <div className="confirmation-modal">
-                                                    <p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
-                                                    <button onClick={handleDeleteAccount} className="btn ">Oui, supprimer mon compte</button>
-                                                    <button onClick={() => setShowConfirmation(false)} className="btn ">Annuler</button>
+                                                    <p className="danger">Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
+                                                    <button onClick={handleDeleteAccount} className="paramettre">Oui, supprimer mon compte</button>
+                                                    <button onClick={() => setShowConfirmation(false)} className="paramettre">Annuler</button>
                                                 </div>
                                             )}
                                         </div>

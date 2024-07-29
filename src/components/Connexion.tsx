@@ -142,7 +142,7 @@ const Login = () => {
                   Connexion
                 </button>
                 <div>
-                  <Link to="/PasswordForgotten">
+                  <Link className="mdp-forget" to="/PasswordForgotten">
                       <p>Mot de passe oublié ?</p>
                   </Link>
                 </div>

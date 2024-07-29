@@ -60,14 +60,11 @@ const Categorie = () =>{
     return(
         <Layout>
             <div className="text-center">
-                <span className="font-bolder fs-1 text-light position-absolute z-4 reglage">{catValue}</span>
+                <span className="font-bolder position-absolute titre-categorie">{catValue}</span>
                 <img src={cascade} alt="canape" className="mb-5 carrousel-size carousel-inner carousel-top"/>
                 <p className="font-bolder">DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION</p>
                 <div className="row justify-content-center disposition-categorie">
                 {prod.map((p, index) => {
-                        // const imageProd = imagesProd.find(img => img.produit === p.nom);
-                        // const imageSrc = imageProd ? `${imageProd.images[0]}` : canape;
-
                         return (
                             <div key={index} className="col-3 mx-3 contenu-catgorie">
                                 <Link to={`/produits?categories=${encodeURIComponent(p.categorie.nom)}&produits=${encodeURIComponent(p.nom)}`}>
@@ -78,7 +75,7 @@ const Categorie = () =>{
                                     <p>{p.prix}€</p>
                                 </div>
                                 <div className="text-end moving-up test2">
-                                    {p.quantite <= 10 ? <p>Stock bientôt épuisé</p> : <p>En stock</p>}
+                                {p.quantite === 0 ? <p>Épuisé</p> : p.quantite <= 10 ? <p>Stock bientôt épuisé</p> : <p>En stock</p>}
                                 </div>
                             </div>
                         );
