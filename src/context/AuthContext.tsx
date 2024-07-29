@@ -7,6 +7,7 @@ interface AuthContextType {
   login: (username: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   loading: boolean;
+  checkAuthStatus: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -68,7 +69,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const login = async (username: string, password: string) => {
     try {
       await authService.login(username, password);
-      await checkAuthStatus();
+      checkAuthStatus();
     } catch (error) {
       console.error('Erreur de connexion :', error);
       setUser(null);
@@ -97,7 +98,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     user,
     loading,
     login,
-    logout
+    logout,
+    checkAuthStatus
   };
 
   return (

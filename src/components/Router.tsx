@@ -13,10 +13,11 @@ import Commande from './Commande';
 import CheckoutLivraison from './CheckoutLivraison';
 import CheckoutPaiement from './CheckoutPaiement';
 import CheckoutFini from './CheckoutFini';
-import Login from './Login';
+import Parametres from './Parametres';
 import Connexion from './Connexion';
 import Inscription from './Inscription';
 import ResultatRecherche from './ResultatRecherche';
+import PasswordForgotten from './PasswordForgotten';
 
 
 const Rooter = () => {
@@ -30,8 +31,9 @@ const Rooter = () => {
             <Route path="/mentions" element={<Ml />} />
             <Route path="/about" element={<About />} />
             <Route path="/cgu" element={<CGU />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/parametres" element={<Parametres/>} />
             <Route path="/connexion" element={<Connexion />} />
+            <Route path="/resultatRecherche" element={<ResultatRecherche />} />
             <Route path="/inscription" element={<Inscription />} />
             <Route path="/panier" element={<Panier />} />
             <Route path="/mesCommandes" element={<MesCommandes />} />
@@ -39,7 +41,7 @@ const Rooter = () => {
             <Route path="/checkoutLivraison" element={<CheckoutLivraison />} />
             <Route path="/checkoutPaiement" element={<CheckoutPaiement />} />
             <Route path="/checkoutFini" element={<CheckoutFini />} />
-            <Route path="/resultatRecherche" element={<ResultatRecherche />} />
+            <Route path="/PasswordForgotten" element={<PasswordForgotten />} /> 
         </Routes>
     </BrowserRouter>
     

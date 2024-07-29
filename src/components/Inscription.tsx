@@ -1,81 +1,67 @@
 import Layout from "./Layout";
 import React, { useEffect, useState, FormEvent } from "react";
-import axios from "axios";
-import Cookies from "js-cookie";
+import axios from "../services/Axios";
+import { AxiosError } from "axios";
+import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+
+
+
 
 const Inscription = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const [formData, setFormData] = useState({
+    prenom : '',
+    nom : '',
+    email : '',
+    agreeTerms : false,
+    plainPassword : '',
+  });
+  
 
-  useEffect(() => {
-    const token = Cookies.get("jwt_token");
-    if (token) {
-      navigate("/");
+  useEffect(() =>{
+    if (user) {
+      navigate('/');
     }
-  }, [navigate]);
+  });
 
-  const [email, setEmail] = useState("");
-  const [mdp, setMdp] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const credentials = { email: email, mot_de_passe: mdp };
-
-    try {
-      const response = await axios.post(
-        "https://127.0.0.1:8000/api/login_check",
-        credentials,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      const token = response.data.token;
-      Cookies.set("jwt_token", token);
-      console.log("Authentification réussie");
-      setSuccessMessage("Connexion réussie");
-      setError(null);
-      navigate("/");
-    } catch (error) {
-      //setError(error.response.data.message || 'Une erreur est survenue');
-      setSuccessMessage(null);
-    }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? checked : value,
+    });
   };
 
-  useEffect(() => {
-    const wrapper = document.querySelector(".wrapper") as HTMLDivElement;
-    const registerLink = document.querySelector(
-      ".register-link"
-    ) as HTMLAnchorElement | null;
-    const loginLink = document.querySelector(
-      ".login-link"
-    ) as HTMLAnchorElement | null;
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      await axios.post('/register',formData);
+      alert('Registration succesful');
+      navigate('/connexion');
+    } catch (error:unknown) {
+      if(error instanceof AxiosError){
 
-    if (wrapper && registerLink) {
-      registerLink.onclick = () => {
-        wrapper.classList.add("active");
-      };
-    }
-    if (wrapper && loginLink) {
-      loginLink.onclick = () => {
-        wrapper.classList.remove("active");
-      };
-    }
-
-    // Nettoyage des effets lors du démontage du composant
-    return () => {
-      if (registerLink) {
-        registerLink.onclick = null; // Supprimer l'événement onclick
+        if (error.response) {
+          // Le serveur a répondu avec un statut en dehors de la plage 2xx
+          console.error('Error data:', error.response.data);
+          alert('Registration failed: ' + JSON.stringify(error.response.data.errors));
+      } else if (error.request) {
+          // La requête a été faite mais aucune réponse n'a été reçue
+          console.error('Error request:', error.request);
+          alert('No response received from server');
+      } else {
+          // Une erreur s'est produite lors de la configuration de la requête
+          console.error('Error message:', error.message);
+          alert('Error setting up the request');
       }
-      if (loginLink) {
-        loginLink.onclick = null; // Supprimer l'événement onclick
       }
-    };
-  }, []);
+    }
+  };
 
   return (
     <Layout>
@@ -87,23 +73,65 @@ const Inscription = () => {
           </div>
           <div className="row justify-content-center">
             <div className="col-md-6">
-              <form action="#" className="inscription-form">
+              <form onSubmit={handleSubmit} className="inscription-form">
                 <div className="mb-3">
                   <label className="inscription-label">Nom</label>
-                  <input type="text" className="inscription-input" required />
+                  <input
+                    type="text"
+                    name="nom"
+                    className="inscription-input"
+                    value={formData.nom}
+                    onChange={handleChange}
+                    required
+                  />
                 </div>
                 <div className="mb-3">
                   <label className="inscription-label">Prénom</label>
-                  <input type="text" className="inscription-input" required />
+                  <input
+                    type="text"
+                    name="prenom"
+                    className="inscription-input"
+                    value={formData.prenom}
+                    onChange={handleChange}
+                    required
+                  />
                 </div>
                 <div className="mb-3">
                   <label className="inscription-label">Email</label>
-                  <input type="email" className="inscription-input" required />
+                  <input
+                    type="email"
+                    name="email"
+                    className="inscription-input"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
                 </div>
                 <div className="mb-3">
                   <label className="inscription-label">Mot de passe</label>
-                  <input type="password" className="inscription-input" required />
+                  <input
+                    type="password"
+                    name="plainPassword"
+                    className="inscription-input"
+                    value={formData.plainPassword}
+                    onChange={handleChange}
+                    required
+                  />
                 </div>
+                <div className="mb-3">
+                  <label className="inscription-label">
+                    <input
+                      type="checkbox"
+                      name="agreeTerms"
+                      checked={formData.agreeTerms}
+                      onChange={handleChange}
+                      required
+                    />
+                    Agree to terms
+                  </label>
+                </div>
+                {error && <div className="alert alert-danger">{error}</div>}
+                {successMessage && <div className="alert alert-success">{successMessage}</div>}
                 <button type="submit" className="inscription-button">
                   Inscription
                 </button>

@@ -799,12 +799,6 @@ legend img{
     cursor: pointer;
 }
 
-
-
-
-
-
-
-
-
-
+.btn-pagination{
+    width: 10% !important;
+}

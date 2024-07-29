@@ -1,10 +1,24 @@
 import { useEffect, useState } from "react";
 import Layout from "./Layout";
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from "../context/AuthContext";
+
 
 const CheckoutLivraison = () => {
   const navigation = useNavigate();
   const [error, setError] = useState('');
+  const { user, checkAuthStatus} = useAuth(); // Assurez-vous que useAuth renvoie la fonction login
+
+  const [compte, setCompte] = useState({
+    email: user?.email || '',
+    prenom: user?.prenom || '',
+    nom: user?.nom || '',
+    telephone: user?.telephone || '',
+});
+
+  useEffect(() => {
+    checkAuthStatus(); // Vérifie si l'utilisateur est connecté
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,11 +50,11 @@ const CheckoutLivraison = () => {
         telephone: telephone.value,
         panier: panier, // inclure le panier dans les données du formulaire
         amount: parseInt(amount),
-        saveLivrason: save?.checked
+        saveLivraison: save?.checked
       };
 
       try {
-        const response = await fetch('https://localhost:8000/create-payment-intent', {
+        const response = await fetch('https://localhost:8000/api/create-payment-intent', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -86,9 +100,9 @@ const CheckoutLivraison = () => {
               <form onSubmit={handleSubmit}>
                 <div className="checkout-form">
                   <label className="checkout-label">Prénom :</label><br />
-                  <input type="text" className="checkout-input" name="prenom" required />
+                  <input type="text" className="checkout-input" name="prenom" value={user?.prenom} required />
                   <label className="checkout-label">Nom :</label><br />
-                  <input type="text" className="checkout-input" name="nom" required />
+                  <input type="text" className="checkout-input" name="nom"  value={user?.nom} required />
                   <label className="checkout-label">Adresse 1 :</label><br />
                   <input type="text" className="checkout-input" name="adresse1" required />
                   <label className="checkout-label">Adresse 2 :</label><br />

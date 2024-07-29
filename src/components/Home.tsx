@@ -1,19 +1,14 @@
-import  canape  from "../img/canape.jpg";
-import  lit  from "../img/lit.jpg";
-import  cascade  from "../img/bannierejpg.jpg";
 import Layout from "./Layout";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import axios from 'axios';
 
-const Home = () =>{
-
+const Home = () => {
     interface Cat {
         nom: string,
         images: string
     }
-    
+
     interface Prod {
         categorie: string,
         date_creation: Date,
@@ -25,7 +20,7 @@ const Home = () =>{
         reference: string,
         images: string
     }
-    
+
     const imgcarrousel = [
         'un',
         'deux',
@@ -34,14 +29,14 @@ const Home = () =>{
 
     const [cat, setCat] = useState<Cat[]>([]);
     const [prod, setProd] = useState<Prod[]>([]);
-    const [carrousel,setCarrousel] = useState(imgcarrousel);
-
-    const [showAllCats, setShowAllCats] = useState(false);
-    const [showAllProducts, setShowAllProducts] = useState(false);
+    const [carrousel, setCarrousel] = useState(imgcarrousel);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [currentCatPage, setCurrentCatPage] = useState(1);
+    const itemsPerPage = 3;
+    const catItemsPerPage = 3;
 
     useEffect(() => {
-
-        const randomize = (tab: []) =>{
+        const randomize = (tab: []) => {
             var i, j, tmp;
             for (i = tab.length - 1; i > 0; i--) {
                 j = Math.floor(Math.random() * (i + 1));
@@ -52,59 +47,92 @@ const Home = () =>{
             return tab;
         }
 
-        // Appel à votre endpoint Symfony pour récupérer les catégories, produits et images de carrousel
-        fetch('https://localhost:8000/data')
+        fetch('https://localhost:8000/api/data')
             .then(response => response.json())
             .then(data => {
                 var melanger = randomize(data.produit);
                 setCat(data.categorie);
                 setProd(melanger);
-                // setCarouselImages(data.carouselImages);
-                console.log('data:',data);
+                console.log('data:', data);
             })
             .catch(error => console.error('Erreur lors de la récupération des données depuis le backend :', error));
-    }, []); 
+    }, []);
 
-    const handleToggleCats = () => {
-        setShowAllCats(!showAllCats);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = prod.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(prod.length / itemsPerPage);
+
+    const indexOfLastCatItem = currentCatPage * catItemsPerPage;
+    const indexOfFirstCatItem = indexOfLastCatItem - catItemsPerPage;
+    const currentCatItems = cat.slice(indexOfFirstCatItem, indexOfLastCatItem);
+    const totalCatPages = Math.ceil(cat.length / catItemsPerPage);
+
+    const handleClickNext = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
     };
-    const displayedCats = showAllCats ? cat : cat.slice(0, 5);
 
-    const handleToggleProducts = () => {
-        setShowAllProducts(!showAllProducts);
+    const handleClickPrev = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
     };
-    const displayedProducts = showAllProducts ? prod : prod.slice(0, 5);    
 
-    return(
+    const handleCatClickNext = () => {
+        if (currentCatPage < totalCatPages) {
+            setCurrentCatPage(currentCatPage + 1);
+        }
+    };
+
+    const handleCatClickPrev = () => {
+        if (currentCatPage > 1) {
+            setCurrentCatPage(currentCatPage - 1);
+        }
+    };
+
+    const handlePageClick = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const handleCatPageClick = (pageNumber: number) => {
+        setCurrentCatPage(pageNumber);
+    };
+
+    return (
         <Layout>
             <div className="d-flex justify-content-center">
-            <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel">
-                <div className="carousel-indicators">
-                    {carrousel.map((img,index) =><button key={index}
-                    type="button"
-                    data-bs-target="#carouselExampleSlidesOnly"
-                    data-bs-slide-to={index}
-                    className={index === 0 ? "active" : ""}
-                    aria-current={index === 0 ? "true" : undefined}
-                    aria-label={`Slide ${index}`}
-                    ></button>)}
-                </div>
-                    <div className="carousel-inner carousel-top">
-                        {carrousel.map((img,index) =><div key={index} 
-                        className={index === 0 ? "carousel-item active" : "carousel-item"}
-                        data-bs-interval="5000">
-                            <img src={cascade} className="d-block w-100" alt="carrousel"/>
-                        </div>
-                        )}
+                <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel">
+                    <div className="carousel-indicators">
+                        {carrousel.map((img, index) => (
+                            <button key={index}
+                                type="button"
+                                data-bs-target="#carouselExampleSlidesOnly"
+                                data-bs-slide-to={index}
+                                className={index === 0 ? "active" : ""}
+                                aria-current={index === 0 ? "true" : undefined}
+                                aria-label={`Slide ${index}`}
+                            ></button>
+                        ))}
+                    </div>
+                    <div className="carousel-inner">
+                        {carrousel.map((img, index) => (
+                            <div key={index}
+                                className={index === 0 ? "carousel-item active" : "carousel-item"}
+                                data-bs-interval="5000">
+                                <img src={img} className="d-block w-100" alt="carrousel" />
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
-            
-            <h1 className="titre">VENANT DES HAUTE TERRE D'ÉCOSSE <br/> NOS MEUBLES SONT IMMORTELS</h1>
+
+            <h1 className="titre">VENANT DES HAUTE TERRE D'ÉCOSSE <br /> NOS MEUBLES SONT IMMORTELS</h1>
             <div className="container-img-accueil">
-                {cat && cat.length > 0 && displayedCats.map((c, index) => (
+                {currentCatItems.map((c, index) => (
                     <Link key={index} to={`/categorie?categories=${encodeURIComponent(c.nom)}`} className="txt-img-accueil row col-12 col-md-6 col-lg-3">
-                        <img src={c.images} alt="" className="img-accueil"/>
+                        <img src={c.images} alt="" className="img-accueil" />
                         <span className="font-bolder">{c.nom}</span>
                     </Link>
                 ))}
@@ -114,10 +142,24 @@ const Home = () =>{
                     </button>
                 )}
             </div>
-            
+
+            <div className="d-flex justify-content-around mt-4">
+                <button onClick={handleCatClickPrev} disabled={currentCatPage === 1} className="btn btn-primary btn-pagination">Précédent</button>
+                <div className="pagination">
+                    {Array.from({ length: totalCatPages }, (_, index) => (
+                        <button key={index + 1}
+                            onClick={() => handleCatPageClick(index + 1)}
+                            className={`btn ${index + 1 === currentCatPage ? 'btn-secondary' : 'btn-light'}`}>
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
+                <button onClick={handleCatClickNext} disabled={currentCatPage === totalCatPages} className="btn btn-primary btn-pagination">Suivant</button>
+            </div>
+
             <h1 className="titre">Les Highlanders du moment</h1>
             <div className="container-img-accueil">
-                {displayedProducts.map((p, index) => (
+                {currentItems.map((p, index) => (
                     <div key={index} className="txt-img-accueil row col-12 col-md-6 col-lg-3">
                         <Link to={`/produits?categories=${encodeURIComponent(p.categorie)}&produits=${encodeURIComponent(p.nom)}`}>
                             <img src={p.images} alt={p.nom} className="img-produit mb-3 img-accueil" />
@@ -131,13 +173,21 @@ const Home = () =>{
                         </div>
                     </div>
                 ))}
-                {prod.length > 5 && (
-                    <button onClick={handleToggleProducts} className="btn-see-more">
-                        {showAllProducts ? 'Voir moins' : 'Voir plus'}
-                    </button>
-                )}
             </div>
 
+            <div className="d-flex justify-content-around mt-4">
+                <button onClick={handleClickPrev} disabled={currentPage === 1} className="btn btn-primary btn-pagination">Précédent</button>
+                <div className="pagination">
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button key={index + 1}
+                            onClick={() => handlePageClick(index + 1)}
+                            className={`btn ${index + 1 === currentPage ? 'btn-secondary' : 'btn-light'}`}>
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
+                <button onClick={handleClickNext} disabled={currentPage === totalPages} className="btn btn-primary btn-pagination">Suivant</button>
+            </div>
         </Layout>
     )
 }

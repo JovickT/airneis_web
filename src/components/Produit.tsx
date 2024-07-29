@@ -55,7 +55,7 @@ const Produit = () =>{
         // Vérifier si le paramètre `cat` existe et n'est pas vide
         if ((prodValue && prodValue.length > 0) && (catValue && catValue.length > 0)) {
             // 2. Construire l'URL pour l'API
-            const apiUrl = `https://localhost:8000/produits?categories=${encodeURIComponent(catValue)}&produits=${encodeURIComponent(prodValue)}`;
+            const apiUrl = `https://localhost:8000/api/produits?categories=${encodeURIComponent(catValue)}&produits=${encodeURIComponent(prodValue)}`;
 
             // 3. Utiliser `fetch` pour envoyer la requête à l'API
             fetch(apiUrl)
@@ -141,7 +141,7 @@ const Produit = () =>{
     
               console.log('ajoute dans le panier dans la bdd:', encodedLePanier);
     
-              const url = `https://localhost:8000/panier?test=${encodedLePanier}&user=${encodedLeUser}`;
+              const url = `https://localhost:8000/api/panier?test=${encodedLePanier}&user=${encodedLeUser}`;
     
               const response = await fetch(url, {
                 method: 'GET', // Utilisez POST si nécessaire

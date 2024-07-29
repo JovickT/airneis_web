@@ -1,10 +1,10 @@
 import Layout from "./Layout";
 import React, { useEffect, useState,ChangeEvent, FormEvent } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-  const { login } = useAuth(); // Assurez-vous que useAuth renvoie la fonction login
+  const { user, login} = useAuth(); // Assurez-vous que useAuth renvoie la fonction login
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
@@ -18,7 +18,19 @@ const Login = () => {
 
   const leUser = JSON.parse(localStorage.getItem('user') || '[]');
 
-   
+  useEffect(() => {
+    if(user) {
+      
+      let from = location.state?.from || '/';
+      console.log('location:', from);
+      if (from === '/checkoutLivraison') {
+        navigate(from);
+  
+      } else {
+        navigate('/');
+      }
+    }
+  },[user]);
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -29,14 +41,12 @@ const Login = () => {
         return;
       }
 
-      let from = location.state?.from || '/';
-      console.log('location:', from);
-      if (from === '/checkoutLivraison') {
-        navigate(from);
-      } else {
-        navigate('/');
+      try {
+        await login(username, password);
+      } catch (err) {
+        setError("Échec de la connexion. Veuillez vérifier vos identifiants.");
       }
-
+    
     };
 
     useEffect(() => {
@@ -47,7 +57,7 @@ const Login = () => {
             const encodedLeUser = encodeURIComponent(JSON.stringify(leUser));
   
   
-            const url = `https://localhost:8000/panier?test=${encodedLePanier}&user=${encodedLeUser}`;
+            const url = `https://localhost:8000/api/panier?test=${encodedLePanier}&user=${encodedLeUser}`;
   
             const response = await fetch(url, {
               method: 'GET', // Utilisez POST si nécessaire
@@ -80,9 +90,15 @@ const Login = () => {
         setUsername(e.target.value);
     };
     
-    const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value);
-    };
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+      setPassword(e.target.value);
+  };
+
+  useEffect(() =>{
+    if (user) {
+      navigate('/');
+    }
+  },[user,navigate]);
 
   return (
     <Layout>
@@ -125,6 +141,11 @@ const Login = () => {
                 <button type="submit" form="login" className="connexion-button">
                   Connexion
                 </button>
+                <div>
+                  <Link to="/PasswordForgotten">
+                      <p>Mot de passe oublié ?</p>
+                  </Link>
+                </div>
                 <div className="mt-3 text-center">
                   <p>
                     Pas de compte?{" "}
