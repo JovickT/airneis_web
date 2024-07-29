@@ -19,14 +19,19 @@ const api: AxiosInstance = axios.create({
   },
 });
 
+api.interceptors.response.use(
+  response => response,
+  error => {
+    console.error('API error:', error);
+    return Promise.reject(error);
+  }
+);
+
 const authService = {
   login: async (username: string, password: string): Promise<void> => {
     try {
-      const response = await api.post('/login_check', { username, password });
+      await api.post('/login_check', { username, password });
       
-      if (response.status !== 200) {
-        throw new Error('Network response was not ok');
-      }
     } catch (error) {
       console.error('Login error:', error);
       throw error;

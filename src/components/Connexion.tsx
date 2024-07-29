@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-  const { user, login , } = useAuth();
+  const { user, login } = useAuth();
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
@@ -19,7 +19,7 @@ const Login = () => {
       } catch (err) {
         setError("Échec de la connexion. Veuillez vérifier vos identifiants.");
       }
-      window.location.reload();
+      // window.location.reload();
   };
 
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
