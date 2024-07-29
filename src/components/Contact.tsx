@@ -25,7 +25,7 @@ const Contact = () =>{
         e.preventDefault();
     
         try {
-          const response = await fetch('https://localhost:8000/contact', {
+          const response = await fetch('https://localhost:8000/api/contact', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

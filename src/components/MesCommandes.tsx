@@ -33,7 +33,7 @@ const MesCommandes = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('https://localhost:8000/mesCommandes')
+    fetch('https://localhost:8000/api/mesCommandes')
       .then(response => response.json())
       .then(data => {
         if (data.success) {

@@ -17,6 +17,7 @@ import Parametres from './Parametres';
 import Connexion from './Connexion';
 import Inscription from './Inscription';
 import ResultatRecherche from './ResultatRecherche';
+import PasswordForgotten from './PasswordForgotten';
 
 
 const Rooter = () => {
@@ -40,6 +41,7 @@ const Rooter = () => {
             <Route path="/checkoutLivraison" element={<CheckoutLivraison />} />
             <Route path="/checkoutPayement" element={<CheckoutPayement />} />
             <Route path="/checkoutFini" element={<CheckoutFini />} />
+            <Route path="/PasswordForgotten" element={<PasswordForgotten />} /> 
         </Routes>
     </BrowserRouter>
     

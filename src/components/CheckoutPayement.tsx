@@ -68,7 +68,7 @@ const CheckoutForm = () => {
         try {
           console.log('commande:', JSON.stringify(commande));
           
-          const response = await fetch('https://localhost:8000/commande', {
+          const response = await fetch('https://localhost:8000/api/commande', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

@@ -747,3 +747,7 @@ legend img{
     font-size: 1rem;
     cursor: pointer;
 }
+
+.btn-pagination{
+    width: 10% !important;
+}

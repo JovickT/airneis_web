@@ -79,7 +79,7 @@ const Panier = () =>{
     
               console.log('ajoute dans le panier dans la bdd:', encodedLePanier);
     
-              const url = `https://localhost:8000/panier?test=${encodedLePanier}&user=${encodedLeUser}`;
+              const url = `https://localhost:8000/api/panier?test=${encodedLePanier}&user=${encodedLeUser}`;
     
               const response = await fetch(url, {
                 method: 'GET', // Utilisez POST si nécessaire

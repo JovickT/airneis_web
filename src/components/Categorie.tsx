@@ -31,7 +31,7 @@ const Categorie = () =>{
         // Vérifier si le paramètre `cat` existe et n'est pas vide
         if (catValue && catValue.length > 0) {
             // 2. Construire l'URL pour l'API
-            const apiUrlCatProd = `https://localhost:8000/categories?prodofCat=${encodeURIComponent(catValue)}`;
+            const apiUrlCatProd = `https://localhost:8000/api/categories?prodofCat=${encodeURIComponent(catValue)}`;
 
             // 3. Utiliser `fetch` pour envoyer la requête à l'API
             fetch(apiUrlCatProd)

@@ -26,7 +26,7 @@ const Recherche: React.FC<RechercheProps> = ({ show, handleClose }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-    fetch('https://localhost:8000/filtre')
+    fetch('https://localhost:8000/api/filtre')
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -86,7 +86,7 @@ const Recherche: React.FC<RechercheProps> = ({ show, handleClose }) => {
             console.log("formData:",formData,"\nform:",form);
 
 
-            fetch('https://localhost:8000/search', {
+            fetch('https://localhost:8000/api/search', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
