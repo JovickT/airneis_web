@@ -1,26 +1,90 @@
 import Layout from "./Layout";
 import React, { useEffect, useState,ChangeEvent, FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-  const { user, login } = useAuth();
+  const { user, login} = useAuth(); // Assurez-vous que useAuth renvoie la fonction login
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError(null);
+  const [lePanier, setLePanier] = useState(() => {
+    const savedPanier = localStorage.getItem('panier');
+    return savedPanier ? JSON.parse(savedPanier) : [];
+  });
 
-    try {
+  const leUser = JSON.parse(localStorage.getItem('user') || '[]');
+
+  useEffect(() => {
+    if(user) {
+      
+      let from = location.state?.from || '/';
+      console.log('location:', from);
+      if (from === '/checkoutLivraison') {
+        navigate(from);
+  
+      } else {
+        navigate('/');
+      }
+    }
+  },[user]);
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setError(null);
+
+      if (!login) {
+        setError("Erreur de configuration de l'authentification");
+        return;
+      }
+
+      try {
         await login(username, password);
       } catch (err) {
         setError("Échec de la connexion. Veuillez vérifier vos identifiants.");
       }
-      // window.location.reload();
-  };
+    
+    };
+
+    useEffect(() => {
+      if (lePanier.length > 0 && (leUser !== undefined || leUser.length !== null)) {
+        const sendPanierData = async () => {
+          try {
+            const encodedLePanier = encodeURIComponent(JSON.stringify(lePanier));
+            const encodedLeUser = encodeURIComponent(JSON.stringify(leUser));
+  
+  
+            const url = `https://localhost:8000/api/panier?test=${encodedLePanier}&user=${encodedLeUser}`;
+  
+            const response = await fetch(url, {
+              method: 'GET', // Utilisez POST si nécessaire
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              credentials: 'include', // Ajoute les credentials pour envoyer les cookies
+            });
+  
+            if (!response.ok) {
+              throw new Error('Erreur lors de l\'envoi des données au serveur');
+            }
+  
+            const result = await response.json();
+            console.log('Réponse du serveur:', result?.success);
+            localStorage.setItem('panier', JSON.stringify(result?.success));
+          } catch (error) {
+            console.error('Erreur:', error);
+          }
+        };
+  
+        sendPanierData();
+      }
+    }, [lePanier, leUser]);
+
+ 
+
 
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value);
@@ -77,6 +141,11 @@ const Login = () => {
                 <button type="submit" form="login" className="connexion-button">
                   Connexion
                 </button>
+                <div>
+                  <Link to="/PasswordForgotten">
+                      <p>Mot de passe oublié ?</p>
+                  </Link>
+                </div>
                 <div className="mt-3 text-center">
                   <p>
                     Pas de compte?{" "}

@@ -69,7 +69,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const login = async (username: string, password: string) => {
     try {
       await authService.login(username, password);
-      await checkAuthStatus();
+      checkAuthStatus();
     } catch (error) {
       console.error('Erreur de connexion :', error);
       setUser(null);

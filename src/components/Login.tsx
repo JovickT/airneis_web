@@ -14,7 +14,7 @@ const Login = ()=>{
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError(null);
-
+        
         if (!login) {
             setError("Erreur de configuration de l'authentification");
             return;
@@ -38,6 +38,8 @@ const Login = ()=>{
     useEffect(() => {
         if (isAuthenticated) {
             navigate('/');
+        }else{
+       
         }
     }, [isAuthenticated, navigate]);
 

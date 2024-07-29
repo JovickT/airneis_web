@@ -1,44 +1,55 @@
-import Layout from "./Layout";
+import React, { useEffect, useState } from 'react';
+import Layout from './Layout'; // Assurez-vous d'importer correctement votre Layout
+import { useNavigate } from 'react-router-dom';
 
 interface Commande {
-  id: number;
-  date: string;
-  montant: number;
-  statut: string;
-  produits: string[];
+  reference: string,
+  date_commande: string,
+  ttc: number,
+  tva: number,
+  etat: string,
+  panier: {
+    nom: string,
+    prix: number,
+    quantite: number,
+    image: string,
+    description: string,
+    categorie: string, 
+  }[],
+  adresse: {
+    nom: string,
+    prenom: string,
+    rue: string,
+    cp: string,
+    ville: string,
+    pays: string,
+    telephone: string
+  },
+
 }
 
 const MesCommandes = () => {
-  // Données des commandes en dur
-  const commandes: Commande[] = [
-    {
-      id: 1,
-      date: "2023-05-15",
-      montant: 50,
-      statut: "En cours",
-      produits: ["Produit A", "Produit B"],
-    },
-    {
-      id: 2,
-      date: "2023-07-20",
-      montant: 80,
-      statut: "Livrée",
-      produits: ["Produit C"],
-    },
-    {
-      id: 3,
-      date: "2024-02-10",
-      montant: 120,
-      statut: "Annulée",
-      produits: ["Produit D", "Produit E", "Produit F"],
-    },
-  ];
+  const [mesCommandes, setMesCommandes] = useState<Commande[]>([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch('https://localhost:8000/api/mesCommandes')
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          setMesCommandes(data.success);
+        } else {
+          console.error('Données incorrectes :', data);
+        }
+      })
+      .catch(error => console.error('Erreur lors de la récupération des données depuis le backend :', error));
+  }, []);
 
   // Fonction pour regrouper les commandes par année
   const regrouperParAnnee = (commandes: Commande[]) => {
     const commandesParAnnee: { [annee: number]: Commande[] } = {};
     commandes.forEach((commande) => {
-      const annee = new Date(commande.date).getFullYear();
+      const annee = new Date(commande.date_commande).getFullYear();
       if (!commandesParAnnee[annee]) {
         commandesParAnnee[annee] = [];
       }
@@ -47,10 +58,14 @@ const MesCommandes = () => {
     return commandesParAnnee;
   };
 
-  const commandesParAnnee = regrouperParAnnee(commandes);
+  const commandesParAnnee = regrouperParAnnee(mesCommandes);
   const anneesTriees = Object.keys(commandesParAnnee).sort(
     (a, b) => parseInt(b) - parseInt(a)
   );
+
+  const handleDisplayDetail = (commande: Commande) => {
+    navigate('/commande', { state: { commande } });
+  };
 
   return (
     <Layout>
@@ -65,33 +80,41 @@ const MesCommandes = () => {
               <h2>{annee}</h2>
               <hr />
               <ul>
-                {commandesParAnnee[parseInt(annee)].map(
-                  (commande: Commande) => (
-                    <li key={commande.id}>
-                      <table style={{ width: "100%" }}>
-                        <tbody>
-                          <tr>
-                            <td style={{ textAlign: "left" }}>
-                              {commande.date} - {commande.id}
-                            </td>
-                            <td style={{ textAlign: "right" }}>
-                              {commande.statut}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td style={{ textAlign: "left" }}>
-                              {commande.produits.length} articles
-                            </td>
-                            <td style={{ textAlign: "right" }}>
-                              {commande.montant}€
-                            </td>
-                          </tr>
-                          <br></br>
-                        </tbody>
-                      </table>
-                    </li>
-                  )
-                )}
+                {commandesParAnnee[parseInt(annee)].map((commande,index) => (
+                  <li key={commande.reference} onClick={() => handleDisplayDetail(commande)}
+                  style={{
+                    cursor: 'pointer',
+                    transition: 'transform 0.2s ease-in-out',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'scale(1.05)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                  }}>
+                    <table style={{ width: "100%" }}>
+                      <tbody>
+                        <tr>
+                          <td style={{ textAlign: "left" }}>
+                            {commande.date_commande} - {commande.reference}
+                          </td>
+                          <td style={{ textAlign: "right" }}>
+                            {commande.etat}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style={{ textAlign: "left" }}>
+                            {commande.panier.length} articles
+                          </td>
+                          <td style={{ textAlign: "right" }}>
+                            {commande.ttc}€
+                          </td>
+                        </tr>
+                        <br></br>
+                      </tbody>
+                    </table>
+                  </li>
+                ))}
               </ul>
             </div>
           ))}
