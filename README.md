@@ -1,6 +1,6 @@
 # Airneis Client
 
-Bienvenue dans la partie client de **Airneis**, l'interface utilisateur pour notre site e-commerce. Ce projet utilise React pour offrir une expérience utilisateur fluide et interactive.
+Bienvenue dans la partie client de **Airneis**, l'interface utilisateur pour notre site e-commerce, dans la vente de meubles. Ce projet utilise React pour offrir une expérience utilisateur fluide et interactive.
 
 ## Prérequis
 
@@ -39,11 +39,11 @@ Avant de commencer, assurez-vous d'avoir installé les outils suivants sur votre
 
   La partie client de Airneis offre les fonctionnalités suivantes :
 
-  - Page d'Accueil : Affiche les produits en vedette, les promotions, et les nouvelles catégories.
+  - Page d'Accueil : Affiche les catégories de produit et des produits vedettes.
   
-  - Catalogue des Produits : Permet de naviguer à travers les différentes catégories de produits et d'utiliser des filtres pour affiner les recherches.
+  - Page catégories : Permet d'afficher tous les produits d'une catégorie.
   
-  - Page de Détail du Produit : Montre les informations détaillées d'un produit sélectionné, y compris les descriptions, les prix, et les avis des clients.
+  - Page Produist : Montre les informations détaillées d'un produit sélectionné, y compris les descriptions, les prix et des produits similaire.
   
   - Panier : Permet de gérer les produits ajoutés au panier, y compris la modification des quantités et la suppression des articles.
   
