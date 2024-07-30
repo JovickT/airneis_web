@@ -35,15 +35,15 @@ Avant de commencer, assurez-vous d'avoir installé les outils suivants sur votre
 
   Cela démarrera le serveur de développement et ouvrira votre application dans votre navigateur par défaut. Vous pouvez accéder à l'application à l'adresse http://localhost:3000 (par défaut).
 
-**Fonctionnalitést**
+**Fonctionnalités**
 
   La partie client de Airneis offre les fonctionnalités suivantes :
 
   - Page d'Accueil : Affiche les catégories de produit et des produits vedettes.
   
-  - Page catégories : Permet d'afficher tous les produits d'une catégorie.
+  - Page Catégories : Permet d'afficher tous les produits d'une catégorie.
   
-  - Page Produist : Montre les informations détaillées d'un produit sélectionné, y compris les descriptions, les prix et des produits similaire.
+  - Page Produit : Montre les informations détaillées d'un produit sélectionné, y compris les descriptions, les prix et des produits similaire.
   
   - Panier : Permet de gérer les produits ajoutés au panier, y compris la modification des quantités et la suppression des articles.
   
@@ -51,7 +51,7 @@ Avant de commencer, assurez-vous d'avoir installé les outils suivants sur votre
   
   - Compte Utilisateur : Permet aux utilisateurs de gérer leurs informations personnelles et de suivre leurs commandes.
 
-**Développementt**
+**Développement**
 
   Pour contribuer au développement ou personnaliser l'application, voici quelques commandes utiles :
 
@@ -59,7 +59,7 @@ Avant de commencer, assurez-vous d'avoir installé les outils suivants sur votre
   - Lancer les tests : npm test
   - Construire le projet pour la production : npm run build
 
-**Contributiont**
+**Contribution**
 
   Les contributions sont les bienvenues ! Pour proposer des améliorations ou des corrections, veuillez suivre les instructions de contribution dans le dépôt GitHub.
 
@@ -71,4 +71,6 @@ Avant de commencer, assurez-vous d'avoir installé les outils suivants sur votre
 
 
 Merci d'utiliser Airneis ! Nous espérons que vous trouverez notre interface utilisateur agréable et facile à utiliser.
+Il est important de savoir que pour que pour le bon fonctionnement du site il est primordiale de lancer le serveur airneis backend que vous pourrez retrouver ci-dessous:
 
+https://github.com/JovickT/airneis_backend.git
