@@ -23,15 +23,15 @@ Avant de commencer, assurez-vous d'avoir installé les outils suivants sur votre
 2. **Installer les dépendances**
 
      Installez les dépendances du projet avec npm :
-
+       ```bash
      npm install
 
 
 **Démarrer le Serveur Client**
 
-  Pour démarrer le serveur de développement et lancer l'application, utilisez la commande suivante :
-
-  npm run start
+   Pour démarrer le serveur de développement et lancer l'application, utilisez la commande suivante :
+    ```bash
+     npm run start
 
   Cela démarrera le serveur de développement et ouvrira votre application dans votre navigateur par défaut. Vous pouvez accéder à l'application à l'adresse http://localhost:3000 (par défaut).
 
@@ -55,11 +55,15 @@ Avant de commencer, assurez-vous d'avoir installé les outils suivants sur votre
 
   Pour contribuer au développement ou personnaliser l'application, voici quelques commandes utiles :
 
-  - Lancer le serveur de développement : npm run start
-  - Lancer les tests : npm test
+  - Lancer le serveur de développement :
+ ```bash
+   npm run start
+  - Lancer les tests :
+ ```bash
+    npm test
   - Construire le projet pour la production : npm run build
 
-**Contribution**
+**Contribution
 
   Les contributions sont les bienvenues ! Pour proposer des améliorations ou des corrections, veuillez suivre les instructions de contribution dans le dépôt GitHub.
 
@@ -73,4 +77,5 @@ Avant de commencer, assurez-vous d'avoir installé les outils suivants sur votre
 Merci d'utiliser Airneis ! Nous espérons que vous trouverez notre interface utilisateur agréable et facile à utiliser.
 Il est important de savoir que pour que pour le bon fonctionnement du site il est primordiale de lancer le serveur airneis backend que vous pourrez retrouver ci-dessous:
 
+ ```bash
 https://github.com/JovickT/airneis_backend.git
