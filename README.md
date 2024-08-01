@@ -1,46 +1,81 @@
-# Getting Started with Create React App
+# Airneis Client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Bienvenue dans la partie client de **Airneis**, l'interface utilisateur pour notre site e-commerce, dans la vente de meubles. Ce projet utilise React pour offrir une expérience utilisateur fluide et interactive.
 
-## Available Scripts
+## Prérequis
 
-In the project directory, you can run:
+Avant de commencer, assurez-vous d'avoir installé les outils suivants sur votre machine :
 
-### `npm start`
+- [Git](https://git-scm.com/)
+- [Node.js](https://nodejs.org/) (version 14.0 ou ultérieure)
+- [npm](https://www.npmjs.com/) (inclus avec Node.js)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Installation
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. **Cloner le dépôt**
 
-### `npm test`
+   Clonez le dépôt Git en utilisant la commande suivante :
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   ```bash
+   git clone https://github.com/JovickT/airneis_web.git
+   cd airneis_web
 
-### `npm run build`
+2. **Installer les dépendances**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+     Installez les dépendances du projet avec npm :
+       ```bash
+     npm install
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Démarrer le Serveur Client**
 
-### `npm run eject`
+   Pour démarrer le serveur de développement et lancer l'application, utilisez la commande suivante :
+    ```bash
+     npm run start
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+  Cela démarrera le serveur de développement et ouvrira votre application dans votre navigateur par défaut. Vous pouvez accéder à l'application à l'adresse http://localhost:3000 (par défaut).
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Fonctionnalités**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+  La partie client de Airneis offre les fonctionnalités suivantes :
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+  - Page d'Accueil : Affiche les catégories de produit et des produits vedettes.
+  
+  - Page Catégories : Permet d'afficher tous les produits d'une catégorie.
+  
+  - Page Produit : Montre les informations détaillées d'un produit sélectionné, y compris les descriptions, les prix et des produits similaire.
+  
+  - Panier : Permet de gérer les produits ajoutés au panier, y compris la modification des quantités et la suppression des articles.
+  
+  - Page de Paiement : Permet aux utilisateurs de finaliser leurs achats en fournissant les informations de livraison et de paiement.
+  
+  - Compte Utilisateur : Permet aux utilisateurs de gérer leurs informations personnelles et de suivre leurs commandes.
 
-## Learn More
+**Développement**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  Pour contribuer au développement ou personnaliser l'application, voici quelques commandes utiles :
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  - Lancer le serveur de développement :
+ ```bash
+   npm run start
+  - Lancer les tests :
+ ```bash
+    npm test
+  - Construire le projet pour la production : npm run build
+
+**Contribution
+
+  Les contributions sont les bienvenues ! Pour proposer des améliorations ou des corrections, veuillez suivre les instructions de contribution dans le dépôt GitHub.
+
+**Licence**
+
+**Contact**
+
+  Pour toute question ou support, veuillez contacter contact@airneis.com ou ouvrir une issue sur le dépôt GitHub.
+
+
+Merci d'utiliser Airneis ! Nous espérons que vous trouverez notre interface utilisateur agréable et facile à utiliser.
+Il est important de savoir que pour que pour le bon fonctionnement du site il est primordiale de lancer le serveur airneis backend que vous pourrez retrouver ci-dessous:
+
+ ```bash
+https://github.com/JovickT/airneis_backend.git
