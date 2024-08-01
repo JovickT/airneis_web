@@ -31,18 +31,27 @@ interface Commande {
 const MesCommandes = () => {
   const [mesCommandes, setMesCommandes] = useState<Commande[]>([]);
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+  const fetchMesCommandes = async () => {
+    const response = await fetch('https://localhost:8000/api/mesCommandes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    setMesCommandes(data.success);
+  }
 
   useEffect(() => {
-    fetch('https://localhost:8000/api/mesCommandes')
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          setMesCommandes(data.success);
-        } else {
-          console.error('Données incorrectes :', data);
-        }
-      })
-      .catch(error => console.error('Erreur lors de la récupération des données depuis le backend :', error));
+    fetchMesCommandes();
   }, []);
 
   // Fonction pour regrouper les commandes par année

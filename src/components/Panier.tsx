@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import Layout from "./Layout"
 import lit from "../img/lit.jpg"
 import { useNavigate } from "react-router-dom";
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+
 
 const Panier = () =>{
     const [message, setMessage] = useState('');
