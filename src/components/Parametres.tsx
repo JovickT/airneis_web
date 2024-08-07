@@ -261,6 +261,7 @@ const Parametres = () => {
         fetchGetPaymentMethods();
        
         setAdd(false);
+        window.location.reload();
     }
 
     const handleRemove = async(key: number) =>{

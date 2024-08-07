@@ -183,62 +183,6 @@ const Produit = () =>{
     }
 
     return(
-        // <Layout>
-        //     <div>
-        //         <img src={cascade} alt="canape" className="carrousel-size mb-5"/>
-        //         <div className="container">
-        //             <Modal show={showModal} handleClose={handleCloseModal} />
-        //             <div className="row">
-        //                 <div id="carouselExampleSlidesOnly" className="carousel slide col-6" data-bs-ride="carousel">
-        //                 <div className="carousel-indicators">
-        //                         {carrousel.map((img,index) =><button key={index}
-        //                         type="button"
-        //                         data-bs-target="#carouselExampleSlidesOnly"
-        //                         data-bs-slide-to={index}
-        //                         className={index === 0 ? "active" : ""}
-        //                         aria-current={index === 0 ? "true" : undefined}
-        //                         aria-label={`Slide ${index}`}
-        //                         ></button>)}
-        //                     </div>
-        //                     <div className="carousel-inner">
-        //                         {carrousel.map((img,index) =><div key={index}
-        //                         className={index === 0 ? "carousel-item active" : "carousel-item"}
-        //                         data-bs-interval="5000">
-        //                             <img src={armoire} className="d-block w-100" alt="..."/>
-        //                         </div>
-        //                         )}
-        //                     </div>
-        //                 </div>
-        //                 <div className="col desc-produits">
-        //                     <div className="d-flex justify-content-between mb-3">
-        //                         <span className="font-bolder">{produitPage.prix}€</span>
-        //                         <div className="d-flex flex-column">
-        //                             <span className="text-uppercase font-bolder">{produitPage.nom}</span>
-        //                             <span className="text-end">{produitPage.quantite > 10? "En stock":"bientôt en rupture de stock"}</span>
-        //                         </div>
-        //                     </div>
-        //                     <div className="description">
-        //                         <p>{produitPage.description}</p>
-        //                     </div>
-        //                     <div className="text-center">
-        //                         <button className="produit-button" onClick={handleAddStorage}>ATOUTER AU PANIER</button>
-        //                     </div>
-        //                 </div>
-        //                 <div className="text-center text-color mt-5">
-        //                     <h1>PRODUIT SIMILAIRE</h1>
-        //                     <div className="row justify-content-center">
-        //                     {produitSimilaire.map((p,index) =><Link key={index} to={`/produits?categories=${encodeURIComponent(produitPage.categorie)}&produits=${encodeURIComponent(p.nom)}`} className="row text-center text-decoration-none col-3 my-3 mx-3">
-        //                             <img src={lit} alt="" className=" mb-2 rounded-5"/>
-        //                             <span className="text-dark font-bolder">{p.nom}</span>
-        //                         </Link>
-        //                     )}
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         </div>
-               
-        //     </div>
-        // </Layout>
         <Layout>
         <div>
             <img src={cascade} alt="canape" className="carrousel-size mb-5" />

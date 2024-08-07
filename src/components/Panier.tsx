@@ -4,6 +4,7 @@ import Layout from "./Layout"
 import lit from "../img/lit.jpg"
 import { useNavigate } from "react-router-dom";
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import axios from "../services/Axios";
 
 
 const Panier = () =>{
@@ -36,6 +37,27 @@ const Panier = () =>{
         });
         return t;
     });
+
+    // const majPanier = async () => {
+    //     try {
+    //         const response = await axios.post('/majPanier', { user: leUser, panier: lePanier });
+    
+    //         if (response.status < 200 || response.status >= 300) {
+    //             throw new Error('Network response was not ok');
+    //         }
+    
+    //         const data = response.data;
+    //         setLePanier(data);
+    //         localStorage.setItem('panier', JSON.stringify(data));
+    //     } catch (e) {
+    //         //message d'erreur à afficher
+    //         console.error('Erreur lors de la mis    e à jour du panier:', e);
+    //     }
+    // };
+
+    // useEffect(() =>{
+    //    majPanier();
+    // }, [lePanier]);
 
     
 

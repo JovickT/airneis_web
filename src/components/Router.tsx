@@ -18,33 +18,37 @@ import Connexion from './Connexion';
 import Inscription from './Inscription';
 import ResultatRecherche from './ResultatRecherche';
 import PasswordForgotten from './PasswordForgotten';
+import ProtectedRoute from './ProtectedRoute';
 
 
 const Rooter = () => {
   return (
     <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/categorie" element={<Categorie />} />
-            <Route path="/produits" element={<Produit />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/mentions" element={<Ml />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/cgu" element={<CGU />} />
-            <Route path="/parametres" element={<Parametres/>} />
-            <Route path="/connexion" element={<Connexion />} />
-            <Route path="/resultatRecherche" element={<ResultatRecherche />} />
-            <Route path="/inscription" element={<Inscription />} />
-            <Route path="/panier" element={<Panier />} />
-            <Route path="/mesCommandes" element={<MesCommandes />} />
-            <Route path="/commande" element={<Commande />} />
-            <Route path="/checkoutLivraison" element={<CheckoutLivraison />} />
-            <Route path="/checkoutPayement" element={<CheckoutPayement />} />
-            <Route path="/checkoutFini" element={<CheckoutFini />} />
-            <Route path="/PasswordForgotten" element={<PasswordForgotten />} /> 
-        </Routes>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/categorie" element={<Categorie />} />
+        <Route path="/produits" element={<Produit />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/mentions" element={<Ml />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/cgu" element={<CGU />} />
+        <Route path="/connexion" element={<Connexion />} />
+        <Route path="/resultatRecherche" element={<ResultatRecherche />} />
+        <Route path="/inscription" element={<Inscription />} />
+        <Route path="/panier" element={<Panier />} />
+        <Route path="/PasswordForgotten" element={<PasswordForgotten />} />
+
+        {/* Routes protégées */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/mesCommandes" element={<MesCommandes />} />
+          <Route path="/commande" element={<Commande />} />
+          <Route path="/checkoutLivraison" element={<CheckoutLivraison />} />
+          <Route path="/checkoutPayement" element={<CheckoutPayement />} />
+          <Route path="/checkoutFini" element={<CheckoutFini />} />
+          <Route path="/parametres" element={<Parametres />} />
+        </Route>
+      </Routes>
     </BrowserRouter>
-    
   );
 };
 
