@@ -62,7 +62,7 @@ const Categorie = () =>{
             <div className="text-center">
                 <span className="font-bolder position-absolute titre-categorie">{catValue}</span>
                 <img src={cascade} alt="canape" className="mb-5 carrousel-size carousel-inner carousel-top"/>
-                <p className="font-bolder">DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION</p>
+                <p className="font-bolder">Découvrez nos canapés confortables et stylés, parfaits pour tous les espaces de vie. Profitez d'un design moderne et d'un confort exceptionnel.</p>
                 <div className="row justify-content-center disposition-categorie">
                 {prod.map((p, index) => {
                         return (

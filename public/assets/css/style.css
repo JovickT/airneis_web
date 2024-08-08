@@ -278,7 +278,7 @@ body{
 
 .panier-img{
     width: 250px !important;
-    height: 120px;
+    height: 200px !important;
 }
 
 @media (max-width: 768px) {
