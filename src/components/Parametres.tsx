@@ -427,7 +427,7 @@ const Parametres = () => {
                                 
                                 {activeTab === 'tab3' && (
                                     <div className="tab-pane fade active show" id="tab3">
-                                        <div className="card-body pb-2">
+                                        <div className="card-body pb-2"><br/><br/>
                                         {successAdress && <div className="alert alert-success mb-4">Adresse ajouté avec succès.</div>}
                                         <h3>Mes adresses</h3>
                                             {adresses.length > 0 ? (
@@ -494,7 +494,7 @@ const Parametres = () => {
                                     {activeTab === 'tab4' && (
                                         <div className="tab-pane fade active show" id="tab4">
                                             <div className="card-body pb-2">
-                                                <div className="form-group">
+                                                <div className="form-group"><br/><br/>
                                                     <label className="form-label">Modes de paiement enregistrés</label>
                                                     {successPayement && <div className="alert alert-success mb-4">Méthode de paiement ajouté avec succès</div>}
                                                     <div>
@@ -520,7 +520,7 @@ const Parametres = () => {
                                                 </div>
                                                 <div className="mt-3 d-flex justify-content-end">
                                                     <div className="d-flex flex-nowrap small-screen-buttons">
-                                                        <button type="submit" className="btn me-2" onClick={handleAddPayement}>
+                                                        <button type="submit" className="paramettre" onClick={handleAddPayement}>
                                                             Ajouter un mode de paiement
                                                         </button>
                                                     </div>

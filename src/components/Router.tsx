@@ -11,7 +11,7 @@ import Panier from './Panier';
 import MesCommandes from './MesCommandes';
 import Commande from './Commande';
 import CheckoutLivraison from './CheckoutLivraison';
-import CheckoutPaiement from './CheckoutPaiement';
+import CheckoutPayement from './CheckoutPaiement';
 import CheckoutFini from './CheckoutFini';
 import Parametres from './Parametres';
 import Connexion from './Connexion';
