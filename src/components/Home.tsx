@@ -1,6 +1,7 @@
 import Layout from "./Layout";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "../services/Axios";
 
 const Home = () => {
     interface Cat {
@@ -26,13 +27,50 @@ const Home = () => {
         'trois'
     ]
 
+    const [userStorage, setUserStorage] = useState(() => {
+        try {
+          const storedUser = localStorage.getItem('user');
+          return storedUser ? JSON.parse(storedUser) : [];
+        } catch (e) {
+          console.error('Erreur lors de la récupération ou du parsing de user depuis localStorage:', e);
+          return [];
+        }
+    });
+
     const [cat, setCat] = useState<Cat[]>([]);
     const [prod, setProd] = useState<Prod[]>([]);
     const [carrousel, setCarrousel] = useState(imgcarrousel);
     const [currentPage, setCurrentPage] = useState(1);
     const [currentCatPage, setCurrentCatPage] = useState(1);
+
+    const [lePanier, setLePanier] = useState(() => {
+        const savedPanier = localStorage.getItem('panier');
+        return savedPanier ? JSON.parse(savedPanier) : [];
+    });
+
     const itemsPerPage = 3;
     const catItemsPerPage = 3;
+
+    const majPanier = async () => {
+        try {
+            const response = await axios.post('/majPanier', { user: userStorage, panier: lePanier });
+    
+            if (response.status < 200 || response.status >= 300) {
+                throw new Error('Network response was not ok');
+            }
+    
+            const data = response.data;
+            setLePanier(data);
+            localStorage.setItem('panier', JSON.stringify(data));
+        } catch (e) {
+            //message d'erreur à afficher
+            console.error('Erreur lors de la mis    e à jour du panier:', e);
+        }
+    };
+
+    useEffect(() =>{
+       majPanier();
+    }, [userStorage]);
 
     useEffect(() => {
         const randomize = (tab: []) => {

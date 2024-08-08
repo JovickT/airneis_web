@@ -4,6 +4,10 @@ import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from "react";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "../services/Axios";
+
 
 // Définition du type pour une commande
 interface Commande {
@@ -32,15 +36,36 @@ interface Commande {
 
 }
 
+const stripePromise = loadStripe('pk_test_oKhSR5nslBRnBZpjO6KuzZeX');
 
 
 const CommandeDetails = () => {
-  // Données de commande en dur
-  const test = {
-    methodePaiement: "**** **** **** 4923"
-  };
+  
   const [detailCommande, setDetail] = useState<Commande | null>(null);
   const location = useLocation();
+  const [paymentMethods, setPaymentMethods] = useState({
+    "id": "",
+    "brand": "",
+    "last4": "",
+    "exp_month": "",
+    "exp_year": ""
+  });
+
+
+  type CardBrand = 'visa' | 'mastercard' | 'amex' | 'discover' | 'jcb' | 'diners' | 'unionpay' | 'default';
+
+  const cardBrandIcons: Record<CardBrand, string> = {
+      visa: 'fab fa-cc-visa',
+      mastercard: 'fab fa-cc-mastercard',
+      amex: 'fab fa-cc-amex',
+      discover: 'fab fa-cc-discover',
+      jcb: 'fab fa-cc-jcb',
+      diners: 'fab fa-cc-diners-club',
+      unionpay: 'far fa-credit-card',
+      default: 'far fa-credit-card', // Icône par défaut pour les autres marques
+  };
+
+  const iconClass = cardBrandIcons[paymentMethods.brand as CardBrand] || cardBrandIcons.default;
 
   useEffect(() => {
     if (location.state && location.state.commande) {
@@ -55,6 +80,30 @@ const CommandeDetails = () => {
     // newProduits.splice(index, 1);
     // setCommande({...commande, produits: newProduits });
   };
+
+  const fetchGetPaymentMethods = async () => {
+      // Fetch des moyens de paiement depuis l'API
+      try {
+        
+        const response = await axios.post('/get-payment-methods-commande', { reference: detailCommande?.reference });
+
+        if (response.status < 200 || response.status >= 300) {
+            throw new Error('Network response was not ok');
+        }
+  
+        // Les données sont disponibles directement dans response.data
+        const data = response.data;
+        console.log('get payement:',data);
+        setPaymentMethods(data);
+      }catch (e) {
+        //message d'erreur à afficher
+      }
+     
+  }
+
+  useEffect(() => {
+      fetchGetPaymentMethods();
+  }, [detailCommande?.reference]);
 
   return (
     <Layout>
@@ -132,7 +181,14 @@ const CommandeDetails = () => {
                 )}
               <hr />
               <h3>Méthode de paiement</h3>
-              <p>{test.methodePaiement}</p>
+              <Elements stripe={stripePromise}>
+                <div key={paymentMethods.id} className="payment-method d-flex align-items-center mt-4">
+                    <i className={`${iconClass} fa-2x me-2`}></i>
+                    <p className="mb-0">
+                        **** **** **** {paymentMethods.last4} <span>{paymentMethods.exp_month}/{paymentMethods.exp_year}</span>
+                    </p>
+                </div>
+             </Elements>
             </div>
           </div>
         </div>

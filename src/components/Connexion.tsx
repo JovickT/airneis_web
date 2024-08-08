@@ -154,6 +154,7 @@ const Login = () => {
                     </a>
                   </p>
                 </div>
+                {error && <div className="alert alert-danger">{error}</div>}
               </form>
             </div>
           </div>
