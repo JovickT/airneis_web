@@ -9,7 +9,8 @@ const Categorie = () =>{
     interface Cat {
         categorie: {
             id_cat: number,
-            nom: string
+            nom: string,
+            description: string
         },
         date_creation: string,
         description: string,
@@ -25,6 +26,7 @@ const Categorie = () =>{
     const [prod,setProd] = useState<Cat[]>([]);
     const [searchParams] = useSearchParams();
     const catValue = searchParams.get('categories');
+    const descValue = searchParams.get('description');
 
     useEffect(() => {
 
@@ -62,7 +64,16 @@ const Categorie = () =>{
             <div className="text-center">
                 <span className="font-bolder position-absolute titre-categorie">{catValue}</span>
                 <img src={cascade} alt="canape" className="mb-5 carrousel-size carousel-inner carousel-top"/>
-                <p className="font-bolder">Découvrez nos canapés confortables et stylés, parfaits pour tous les espaces de vie. Profitez d'un design moderne et d'un confort exceptionnel.</p>
+                {/* <p className="font-bolder">{p.description}</p> */}
+                                {/* Affichage de la description de la catégorie */}
+                {prod.length > 0 && prod[0].categorie && (
+                    <p className="font-bolder">
+                        {prod[0].categorie.description || "Description indisponible"}
+                    </p>
+                )}
+                <span className="font-bolder">{descValue}</span>
+                {descValue && <span className="font-bolder">{descValue}</span>}
+
                 <div className="row justify-content-center disposition-categorie">
                 {prod.map((p, index) => {
                         return (
