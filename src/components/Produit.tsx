@@ -1,7 +1,5 @@
 import Layout from "./Layout"
 import  cascade  from "../img/bannierejpg.jpg";
-import  lit  from "../img/lit.jpg";
-import  armoire  from "../img/armoire.jpg";
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Modal from "./Modal";
@@ -9,32 +7,32 @@ import Modal from "./Modal";
 
 const Produit = () =>{
 
-    interface Prod{
+    interface Prod {
         categorie: {
-            id_cat: number,
-            nom: string
-        },
-        date_creation: string,
-        description: string,
-        marque: Object,
-        images: string,
-        nom: string,
-        prix: number,
-        quantite: number,
-        reference:string
+            id_cat: number;
+            nom: string;
+        };
+        date_creation: string;
+        description: string;
+        marque: Object;
+        images: string[]; // tableau d'images en tant que chaînes de caractères
+        nom: string;
+        prix: number;
+        quantite: number;
+        reference: string;
     }
 
-    //permet d'avoir l'état du panier et le mettre à jour
-    const [add, setAdd] = useState<{ nom: string; prix: number; description: string; quantite: number; image: string}[]>(() => {
-
-        // Récupérer le contenu du panier depuis le localStorage
+    const [add, setAdd] = useState<Array<{
+        nom: string;
+        prix: number;
+        description: string;
+        quantite: number;
+        image: string[] | string;
+    }>>(() => {
         const panierString = localStorage.getItem('panier');
-
-        // Si le panier existe, le parser et le retourner. Sinon, retourner un tableau vide.
         return panierString ? JSON.parse(panierString) : [];
-
     });
-
+    
     const [searchParams] = useSearchParams();
     const prodValue = searchParams.get('produits');
     const catValue = searchParams.get('categories');
@@ -81,17 +79,6 @@ const Produit = () =>{
         }
     }, [prodValue]);
 
-    //les images lié au carrousel(pour l'instant c'est juste pour avoir six image dans le carrousel)
-    const imgcarrousel = [
-        'un',
-        'deux',
-        'trois',
-        'quatre',
-        'cinq',
-        'six'
-    ]
-
-
     // les éléments qui constitut les informations importante d'uun produit. (il manque juste le lien vers l'image qui correspond au produit)
     const produitPage = theProd.length > 0 ? {
         'nom': theProd[0].nom,
@@ -99,7 +86,7 @@ const Produit = () =>{
         'prix': theProd[0].prix,
         'description': theProd[0].description,
         'quantite': theProd[0].quantite,
-        'image': theProd[0].images,
+        'image': theProd[0].images, // Gardez cela comme un tableau de chaînes de caractères
     } : {
         'nom': '',
         'categorie': '',
@@ -108,8 +95,6 @@ const Produit = () =>{
         'quantite': 0,
         'image': ''
     };
-
-    const [carrousel,setCarrousel] = useState(imgcarrousel);
  
     const handleAddStorage = async() =>{
 
@@ -189,26 +174,37 @@ const Produit = () =>{
             <div className="container">
                 <Modal show={showModal} handleClose={handleCloseModal} />
                 <div className="row">
-                    <div id="carouselExampleSlidesOnly" className="carousel slide col-12 col-md-6" data-bs-ride="carousel">
-                        <div className="carousel-indicators">
-                            {carrousel.map((img, index) => <button key={index}
-                                type="button"
-                                data-bs-target="#carouselExampleSlidesOnly"
-                                data-bs-slide-to={index}
-                                className={index === 0 ? "active" : ""}
-                                aria-current={index === 0 ? "true" : undefined}
-                                aria-label={`Slide ${index}`}
-                            ></button>)}
-                        </div>
-                        <div className="carousel-inner">
-                            {carrousel.map((img, index) => <div key={index}
-                                className={index === 0 ? "carousel-item active" : "carousel-item"}
-                                data-bs-interval="5000">
-                                <img src={armoire} className="d-block w-100" alt="..." />
+                <div id="carouselExampleSlidesOnly" className="carousel slide col-12 col-md-6" data-bs-ride="carousel">
+                    {theProd.length > 0 && (
+                        <>
+                            <div className="carousel-indicators">
+                                {theProd[0].images.map((img, index) => (
+                                    <button
+                                        key={index}
+                                        type="button"
+                                        data-bs-target="#carouselExampleSlidesOnly"
+                                        data-bs-slide-to={index}
+                                        className={index === 0 ? "active forSlide" : "forSlide"}
+                                        aria-current={index === 0 ? "true" : undefined}
+                                        aria-label={`Slide ${index}`}
+                                    ></button>
+                                ))}
                             </div>
-                            )}
-                        </div>
+                            <div className="carousel-inner">
+                                {theProd[0].images.map((img, index) => (
+                                    <div
+                                        key={index}
+                                        className={index === 0 ? "carousel-item active" : "carousel-item"}
+                                        data-bs-interval="5000"
+                                    >
+                                        <img src={img} className="d-block w-100" alt="..." />
+                                    </div>
+                                ))}
+                            </div>
+                        </>
+                        )}
                     </div>
+
                     <div className="col-12 col-md-6 desc-produits">
                         <div className="product-info">
                             <div className="d-flex justify-content-between mb-3">
@@ -230,7 +226,7 @@ const Produit = () =>{
                         <h1>PRODUIT SIMILAIRE</h1>
                         <div className="row justify-content-center produits-similaires">
                             {produitSimilaire.map((p, index) => <Link key={index} to={`/produits?categories=${encodeURIComponent(produitPage.categorie)}&produits=${encodeURIComponent(p.nom)}`} className="row text-center text-decoration-none col-3 my-3 produit-similaire-item">
-                                <img src={p.images} alt="" className="mb-2 rounded-5" />
+                                <img src={p.images[0]} alt="" className="mb-2 rounded-5" />
                                 <span className="text-dark font-bolder">{p.nom}</span>
                             </Link>
                             )}

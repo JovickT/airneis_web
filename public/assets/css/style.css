@@ -751,3 +751,7 @@ legend img{
 .btn-pagination{
     width: 10% !important;
 }
+
+.forSlide{
+    background-color: antiquewhite !important;
+}

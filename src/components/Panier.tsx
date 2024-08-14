@@ -155,7 +155,7 @@ const Panier = () =>{
                         <div className="col">
                             {add.map((r,index) =><div key={index} className="mb-4">
                                 <div className="d-flex justify-content-end">
-                                    <img src={r.image} alt={r.nom} className="w-19 mx-4 "/>
+                                    <img src={r.image[0]} alt={r.nom} className="w-19 mx-4 "/>
                                     <div className="col-4">
                                         <span className="font-bolder">{r.nom}</span>
                                         <p>{r.description}</p>
