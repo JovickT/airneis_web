@@ -18,11 +18,12 @@ const Categorie = () =>{
         prix: number,
         quantite: number,
         reference:string
-        image: string
+        image: string[]
     }
 
     const navigate = useNavigate();
     const [prod,setProd] = useState<Cat[]>([]);
+    const [baniere,setBaniere] = useState<string>();
     const [searchParams] = useSearchParams();
     const catValue = searchParams.get('categories');
 
@@ -42,7 +43,8 @@ const Categorie = () =>{
                     return response.json();
                 })
                 .then(data => {
-                    setProd(data);
+                    setProd(data.produits);
+                    setBaniere(data.baniere);
                     console.log('Data:', data);
                     // Traiter les données reçues de l'API ici
                 })
@@ -61,7 +63,7 @@ const Categorie = () =>{
         <Layout>
             <div className="text-center">
                 <span className="font-bolder fs-1 text-light position-absolute z-4 reglage">{catValue}</span>
-                <img src={cascade} alt="canape" className="mb-5 carrousel-size"/>
+                <img src={baniere} alt="canape" className="mb-5 carrousel-size"/>
                 <p className="font-bolder">DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION</p>
                 <div className="row justify-content-center disposition-categorie">
                 {prod.map((p, index) => {
@@ -71,7 +73,7 @@ const Categorie = () =>{
                         return (
                             <div key={index} className="col-3 mx-3 contenu-catgorie">
                                 <Link to={`/produits?categories=${encodeURIComponent(p.categorie.nom)}&produits=${encodeURIComponent(p.nom)}`}>
-                                    <img src={p.image} alt={p.nom} className="img-produit-categorie"/>
+                                    <img src={p.image[0]} alt={p.nom} className="img-produit-categorie"/>
                                 </Link>
                                 <div className="d-flex justify-content-between">
                                     <p>{p.nom}</p>

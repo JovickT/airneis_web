@@ -22,12 +22,6 @@ const Home = () => {
         images: string
     }
 
-    const imgcarrousel = [
-        'un',
-        'deux',
-        'trois'
-    ]
-
     const [userStorage, setUserStorage] = useState(() => {
         try {
           const storedUser = localStorage.getItem('user');
@@ -40,9 +34,9 @@ const Home = () => {
 
     const [cat, setCat] = useState<Cat[]>([]);
     const [prod, setProd] = useState<Prod[]>([]);
-    const [carrousel, setCarrousel] = useState(imgcarrousel);
     const [currentPage, setCurrentPage] = useState(1);
     const [currentCatPage, setCurrentCatPage] = useState(1);
+    const [slides, setSlides] = useState<string[]>([]);
 
     const [lePanier, setLePanier] = useState(() => {
         const savedPanier = localStorage.getItem('panier');
@@ -90,6 +84,7 @@ const Home = () => {
             .then(data => {
                 var melanger = randomize(data.produit);
                 setCat(data.categorie);
+                setSlides(data.slide);
                 setProd(melanger);
                 console.log('data:', data);
             })
@@ -143,7 +138,7 @@ const Home = () => {
             <div className="d-flex justify-content-center">
                 <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel">
                     <div className="carousel-indicators">
-                        {carrousel.map((img, index) => (
+                        {slides.map((img, index) => (
                             <button key={index}
                                 type="button"
                                 data-bs-target="#carouselExampleSlidesOnly"
@@ -155,11 +150,11 @@ const Home = () => {
                         ))}
                     </div>
                     <div className="carousel-inner">
-                        {carrousel.map((img, index) => (
+                        {slides.length > 0 && slides.map((img, index) => (
                             <div key={index}
                                 className={index === 0 ? "carousel-item active" : "carousel-item"}
                                 data-bs-interval="5000">
-                                <img src={img} className="d-block w-100" alt="carrousel" />
+                                <img src={img} className="" alt="carrousel" />
                             </div>
                         ))}
                     </div>

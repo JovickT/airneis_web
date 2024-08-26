@@ -481,6 +481,7 @@ body{
 
 .carrousel-size{
     width: -webkit-fill-available;
+    height: 70vh;
 }
 
 .img-produit-categorie {

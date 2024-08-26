@@ -8,6 +8,7 @@ import Modal from "./Modal";
 const Produit = () =>{
 
     interface Prod {
+        afficher: string;
         categorie: {
             id_cat: number;
             nom: string;
@@ -40,6 +41,7 @@ const Produit = () =>{
     const [produitSimilaire,setProduitSimilaire] = useState<Prod[]>([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
+    const [image, setImage] = useState<string>();
 
     const [lePanier, setLePanier] = useState(() => {
         const savedPanier = localStorage.getItem('panier');
@@ -65,6 +67,7 @@ const Produit = () =>{
                 })
                 .then(data => {
                     setTheProd(data.theProduct);
+                    setImage(data.afficher);
                     setProduitSimilaire(data.similary);
                     setLoading(false); // Arrête le chargement
                     console.log('Data:', data);
@@ -170,7 +173,7 @@ const Produit = () =>{
     return(
         <Layout>
         <div>
-            <img src={cascade} alt="canape" className="carrousel-size mb-5" />
+        {image && image.length > 0 && (<img src={image} alt="canape" className="carrousel-size mb-5"/>)}
             <div className="container">
                 <Modal show={showModal} handleClose={handleCloseModal} />
                 <div className="row">
