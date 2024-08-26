@@ -42,11 +42,14 @@ const Produit = () =>{
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [image, setImage] = useState<string>();
+    const [currentPage, setCurrentPage] = useState(1);
 
     const [lePanier, setLePanier] = useState(() => {
         const savedPanier = localStorage.getItem('panier');
         return savedPanier ? JSON.parse(savedPanier) : [];
     });
+
+    const itemsPerPage = 6;
 
     const leUser = JSON.parse(localStorage.getItem('user') || '[]');
 
@@ -170,6 +173,29 @@ const Produit = () =>{
         console.error('raaaaaaaah');
     }
 
+    
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = produitSimilaire.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(produitSimilaire.length / itemsPerPage);
+   
+
+    const handleClickNext = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const handleClickPrev = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const handlePageClick = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+    };
+
     return(
         <Layout>
         <div>
@@ -228,11 +254,24 @@ const Produit = () =>{
                     <div className="text-center text-color mt-5">
                         <h1>PRODUIT SIMILAIRE</h1>
                         <div className="row justify-content-center produits-similaires">
-                            {produitSimilaire.map((p, index) => <Link key={index} to={`/produits?categories=${encodeURIComponent(produitPage.categorie)}&produits=${encodeURIComponent(p.nom)}`} className="row text-center text-decoration-none col-3 my-3 produit-similaire-item">
+                            {currentItems.map((p, index) => <Link key={index} to={`/produits?categories=${encodeURIComponent(produitPage.categorie)}&produits=${encodeURIComponent(p.nom)}`} className="row text-center text-decoration-none col-3 my-3 produit-similaire-item">
                                 <img src={p.images[0]} alt="" className="mb-2 rounded-5" />
                                 <span className="text-dark font-bolder">{p.nom}</span>
                             </Link>
                             )}
+                        </div>
+                        <div className="d-flex justify-content-around mt-4">
+                            <button onClick={handleClickPrev} disabled={currentPage === 1} className="btn btn-primary btn-pagination">Précédent</button>
+                            <div className="pagination">
+                                {Array.from({ length: totalPages }, (_, index) => (
+                                    <button key={index + 1}
+                                        onClick={() => handlePageClick(index + 1)}
+                                        className={`btn ${index + 1 === currentPage ? 'btn-secondary' : 'btn-light'}`}>
+                                        {index + 1}
+                                    </button>
+                                ))}
+                            </div>
+                            <button onClick={handleClickNext} disabled={currentPage === totalPages} className="btn btn-primary btn-pagination">Suivant</button>
                         </div>
                     </div>
                 </div>

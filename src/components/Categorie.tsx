@@ -26,6 +26,8 @@ const Categorie = () =>{
     const [baniere,setBaniere] = useState<string>();
     const [searchParams] = useSearchParams();
     const catValue = searchParams.get('categories');
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 6;
 
     useEffect(() => {
 
@@ -59,6 +61,28 @@ const Categorie = () =>{
         }
     }, []);
 
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = prod.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(prod.length / itemsPerPage);
+
+
+    const handleClickNext = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const handleClickPrev = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const handlePageClick = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+    };
+
     return(
         <Layout>
             <div className="text-center">
@@ -66,7 +90,7 @@ const Categorie = () =>{
                 <img src={baniere} alt="canape" className="mb-5 carrousel-size"/>
                 <p className="font-bolder">DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION</p>
                 <div className="row justify-content-center disposition-categorie">
-                {prod.map((p, index) => {
+                {currentItems.map((p, index) => {
                         // const imageProd = imagesProd.find(img => img.produit === p.nom);
                         // const imageSrc = imageProd ? `${imageProd.images[0]}` : canape;
 
@@ -86,6 +110,19 @@ const Categorie = () =>{
                         );
                     })}
                 </div>
+                <div className="d-flex justify-content-around mt-4">
+                <button onClick={handleClickPrev} disabled={currentPage === 1} className="btn btn-primary btn-pagination">Précédent</button>
+                <div className="pagination">
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button key={index + 1}
+                            onClick={() => handlePageClick(index + 1)}
+                            className={`btn ${index + 1 === currentPage ? 'btn-secondary' : 'btn-light'}`}>
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
+                <button onClick={handleClickNext} disabled={currentPage === totalPages} className="btn btn-primary btn-pagination">Suivant</button>
+            </div>
             </div>
         </Layout>
     )
