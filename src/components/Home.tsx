@@ -43,7 +43,7 @@ const Home = () => {
         return savedPanier ? JSON.parse(savedPanier) : [];
     });
 
-    const itemsPerPage = 3;
+    const itemsPerPage = 6;
     const catItemsPerPage = 3;
 
     const majPanier = async () => {

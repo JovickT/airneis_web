@@ -22,7 +22,7 @@ interface Commande {
     nom: string,
     prix: number,
     quantite: number,
-    image: string,
+    image: string[],
     description: string,
     categorie: string, 
   }[],
@@ -86,7 +86,7 @@ const CommandeDetails = () => {
     }
   }, [location.state]);
 
-  console.log(detailCommande);
+  console.log('detailCommande:',detailCommande);
 
   const handleSelectAll = () => {
     setSelectAll(!selectAll);
@@ -259,7 +259,7 @@ const CommandeDetails = () => {
               </div>
               {detailCommande?.panier.map((produit, index) => (
                 <div key={produit.nom} className="d-flex" style={{ flexDirection: 'row', display: 'flex' }}>
-                  <img src={produit.image} alt="" className="mb-2 rounded-5" height="35%" width="35%" style={{ marginRight: '4%' }} />
+                  <img src={produit.image[0]} alt="" className="mb-2 rounded-5" height="35%" width="35%" style={{ marginRight: '4%' }} />
                   <div className="ml-3" style={{ textAlign: 'left' }}>
                     <div><strong>{produit.nom}</strong></div>
                     <div>{produit.description}</div>

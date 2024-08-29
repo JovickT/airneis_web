@@ -111,7 +111,7 @@ const Navbar= () =>{
             case 'CGU':
                 navigate("/cgu");
                 break;
-            case 'Mention légales':
+            case 'Mentions légales':
                 navigate("/mentions");
                 break;
             case 'Contact':
