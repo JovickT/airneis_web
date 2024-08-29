@@ -161,61 +161,65 @@ const Home = () => {
                 </div>
             </div>
 
-            <h1 className="titre">VENANT DES HAUTE TERRE D'ÉCOSSE <br /> NOS MEUBLES SONT IMMORTELS</h1>
-            <div className="container-img-accueil">
-                {currentCatItems.map((c, index) => (
-                    <Link key={index} to={`/categorie?categories=${encodeURIComponent(c.nom)}`} className="txt-img-accueil row col-12 col-md-6 col-lg-3">
-                        <img src={c.images} alt="" className="img-accueil" />
-                        <span className="font-bolder">{c.nom}</span>
-                    </Link>
-                ))}
-            </div>
-
-            <div className="d-flex justify-content-around mt-4">
-                <button onClick={handleCatClickPrev} disabled={currentCatPage === 1} className="btn btn-primary btn-pagination">Précédent</button>
-                <div className="pagination">
-                    {Array.from({ length: totalCatPages }, (_, index) => (
-                        <button key={index + 1}
-                            onClick={() => handleCatPageClick(index + 1)}
-                            className={`btn ${index + 1 === currentCatPage ? 'btn-secondary' : 'btn-light'}`}>
-                            {index + 1}
-                        </button>
-                    ))}
-                </div>
-                <button onClick={handleCatClickNext} disabled={currentCatPage === totalCatPages} className="btn btn-primary btn-pagination">Suivant</button>
-            </div>
-
-            <h1 className="titre">Les Highlanders du moment</h1>
-            <div className="container-img-accueil">
-                {currentItems.map((p, index) => (
-                    <div key={index} className="txt-img-accueil row col-12 col-md-6 col-lg-3">
-                        <Link to={`/produits?categories=${encodeURIComponent(p.categorie)}&produits=${encodeURIComponent(p.nom)}`}>
-                            <img src={p.images} alt={p.nom} className="img-produit mb-3 img-accueil" />
+            {/* page content */}
+            { cat?.length > 0 && prod?.length > 0 && <div>
+                <h1 className="titre">VENANT DES HAUTE TERRE D'ÉCOSSE <br /> NOS MEUBLES SONT IMMORTELS</h1>
+                <div className="container-img-accueil">
+                    {currentCatItems.map((c, index) => (
+                        <Link key={index} to={`/categorie?categories=${encodeURIComponent(c.nom)}`} className="txt-img-accueil row col-12 col-md-6 col-lg-3">
+                            <img src={c.images} alt="" className="img-accueil" />
+                            <span className="font-bolder">{c.nom}</span>
                         </Link>
-                        <div className="d-flex justify-content-between">
-                            <p>{p.nom}</p>
-                            <p>{p.prix}€</p>
-                        </div>
-                        <div className="text-end moving-up">
-                            {p.quantite <= 10 ? <p>Stock bientôt épuisé</p> : <p>En stock</p>}
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-            <div className="d-flex justify-content-around mt-4">
-                <button onClick={handleClickPrev} disabled={currentPage === 1} className="btn btn-primary btn-pagination">Précédent</button>
-                <div className="pagination">
-                    {Array.from({ length: totalPages }, (_, index) => (
-                        <button key={index + 1}
-                            onClick={() => handlePageClick(index + 1)}
-                            className={`btn ${index + 1 === currentPage ? 'btn-secondary' : 'btn-light'}`}>
-                            {index + 1}
-                        </button>
                     ))}
                 </div>
-                <button onClick={handleClickNext} disabled={currentPage === totalPages} className="btn btn-primary btn-pagination">Suivant</button>
-            </div>
+
+                <div className="d-flex justify-content-around mt-4">
+                    <button onClick={handleCatClickPrev} disabled={currentCatPage === 1} className="btn btn-primary btn-pagination">Précédent</button>
+                    <div className="pagination">
+                        {Array.from({ length: totalCatPages }, (_, index) => (
+                            <button key={index + 1}
+                                onClick={() => handleCatPageClick(index + 1)}
+                                className={`btn ${index + 1 === currentCatPage ? 'btn-secondary' : 'btn-light'}`}>
+                                {index + 1}
+                            </button>
+                        ))}
+                    </div>
+                    <button onClick={handleCatClickNext} disabled={currentCatPage === totalCatPages} className="btn btn-primary btn-pagination">Suivant</button>
+                </div>
+
+                <h1 className="titre">Les Highlanders du moment</h1>
+                <div className="container-img-accueil">
+                    {currentItems.map((p, index) => (
+                        <div key={index} className="txt-img-accueil row col-12 col-md-6 col-lg-3">
+                            <Link to={`/produits?categories=${encodeURIComponent(p.categorie)}&produits=${encodeURIComponent(p.nom)}`}>
+                                <img src={p.images} alt={p.nom} className="img-produit mb-3 img-accueil" />
+                            </Link>
+                            <div className="d-flex justify-content-between">
+                                <p>{p.nom}</p>
+                                <p>{p.prix}€</p>
+                            </div>
+                            <div className="text-end moving-up">
+                                {p.quantite <= 10 ? <p>Stock bientôt épuisé</p> : <p>En stock</p>}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="d-flex justify-content-around mt-4">
+                    <button onClick={handleClickPrev} disabled={currentPage === 1} className="btn btn-primary btn-pagination">Précédent</button>
+                    <div className="pagination">
+                        {Array.from({ length: totalPages }, (_, index) => (
+                            <button key={index + 1}
+                                onClick={() => handlePageClick(index + 1)}
+                                className={`btn ${index + 1 === currentPage ? 'btn-secondary' : 'btn-light'}`}>
+                                {index + 1}
+                            </button>
+                        ))}
+                    </div>
+                    <button onClick={handleClickNext} disabled={currentPage === totalPages} className="btn btn-primary btn-pagination">Suivant</button>
+                </div>
+            </div>}
+           
         </Layout>
     )
 }

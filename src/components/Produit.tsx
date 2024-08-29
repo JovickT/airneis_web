@@ -247,11 +247,11 @@ const Produit = () =>{
                                 <p>{produitPage.description}</p>
                             </div>
                         </div>
-                        <div className="text-center">
+                        { theProd?.length > 0 && <div className="text-center">
                             <button className="produit-button" onClick={handleAddStorage}>AJOUTER AU PANIER</button>
-                        </div>
+                        </div> }
                     </div>
-                    <div className="text-center text-color mt-5">
+                    { theProd?.length > 0 && <div className="text-center text-color mt-5">
                         <h1>PRODUIT SIMILAIRE</h1>
                         <div className="row justify-content-center produits-similaires">
                             {currentItems.map((p, index) => <Link key={index} to={`/produits?categories=${encodeURIComponent(produitPage.categorie)}&produits=${encodeURIComponent(p.nom)}`} className="row text-center text-decoration-none col-3 my-3 produit-similaire-item">
@@ -273,7 +273,7 @@ const Produit = () =>{
                             </div>
                             <button onClick={handleClickNext} disabled={currentPage === totalPages} className="btn btn-primary btn-pagination">Suivant</button>
                         </div>
-                    </div>
+                    </div> }
                 </div>
             </div>
         </div>
